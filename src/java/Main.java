@@ -1,4 +1,9 @@
-package model;
+import model.AI;
+import model.Castle;
+import model.Game;
+import model.Player;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {

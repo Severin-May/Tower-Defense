@@ -1,14 +1,18 @@
 package model;
 
-public class Player {
-    private String name;
-    private int gold;
-    private Castle castle;
+import utils.GameSettings;
 
-    public Player(String name, int gold, Castle castle) {
+import javax.swing.*;
+
+public class Player {
+    protected final String name;
+    protected int gold;
+    protected Castle castle;
+
+    public Player(String name) {
         this.name = name;
-        this.gold = gold;
-        this.castle = castle;
+        this.gold = GameSettings.initialGold;
+        int x = 0; int y = 0;
     }
 
     public boolean buyTroop(Troop t){
@@ -33,6 +37,10 @@ public class Player {
 
     public int getGold() {
         return gold;
+    }
+
+    public void setCastle(Castle castle) {
+        this.castle = castle;
     }
 
     public Castle getCastle() {

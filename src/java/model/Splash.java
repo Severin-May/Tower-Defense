@@ -1,10 +1,17 @@
 package model;
 
+import utils.GameSettings;
+
 import javax.swing.*;
 
 public class Splash extends Tower{
-    public Splash(int x, int y, ImageIcon image, Player owner, int healthPoints, int attackRadius, int cost, int attackDamage, int shotCount, int reloadTime) {
-        super(x, y, image, owner, healthPoints, attackRadius, cost, attackDamage, shotCount, reloadTime);
+    public Splash(int x, int y, ImageIcon image, Player owner) {
+        super(x, y, image, owner);
+        this.attackRadius = GameSettings.splashTowerRange;
+        super.attackDamage = GameSettings.splashAttackDamage;
+        super.reloadTime = GameSettings.splashReloadTime;
+        super.cost = GameSettings.splashCost;
+        super.shotCount = GameSettings.splashShotCount;
     }
 
     @Override

@@ -24,11 +24,15 @@ public class Troop {
     }
 
     public void decreaseHP (int amount){
-
+        this.healthPoints -= amount;
     }
 
     public Tower withinEnemyTowerRange(){
         return null;
+    }
+
+    public boolean isKilled (){
+        return this.healthPoints <= 0;
     }
 
     public int getHealthPoints() {

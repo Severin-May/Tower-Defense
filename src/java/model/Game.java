@@ -1,9 +1,9 @@
 package model;
 
 public class Game {
-    Player player1;
-    Player player2;
-    Player currentTurn;
+    private final Player player1;
+    private final Player player2;
+    private Player currentTurn;
     public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -32,9 +32,5 @@ public class Game {
 
     public boolean isGameEnded(){
         return player1.getCastle().isDestroyed() || player2.getCastle().isDestroyed();
-    }
-
-    public static void main (String[] args){
-        System.out.println("Compiled without errors :D");
     }
 }

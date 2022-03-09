@@ -2,23 +2,26 @@ package utils;
 
 public class GameSettings {
     // Initial Towers' stats:
-    public final static int TowerRange = 0;
-    public final static int SimpleTowerAttackDamage = 0;
-    public final static int LongRangeAttackDamage = 0;
-    public final static int ShortRangeAttackDamage = 0;
-    public final static int SplashAttackDamage = 0;
-    public final static int SimpleTowerCost = 0;
-    public final static int LongRangeCost = 0;
-    public final static int ShortRangeCost = 0;
-    public final static int SplashCost = 0;
-    public final static int SimpleTowerShotCount = 0;
-    public final static int LongRangeShotCount = 0;
-    public final static int ShortRangeShotCount = 0;
-    public final static int SplashShotCount = 0;
-    public final static int SimpleTowerReloadTime = 0;
-    public final static int LongRangeReloadTime = 0;
-    public final static int ShortRangeReloadTime = 0;
-    public final static int SplashReloadTime = 0;
+    public final static int simpleTowerRange = 0;
+    public final static int longRangeTowerRange = 0;
+    public final static int shortRangeTowerRange = 0;
+    public final static int splashTowerRange = 0;
+    public final static int simpleTowerAttackDamage = 0;
+    public final static int longRangeAttackDamage = 0;
+    public final static int shortRangeAttackDamage = 0;
+    public final static int splashAttackDamage = 0;
+    public final static int simpleTowerCost = 0;
+    public final static int longRangeCost = 0;
+    public final static int shortRangeCost = 0;
+    public final static int splashCost = 0;
+    public final static int simpleTowerShotCount = 0;
+    public final static int longRangeShotCount = 0;
+    public final static int shortRangeShotCount = 0;
+    public final static int splashShotCount = 0;
+    public final static int simpleTowerReloadTime = 0;
+    public final static int longRangeReloadTime = 0;
+    public final static int shortRangeReloadTime = 0;
+    public final static int splashReloadTime = 0;
 
     //Initial Troops' stat:
     public final static int SimpleSoldierHP = 0;
@@ -33,6 +36,11 @@ public class GameSettings {
     public static int mapHeightInCells = 0;
     public static int cellWidth = 0;
     public static int cellHeight = 0;
+
+    //Other initial states:
+    public static int initialGold = 1000;
+    public static int towerInitialHP = 1500;
+    public static int castleInitialHP = 1500;
 
     public static void setNumberOfObstacles(int numberOfObstacles) {
         GameSettings.numberOfObstacles = numberOfObstacles;

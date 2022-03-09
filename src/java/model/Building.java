@@ -2,8 +2,8 @@ package model;
 
 import javax.swing.*;
 
-public class Building extends Sprite{
-    Player owner;
+public abstract class Building extends Sprite{
+    protected Player owner;
     public Building(int x, int y, ImageIcon image, Player owner) {
         super(x, y, image);
         this.owner = owner;

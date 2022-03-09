@@ -1,21 +1,23 @@
 package model;
 
+import utils.GameSettings;
+
 import javax.swing.*;
 
 public class Tower extends ActiveBuilding{
-    private int attackRadius;
-    private int cost;
-    private int attackDamage;
-    private int shotCount;
-    private int reloadTime;
+    protected int attackRadius;
+    protected int cost;
+    protected int attackDamage;
+    protected int shotCount;
+    protected int reloadTime;
 
-    public Tower(int x, int y, ImageIcon image, Player owner, int healthPoints, int attackRadius, int cost, int attackDamage, int shotCount, int reloadTime) {
-        super(x, y, image, owner, healthPoints);
-        this.attackRadius = attackRadius;
-        this.cost = cost;
-        this.attackDamage = attackDamage;
-        this.shotCount = shotCount;
-        this.reloadTime = reloadTime;
+    public Tower(int x, int y, ImageIcon image, Player owner) {
+        super(x, y, image, owner);
+        this.attackRadius = GameSettings.simpleTowerRange;
+        this.cost = GameSettings.simpleTowerCost;
+        this.attackDamage = GameSettings.simpleTowerAttackDamage;
+        this.shotCount = GameSettings.simpleTowerShotCount;
+        this.reloadTime = GameSettings.simpleTowerReloadTime;
     }
 
     public void attackTroop (Troop t){

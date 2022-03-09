@@ -3,9 +3,9 @@ package model;
 import javax.swing.*;
 
 public abstract class Sprite {
-    private int x;
-    private int y;
-    private ImageIcon image;
+    protected int x;
+    protected int y;
+    protected ImageIcon image;
 
     public Sprite(int x, int y, ImageIcon image) {
         this.x = x;

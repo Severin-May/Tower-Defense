@@ -1,5 +1,6 @@
 package model;
 
+
 import javax.swing.*;
 
 public class GoldMine extends PassiveBuilding{
@@ -8,6 +9,6 @@ public class GoldMine extends PassiveBuilding{
     }
 
     public void increaseMoney(int amount){
-
+        getOwner().increaseGold(amount);
     }
 }

@@ -1,12 +1,19 @@
 package model;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
-public class Map { //extends JPanel
+public class Map extends JPanel {
     private static Map instance = null;
     private int width;
     private int height;
     private ArrayList<ArrayList<Cell>> map;
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+    }
 
     public void generateTreasure(){
 
