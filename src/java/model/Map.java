@@ -31,6 +31,10 @@ public class Map extends JPanel {
         }
     }
 
+    public ArrayList<ArrayList<Cell>> getMap() {
+        return map;
+    }
+
     static public Map getInstance (){
         return instance;
     }

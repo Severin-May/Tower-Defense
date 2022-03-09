@@ -3,6 +3,7 @@ package model;
 import utils.GameSettings;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Tower extends ActiveBuilding{
     protected int attackRadius;
@@ -10,6 +11,7 @@ public class Tower extends ActiveBuilding{
     protected int attackDamage;
     protected int shotCount;
     protected int reloadTime;
+    protected long lastShotTime;
 
     public Tower(int x, int y, ImageIcon image, Player owner) {
         super(x, y, image, owner);
@@ -20,8 +22,43 @@ public class Tower extends ActiveBuilding{
         this.reloadTime = GameSettings.simpleTowerReloadTime;
     }
 
-    public void attackTroop (Troop t){
+    /**
+     * If any shots left then:
+     *    scans its radius and if there's a troop and reload time is passed then:
+     *       shoots it
+     *       spends a shot
+     *       decreases given troop's health point by its attack damage
+     *       refreshes last shot time
+     * And if any of the above conditions is not met then does nothing
+     */
+    public void attackTroop (){
+        long currentTime = System.currentTimeMillis();
+        long timeElapsedFromLastShot = currentTime - lastShotTime;
+        boolean reloaded = timeElapsedFromLastShot >= reloadTime*1000L;
+        if (shotCount > 0 && reloaded) {
+            Troop troopToAttack = troopWithinRange();
+            if (troopToAttack != null) {
+                shotCount--;
+                troopToAttack.decreaseHP(attackDamage);
+                lastShotTime = currentTime;
+            }
+        }
+    }
 
+    /**
+     * @return any enemy troop if it is within the range. Returns null if there is none
+     */
+    private Troop troopWithinRange(){
+        //ArrayList<ArrayList<Cell>> map = Map.getInstance().getMap(); you can access the map cells like this. Here map is 2D array list of Cell
+        return null;
+    }
+
+    /**
+     * @param t any troop. Should not be null
+     * @return true if given troop is an enemy
+     */
+    private boolean isEnemyTroop (Troop t){
+        return this.owner != t.getOwner();
     }
 
     public int getAttackRadius() {

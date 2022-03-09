@@ -15,7 +15,7 @@ public class Splash extends Tower{
     }
 
     @Override
-    public void attackTroop (Troop t){
+    public void attackTroop (){
 
     }
 }
