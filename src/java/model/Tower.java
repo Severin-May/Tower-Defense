@@ -31,7 +31,7 @@ public class Tower extends ActiveBuilding{
      *       refreshes last shot time
      * And if any of the above conditions is not met then does nothing
      */
-    public void attackTroop (){
+    protected void attackTroop (){
         long currentTime = System.currentTimeMillis();
         long timeElapsedFromLastShot = currentTime - lastShotTime;
         boolean reloaded = timeElapsedFromLastShot >= reloadTime*1000L;
@@ -48,7 +48,7 @@ public class Tower extends ActiveBuilding{
     /**
      * @return any enemy troop if it is within the range. Returns null if there is none
      */
-    private Troop troopWithinRange(){
+    protected Troop troopWithinRange(){
         //ArrayList<ArrayList<Cell>> map = Map.getInstance().getMap(); you can access the map cells like this. Here map is 2D array list of Cell
         return null;
     }
