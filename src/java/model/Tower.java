@@ -3,6 +3,7 @@ package model;
 import utils.GameSettings;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Tower extends ActiveBuilding{
     protected int attackRadius;
@@ -48,9 +49,11 @@ public class Tower extends ActiveBuilding{
      * @return any enemy troop if it is within the range. Returns null if there is none
      */
     protected Troop troopWithinRange(){
-        //ArrayList<ArrayList<Cell>> map = Map.getInstance().getMap(); you can access the map cells like this. Here map is 2D array list of Cell
+        ArrayList<ArrayList<Cell>> map = Map.getInstance().getMap(); //; you can access the map cells like this. Here map is 2D array list of Cell
+
         return null;
     }
+
 
     /**
      * @param t any troop. Should not be null
