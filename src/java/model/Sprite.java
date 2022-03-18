@@ -3,13 +3,15 @@ package model;
 import javax.swing.*;
 
 public abstract class Sprite {
-    protected int x;
-    protected int y;
+    protected int i; // location in matrix. No getters and setters
+    protected int j; // location in matrix. No getters and setters
+    protected int x; // location on screen (maybe in pixels)
+    protected int y; // location on screen (maybe in pixels)
     protected ImageIcon image;
 
-    public Sprite(int x, int y, ImageIcon image) {
-        this.x = x;
-        this.y = y;
+    public Sprite(int i, int j, ImageIcon image) {
+        this.i = i;
+        this.j = j;
         this.image = image;
     }
 

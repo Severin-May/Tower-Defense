@@ -3,8 +3,8 @@ package model;
 import javax.swing.*;
 
 public class Obstacle extends PassiveBuilding{
-    public Obstacle(int x, int y, ImageIcon image, Player owner) {
-        super(x, y, image, owner);
+    public Obstacle(int i, int j, ImageIcon image, Player owner) {
+        super(i, j, image, owner);
     }
 
     @Override

@@ -3,7 +3,6 @@ package model;
 import utils.GameSettings;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class Tower extends ActiveBuilding{
     protected int attackRadius;
@@ -13,8 +12,8 @@ public class Tower extends ActiveBuilding{
     protected int reloadTime;
     protected long lastShotTime;
 
-    public Tower(int x, int y, ImageIcon image, Player owner) {
-        super(x, y, image, owner);
+    public Tower(int i, int j, ImageIcon image, Player owner) {
+        super(i, j, image, owner);
         this.attackRadius = GameSettings.simpleTowerRange;
         this.cost = GameSettings.simpleTowerCost;
         this.attackDamage = GameSettings.simpleTowerAttackDamage;
@@ -31,7 +30,7 @@ public class Tower extends ActiveBuilding{
      *       refreshes last shot time
      * And if any of the above conditions is not met then does nothing
      */
-    protected void attackTroop (){
+    public void launchAttackIfPossible(){
         long currentTime = System.currentTimeMillis();
         long timeElapsedFromLastShot = currentTime - lastShotTime;
         boolean reloaded = timeElapsedFromLastShot >= reloadTime*1000L;
@@ -57,7 +56,7 @@ public class Tower extends ActiveBuilding{
      * @param t any troop. Should not be null
      * @return true if given troop is an enemy
      */
-    private boolean isEnemyTroop (Troop t){
+    protected boolean isEnemyTroop (Troop t){
         return this.owner != t.getOwner();
     }
 
