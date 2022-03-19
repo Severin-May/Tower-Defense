@@ -10,6 +10,7 @@ public class GameWindow extends JFrame {
 
     public GameWindow(Game game) throws HeadlessException {
         this.game = game;
+        System.out.println(game.getPlayer1().getName() + " || " + game.getPlayer2().getName());
     }
 
     public GameWindow(GraphicsConfiguration gc, Game game) {
