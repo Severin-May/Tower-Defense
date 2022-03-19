@@ -1,17 +1,32 @@
 package model;
 
-public class Troop {
+import utils.GameSettings;
+
+import javax.swing.*;
+
+public class Troop extends Sprite{
     private int healthPoints;
     private int cost;
     private int movementSpeed;
     private int attackDamage;
     private Player owner;
 
-    public Troop(int healthPoints, int cost, int movementSpeed, int attackDamage, Player owner) {
-        this.healthPoints = healthPoints;
-        this.cost = cost;
-        this.movementSpeed = movementSpeed;
-        this.attackDamage = attackDamage;
+    public Troop(int x, int y, TroopType type, ImageIcon image, Player owner) {
+        super(x, y, image);
+        switch (type) {
+            case SimpleTroop -> {
+                this.healthPoints = GameSettings.simpleTroopHP;
+                this.cost = GameSettings.simpleTroopCost;
+                this.movementSpeed = GameSettings.simpleTroopMovementSpeed;
+                this.attackDamage = GameSettings.simpleTroopAttackDamage;
+            }
+            case SlowBigTroop -> {
+                this.healthPoints = GameSettings.slowBigTroopHP;
+                this.cost = GameSettings.slowBigTroopCost;
+                this.movementSpeed = GameSettings.slowBigTroopMovementSpeed;
+                this.attackDamage = GameSettings.slowBigTroopAttackDamage;
+            }
+        }
         this.owner = owner;
     }
 

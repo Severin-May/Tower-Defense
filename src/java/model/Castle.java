@@ -5,8 +5,8 @@ import utils.GameSettings;
 import javax.swing.*;
 
 public class Castle extends ActiveBuilding{
-    public Castle(int x, int y, ImageIcon image, Player owner) {
-        super(x, y, image, owner);
+    public Castle(int i, int j, ImageIcon image, Player owner) {
+        super(i, j, image, owner);
         super.healthPoints = GameSettings.castleInitialHP;
     }
 

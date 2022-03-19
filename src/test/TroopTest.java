@@ -1,16 +1,18 @@
 import model.Troop;
 import static org.junit.jupiter.api.Assertions.*;
+
+import model.TroopType;
 import org.junit.jupiter.api.Test;
 
 // Example test
 public class TroopTest {
-    Troop troop = new Troop(100, 0,0,0,null);
+    Troop troop = new Troop(0, 0, TroopType.SimpleTroop,null,null);
 
     @Test
     public void troopIsKilledTest(){
-        assertEquals(100,troop.getHealthPoints());
+        assertEquals(10,troop.getHealthPoints());
         assertFalse(troop.isKilled());
-        troop.decreaseHP(101);
+        troop.decreaseHP(11);
         assertTrue(troop.isKilled());
     }
 

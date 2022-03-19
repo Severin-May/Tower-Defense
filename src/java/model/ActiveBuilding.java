@@ -7,8 +7,8 @@ import javax.swing.*;
 public abstract class ActiveBuilding extends Building{
     protected int healthPoints;
 
-    public ActiveBuilding(int x, int y, ImageIcon image, Player owner) {
-        super(x, y, image, owner);
+    public ActiveBuilding(int i, int j, ImageIcon image, Player owner) {
+        super(i, j, image, owner);
         this.healthPoints = GameSettings.towerInitialHP;
     }
 
