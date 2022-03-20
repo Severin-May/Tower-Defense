@@ -2,12 +2,12 @@ package model;
 
 import utils.GameSettings;
 
-import javax.swing.*;
+import java.awt.*;
 
 public abstract class ActiveBuilding extends Building{
     protected int healthPoints;
 
-    public ActiveBuilding(int i, int j, ImageIcon image, Player owner) {
+    public ActiveBuilding(int i, int j, Image image, Player owner) {
         super(i, j, image, owner);
         this.healthPoints = GameSettings.towerInitialHP;
     }

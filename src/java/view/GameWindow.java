@@ -1,30 +1,28 @@
 package view;
 
-import model.Game;
+import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
 
+import static utils.GameSettings.*;
+
 public class GameWindow extends JFrame {
-    Game game;
 
-    public GameWindow(Game game) throws HeadlessException {
-        this.game = game;
-        System.out.println(game.getPlayer1().getName() + " || " + game.getPlayer2().getName());
+    public GameWindow(Player p1, Player p2) {
+        setTitle("Game Window title");
+        setSize(mapWidthInPixels+rightPanelWidth, mapHeightInPixels+30); // I do not know why +30 is needed : Jeenbek
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        initialiseMap();
     }
 
-    public GameWindow(GraphicsConfiguration gc, Game game) {
-        super(gc);
-        this.game = game;
-    }
-
-    public GameWindow(String title, Game game) throws HeadlessException {
-        super(title);
-        this.game = game;
-    }
-
-    public GameWindow(String title, GraphicsConfiguration gc, Game game) {
-        super(title, gc);
-        this.game = game;
+    private void initialiseMap() {
+        setLayout(new BorderLayout()); //Original
+        add(new MapPanel(), BorderLayout.WEST);
+        add(new RightSidePanel(),BorderLayout.EAST);
+        setVisible(true);
     }
 }

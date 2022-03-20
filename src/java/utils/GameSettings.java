@@ -40,31 +40,21 @@ public class GameSettings {
     public final static int slowBigTroopCost = 10;
     // ... etc. for rest type of troops
 
-    //Customizable map:
-    public static int numberOfObstacles = 10;
-    public static int mapWidthInCells = 10;
-    public static int mapHeightInCells = 10;
-    public static int cellWidth = 10;
-    public static int cellHeight = 10;
+    //Map settings:
+    public final static int numberOfObstacles = 3;
+    public final static int mapHeightInCells = 20;
+    public final static int mapWidthInCells = 30;
+    public final static int cellWidth = 45;
+    public final static int cellHeight = cellWidth;
+    public final static int mapWidthInPixels = mapWidthInCells * cellWidth;
+    public final static int mapHeightInPixels = mapHeightInCells * cellHeight;
+    public final static int rightPanelWidth = 300;
+    //Game Settings
+    public final static int fps = 2; //how many times to repaint the map in one second
+
 
     //Other initial states:
     public static int initialGold = 1000;
     public static int towerInitialHP = 1500;
     public static int castleInitialHP = 1500;
-
-    public static void setNumberOfObstacles(int numberOfObstacles) {
-        GameSettings.numberOfObstacles = numberOfObstacles;
-    }
-    public static void setMapWidthInCells(int mapWidthInCells) {
-        GameSettings.mapWidthInCells = mapWidthInCells;
-    }
-    public static void setMapHeightInCells(int mapHeightInCells) {
-        GameSettings.mapHeightInCells = mapHeightInCells;
-    }
-    public static void setCellWidth(int cellWidth) {
-        GameSettings.cellWidth = cellWidth;
-    }
-    public static void setCellHeight(int cellHeight) {
-        GameSettings.cellHeight = cellHeight;
-    }
 }

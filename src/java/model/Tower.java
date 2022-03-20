@@ -2,8 +2,7 @@ package model;
 
 import utils.GameSettings;
 
-import javax.swing.*;
-import java.util.ArrayList;
+import java.awt.*;
 
 public class Tower extends ActiveBuilding{
     protected int attackRadius;
@@ -13,7 +12,7 @@ public class Tower extends ActiveBuilding{
     protected int reloadTime;
     protected long lastShotTime;
 
-    public Tower(int i, int j, ImageIcon image, Player owner) {
+    public Tower(int i, int j, Image image, Player owner) {
         super(i, j, image, owner);
         this.attackRadius = GameSettings.simpleTowerRange;
         this.cost = GameSettings.simpleTowerCost;
@@ -49,7 +48,7 @@ public class Tower extends ActiveBuilding{
      * @return any enemy troop if it is within the range. Returns null if there is none
      */
     protected Troop troopWithinRange(){
-        ArrayList<ArrayList<Cell>> map = Map.getInstance().getMap(); //; you can access the map cells like this. Here map is 2D array list of Cell
+        Cell[][] map = Map.getInstance().getMap(); //; you can access the map cells like this. Here map is 2D array list of Cell
 
         return null;
     }
