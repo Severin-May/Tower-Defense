@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bumblebytes.iml" filepath="$PROJECT_DIR$/bumblebytes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/bumblebytes.iml" filepath="$PROJECT_DIR$/.idea/bumblebytes.iml" />
     </modules>
   </component>
 </project>
