@@ -2,7 +2,6 @@ package model;
 
 import utils.GameSettings;
 
-import javax.swing.*;
 
 public class Player {
     protected final String name;

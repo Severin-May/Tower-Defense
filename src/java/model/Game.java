@@ -1,8 +1,6 @@
 package model;
 
-import view.GameWindow;
 
-import javax.swing.*;
 
 public class Game {
     private final Player player1;

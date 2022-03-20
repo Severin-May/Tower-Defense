@@ -1,8 +1,6 @@
 package model;
 
-import view.MapPanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
