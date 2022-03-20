@@ -3,15 +3,13 @@ package model;
 import java.awt.*;
 
 public abstract class Sprite {
-    protected int i; // location in matrix. No getters and setters
-    protected int j; // location in matrix. No getters and setters
-    protected int x; // location on screen (maybe in pixels)
-    protected int y; // location on screen (maybe in pixels)
+    protected int x;
+    protected int y;
     protected Image image;
 
-    public Sprite(int i, int j, Image image) {
-        this.i = i;
-        this.j = j;
+    public Sprite(int x, int y, Image image) {
+        this.x = x;
+        this.y = y;
         this.image = image;
     }
 
@@ -29,5 +27,9 @@ public abstract class Sprite {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Image getImage() {
+        return image;
     }
 }

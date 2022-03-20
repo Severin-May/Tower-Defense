@@ -42,19 +42,19 @@ public class GameSettings {
 
     //Map settings:
     public final static int numberOfObstacles = 3;
-    public final static int mapHeightInCells = 20;
-    public final static int mapWidthInCells = 30;
+    public final static int mapHeightInCells = 15;
+    public final static int mapWidthInCells = 25;
     public final static int cellWidth = 45;
     public final static int cellHeight = cellWidth;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight;
-    public final static int rightPanelWidth = 300;
+    public final static int rightPanelWidth = 350;
     //Game Settings
-    public final static int fps = 2; //how many times to repaint the map in one second
+    public final static int fps = 10; //how many times to repaint the map in one second. Animation quality depends on this
 
 
     //Other initial states:
-    public static int initialGold = 1000;
+    public static int initialGold = 969696;
     public static int towerInitialHP = 1500;
     public static int castleInitialHP = 1500;
 }

@@ -5,9 +5,9 @@ import utils.GameSettings;
 import java.awt.*;
 
 public class Castle extends ActiveBuilding{
-    public Castle(int i, int j, Image image, Player owner) {
-        super(i, j, image, owner);
-        super.healthPoints = GameSettings.castleInitialHP;
+    public Castle(int x, int y, Image image, Player owner) {
+        super(x, y, image, owner);
+        this.healthPoints = GameSettings.castleInitialHP;
     }
 
     public boolean createTroop(Troop t) {

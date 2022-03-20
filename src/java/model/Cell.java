@@ -34,8 +34,4 @@ public class Cell extends Rectangle {
     public boolean hasBuilding(){
         return this.building != null;
     }
-
-    public List<Troop> getTroops() {
-        return troops;
-    }
 }

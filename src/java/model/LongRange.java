@@ -5,13 +5,13 @@ import utils.GameSettings;
 import java.awt.*;
 
 public class LongRange extends Tower{
-    public LongRange(int i, int j, Image image, Player owner) {
-        super(i, j, image, owner);
+    public LongRange(int x, int y, Image image, Player owner) {
+        super(x, y, image, owner);
         this.attackRadius = GameSettings.longRangeTowerRange;
-        super.attackDamage = GameSettings.longRangeAttackDamage;
-        super.reloadTime = GameSettings.longRangeReloadTime;
-        super.cost = GameSettings.longRangeCost;
-        super.shotCount = GameSettings.longRangeShotCount;
+        this.attackDamage = GameSettings.longRangeAttackDamage;
+        this.reloadTime = GameSettings.longRangeReloadTime;
+        this.cost = GameSettings.longRangeCost;
+        this.shotCount = GameSettings.longRangeShotCount;
     }
     @Override
     public void upgrade(){

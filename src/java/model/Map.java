@@ -25,15 +25,12 @@ public class Map {
                 map[i][j].drawCell(g);
             }
         }
-//        if (Game.getInstance().isPlacingTower()){
-//
-//        }
     }
 
     public void generateTreasure(){
 
     }
-    static private void initialise (){
+    static public void initialise (){
         if (instance == null){
             instance = new Map();
         }
@@ -44,9 +41,6 @@ public class Map {
     }
 
     static public Map getInstance (){
-        if (instance == null){
-            initialise();
-        }
         return instance;
     }
     private int getRandomImageID(){
