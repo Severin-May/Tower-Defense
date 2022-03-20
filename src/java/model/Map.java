@@ -11,20 +11,23 @@ public class Map {
     private Cell[][] map;
 
     private Map (){
-        map = new Cell[mapWidthInCells][mapHeightInCells];
-        for (int i = 0; i < mapWidthInCells; i++){
-            for (int j = 0; j < mapHeightInCells; j++){
+        map = new Cell[mapHeightInCells][mapWidthInCells];
+        for (int i = 0; i < mapHeightInCells; i++){
+            for (int j = 0; j < mapWidthInCells; j++){
                 Image grassImage = new ImageIcon("src/resources/images/Area/Grass"+getRandomImageID()+".png").getImage();
-                map[i][j] = new Cell(i*cellWidth,j*cellHeight, grassImage);
+                map[i][j] = new Cell(j*cellHeight,i*cellWidth, grassImage);
             }
         }
     }
     public void drawMap(Graphics g){
-        for (int i = 0; i < mapWidthInCells; i++){
-            for (int j = 0; j < mapHeightInCells; j++){
+        for (int i = 0; i < mapHeightInCells; i++){
+            for (int j = 0; j < mapWidthInCells; j++){
                 map[i][j].drawCell(g);
             }
         }
+//        if (Game.getInstance().isPlacingTower()){
+//
+//        }
     }
 
     public void generateTreasure(){
