@@ -2,6 +2,7 @@ package model;
 
 import utils.GameSettings;
 
+import javax.swing.*;
 import java.awt.*;
 
 public abstract class ActiveBuilding extends Building{

@@ -9,13 +9,13 @@ public class GameSettings {
     public final static int simpleTowerShotCount = 10;
     public final static int simpleTowerReloadTime = 10;
         //long ranged:
-    public final static int longRangeTowerRange = 10;
+    public final static int longRangeTowerRange = 5;
     public final static int longRangeAttackDamage = 10;
     public final static int longRangeCost = 10;
     public final static int longRangeShotCount = 10;
     public final static int longRangeReloadTime = 10;
         //short ranged:
-    public final static int shortRangeTowerRange = 4;
+    public final static int shortRangeTowerRange = 2;
     public final static int shortRangeAttackDamage = 10;
     public final static int shortRangeCost = 10;
     public final static int shortRangeShotCount = 10;
