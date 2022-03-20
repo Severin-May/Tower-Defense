@@ -13,4 +13,10 @@ public class LongRange extends Tower{
         super.cost = GameSettings.longRangeCost;
         super.shotCount = GameSettings.longRangeShotCount;
     }
+    @Override
+    public void upgrade(){
+        this.healthPoints += 5;
+      //  if()
+
+    }
 }

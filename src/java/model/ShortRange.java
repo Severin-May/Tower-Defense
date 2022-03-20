@@ -13,4 +13,10 @@ public class ShortRange extends Tower{
         super.cost = GameSettings.shortRangeCost;
         super.shotCount = GameSettings.shortRangeShotCount;
     }
+    @Override
+    public void upgrade(){
+        this.healthPoints += 5;
+        // this.image =
+
+    }
 }

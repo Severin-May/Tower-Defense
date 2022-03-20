@@ -38,4 +38,7 @@ public class Map extends JPanel {
     static public Map getInstance (){
         return instance;
     }
+
+    public int getWidth() { return this.width; }
+    public int getHeight() { return this.height; }
 }

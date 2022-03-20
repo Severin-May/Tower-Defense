@@ -14,6 +14,7 @@ public abstract class Building extends Sprite{
     public Player getOwner() {
         return owner;
     }
+    public void upgrade() {}
 
 
 }

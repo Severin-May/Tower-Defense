@@ -17,4 +17,10 @@ public class Splash extends Tower{
     public void launchAttackIfPossible() {
         //override for splash
     }
+    @Override
+    public void upgrade(){
+        this.healthPoints += 5;
+        // this.image =
+
+    }
 }

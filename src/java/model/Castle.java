@@ -15,6 +15,13 @@ public class Castle extends ActiveBuilding{
     }
 
     public void getAttackedBy(Troop t) {
+        this.healthPoints -= t.getAttackDamage();
+    }
+
+    @Override
+    public void upgrade(){
+       this.healthPoints += 5;
+      // this.image =
 
     }
 }
