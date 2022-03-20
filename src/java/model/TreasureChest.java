@@ -6,8 +6,8 @@ import java.awt.*;
 public class TreasureChest extends PassiveBuilding{
     private int reward;
 
-    public TreasureChest(int i, int j, Image image, Player owner, int reward) {
-        super(i, j, image, owner);
+    public TreasureChest(int x, int y, Image image, Player owner, int reward) {
+        super(x, y, image, owner);
         this.reward = reward;
     }
 

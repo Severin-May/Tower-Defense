@@ -2,6 +2,8 @@ package model;
 
 import utils.GameSettings;
 
+import static utils.GameSettings.*;
+
 
 public class Player {
     protected final String name;
@@ -11,7 +13,6 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.gold = GameSettings.initialGold;
-        int x = 0; int y = 0;
     }
 
     public boolean buyTroop(Troop t){
@@ -39,6 +40,9 @@ public class Player {
     }
 
     public void setCastle(Castle castle) {
+        int i = castle.getY()/cellHeight;
+        int j = castle.getX()/cellWidth ;
+        Map.getInstance().getMap()[i][j].setBuilding(castle);
         this.castle = castle;
     }
 

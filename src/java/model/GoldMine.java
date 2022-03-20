@@ -4,8 +4,8 @@ package model;
 import java.awt.*;
 
 public class GoldMine extends PassiveBuilding{
-    public GoldMine(int i, int j, Image image, Player owner) {
-        super(i, j, image, owner);
+    public GoldMine(int x, int y, Image image, Player owner) {
+        super(x, y, image, owner);
     }
 
     public void increaseMoney(int amount){
