@@ -1,9 +1,10 @@
 package model;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Obstacle extends PassiveBuilding{
-    public Obstacle(int i, int j, ImageIcon image, Player owner) {
+    public Obstacle(int i, int j, Image image, Player owner) {
         super(i, j, image, owner);
     }
 

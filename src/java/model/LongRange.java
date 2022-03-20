@@ -2,10 +2,10 @@ package model;
 
 import utils.GameSettings;
 
-import javax.swing.*;
+import java.awt.*;
 
 public class LongRange extends Tower{
-    public LongRange(int i, int j, ImageIcon image, Player owner) {
+    public LongRange(int i, int j, Image image, Player owner) {
         super(i, j, image, owner);
         this.attackRadius = GameSettings.longRangeTowerRange;
         super.attackDamage = GameSettings.longRangeAttackDamage;

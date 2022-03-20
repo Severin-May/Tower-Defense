@@ -1,11 +1,12 @@
 package model;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class TreasureChest extends PassiveBuilding{
     private int reward;
 
-    public TreasureChest(int i, int j, ImageIcon image, Player owner, int reward) {
+    public TreasureChest(int i, int j, Image image, Player owner, int reward) {
         super(i, j, image, owner);
         this.reward = reward;
     }

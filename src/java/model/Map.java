@@ -1,44 +1,53 @@
 package model;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
 
-public class Map extends JPanel {
+import static utils.GameSettings.*;
+
+public class Map {
     private static Map instance = null;
-    private int width;
-    private int height;
-    private ArrayList<ArrayList<Cell>> map;
+    private Cell[][] map;
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    private Map (){
+        map = new Cell[mapWidthInCells][mapHeightInCells];
+        for (int i = 0; i < mapWidthInCells; i++){
+            for (int j = 0; j < mapHeightInCells; j++){
+                Image grassImage = new ImageIcon("src/resources/images/Area/Grass"+getRandomImageID()+".png").getImage();
+                map[i][j] = new Cell(i*cellWidth,j*cellHeight, grassImage);
+            }
+        }
+    }
+    public void drawMap(Graphics g){
+        for (int i = 0; i < mapWidthInCells; i++){
+            for (int j = 0; j < mapHeightInCells; j++){
+                map[i][j].drawCell(g);
+            }
+        }
     }
 
     public void generateTreasure(){
 
     }
-
-    private Map(int width, int height, ArrayList<ArrayList<Cell>> map) {
-        this.width = width;
-        this.height = height;
-        this.map = map;
-    }
-
-    static public void initialise (int width, int height, ArrayList<ArrayList<Cell>> map){
+    static private void initialise (){
         if (instance == null){
-            instance = new Map(width, height, map);
+            instance = new Map();
         }
     }
 
-    public ArrayList<ArrayList<Cell>> getMap() {
+    public Cell[][] getMap() {
         return map;
     }
 
     static public Map getInstance (){
+        if (instance == null){
+            initialise();
+        }
         return instance;
     }
-
-    public int getWidth() { return this.width; }
-    public int getHeight() { return this.height; }
+    private int getRandomImageID(){
+        return (int) ((Math.random() * (8 - 1)) + 1);
+    }
 }
