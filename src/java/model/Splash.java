@@ -5,13 +5,13 @@ import utils.GameSettings;
 import java.awt.*;
 
 public class Splash extends Tower{
-    public Splash(int i, int j, Image image, Player owner) {
-        super(i, j, image, owner);
+    public Splash(int x, int y, Image image, Player owner) {
+        super(x, y, image, owner);
         this.attackRadius = GameSettings.splashTowerRange;
-        super.attackDamage = GameSettings.splashAttackDamage;
-        super.reloadTime = GameSettings.splashReloadTime;
-        super.cost = GameSettings.splashCost;
-        super.shotCount = GameSettings.splashShotCount;
+        this.attackDamage = GameSettings.splashAttackDamage;
+        this.reloadTime = GameSettings.splashReloadTime;
+        this.cost = GameSettings.splashCost;
+        this.shotCount = GameSettings.splashShotCount;
     }
     @Override
     public void launchAttackIfPossible() {

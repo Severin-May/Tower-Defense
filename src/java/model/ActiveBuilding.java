@@ -7,8 +7,8 @@ import java.awt.*;
 public abstract class ActiveBuilding extends Building{
     protected int healthPoints;
 
-    public ActiveBuilding(int i, int j, Image image, Player owner) {
-        super(i, j, image, owner);
+    public ActiveBuilding(int x, int y, Image image, Player owner) {
+        super(x, y, image, owner);
         this.healthPoints = GameSettings.towerInitialHP;
     }
 
