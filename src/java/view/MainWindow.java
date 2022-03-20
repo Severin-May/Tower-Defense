@@ -2,6 +2,7 @@ package view;
 
 import model.AI;
 import model.Player;
+import utils.GameSettings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,15 +49,25 @@ public class MainWindow {
     }
 
     private final ActionListener action = e -> {
-//        JButton btn = (JButton) (e.getSource());
-//        switch (btn.getText()){
-//            case "START" -> start();
-//            case "RULES" -> showRules();
-//            case "1-PLAYER", "2-PLAYER" -> playerMode(Integer.parseInt(btn.getText().substring(0, 1)));
-//            case "EXIT" -> System.exit(100);
-//            case "SUBMIT" -> launchGame();
-//            default -> throw new IllegalStateException("Unexpected value: " + btn.getText());
-//        }
+        JButton btn = (JButton) (e.getSource());
+        switch (btn.getText()){
+            case "START":
+                start();
+                break;
+            case "RULES" :
+                showRules();
+                break;
+            case "1-PLAYER": case "2-PLAYER" :
+                playerMode(Integer.parseInt(btn.getText().substring(0, 1)));
+                break;
+            case "EXIT" :
+                System.exit(100);
+                break;
+            case "SUBMIT":
+                launchGame();
+                break;
+            default : throw new IllegalStateException("Unexpected value: " + btn.getText());
+        }
     };
 
     public void start(){
