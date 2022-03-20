@@ -14,23 +14,25 @@ public class Troop extends Sprite{
     public Troop(int x, int y, TroopType type, Image image, Player owner) {
         super(x, y, image);
         switch (type) {
-            case SimpleTroop -> {
+            case SimpleTroop : {
                 this.healthPoints = GameSettings.simpleTroopHP;
                 this.cost = GameSettings.simpleTroopCost;
                 this.movementSpeed = GameSettings.simpleTroopMovementSpeed;
                 this.attackDamage = GameSettings.simpleTroopAttackDamage;
             }
-            case SlowBigTroop -> {
+            break;
+            case SlowBigTroop : {
                 this.healthPoints = GameSettings.slowBigTroopHP;
                 this.cost = GameSettings.slowBigTroopCost;
                 this.movementSpeed = GameSettings.slowBigTroopMovementSpeed;
                 this.attackDamage = GameSettings.slowBigTroopAttackDamage;
             }
+            break;
         }
         this.owner = owner;
     }
 
-    public void moveTo (int x, int y){
+        public void moveTo (int x, int y){
         //from this.x and this.y to x and y
     }
 
