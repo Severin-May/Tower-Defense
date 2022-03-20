@@ -1,15 +1,15 @@
 package model;
 
-import javax.swing.*;
+import java.awt.*;
 
 public abstract class Sprite {
     protected int i; // location in matrix. No getters and setters
     protected int j; // location in matrix. No getters and setters
     protected int x; // location on screen (maybe in pixels)
     protected int y; // location on screen (maybe in pixels)
-    protected ImageIcon image;
+    protected Image image;
 
-    public Sprite(int i, int j, ImageIcon image) {
+    public Sprite(int i, int j, Image image) {
         this.i = i;
         this.j = j;
         this.image = image;

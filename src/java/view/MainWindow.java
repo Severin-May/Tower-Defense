@@ -1,13 +1,10 @@
 package view;
 
 import model.AI;
-import model.Game;
 import model.Player;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainWindow {
@@ -17,7 +14,6 @@ public class MainWindow {
     private final JPanel mainPanel;
     private final JPanel playerPanel;
 
-    private Player player1, player2;
     private JTextField player1name, player2name;
 
     private boolean singleplayer = false;
@@ -101,9 +97,9 @@ public class MainWindow {
 
     public void launchGame(){
         if (singleplayer){
-            new GameWindow(new Game(new Player(player1name.getText()), new AI("The_Destroyer")));
+            new GameWindow(new Player(player1name.getText()), new AI("The_Destroyer"));
         } else {
-            new GameWindow(new Game(new Player(player1name.getText()), new Player(player2name.getText())));
+            new GameWindow(new Player(player1name.getText()), new Player(player2name.getText()));
         }
         frame.setVisible(false);
     }

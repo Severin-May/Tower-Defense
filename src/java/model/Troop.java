@@ -2,7 +2,7 @@ package model;
 
 import utils.GameSettings;
 
-import javax.swing.*;
+import java.awt.*;
 
 public class Troop extends Sprite{
     private int healthPoints;
@@ -11,23 +11,23 @@ public class Troop extends Sprite{
     private int attackDamage;
     private Player owner;
 
-    public Troop(int x, int y, TroopType type, ImageIcon image, Player owner) {
+    public Troop(int x, int y, TroopType type, Image image, Player owner) {
         super(x, y, image);
-//        switch (type) {
-//            case SimpleTroop -> {
-//                this.healthPoints = GameSettings.simpleTroopHP;
-//                this.cost = GameSettings.simpleTroopCost;
-//                this.movementSpeed = GameSettings.simpleTroopMovementSpeed;
-//                this.attackDamage = GameSettings.simpleTroopAttackDamage;
-//            }
-//            case SlowBigTroop -> {
-//                this.healthPoints = GameSettings.slowBigTroopHP;
-//                this.cost = GameSettings.slowBigTroopCost;
-//                this.movementSpeed = GameSettings.slowBigTroopMovementSpeed;
-//                this.attackDamage = GameSettings.slowBigTroopAttackDamage;
-//            }
-//        }
-//        this.owner = owner;
+        switch (type) {
+            case SimpleTroop -> {
+                this.healthPoints = GameSettings.simpleTroopHP;
+                this.cost = GameSettings.simpleTroopCost;
+                this.movementSpeed = GameSettings.simpleTroopMovementSpeed;
+                this.attackDamage = GameSettings.simpleTroopAttackDamage;
+            }
+            case SlowBigTroop -> {
+                this.healthPoints = GameSettings.slowBigTroopHP;
+                this.cost = GameSettings.slowBigTroopCost;
+                this.movementSpeed = GameSettings.slowBigTroopMovementSpeed;
+                this.attackDamage = GameSettings.slowBigTroopAttackDamage;
+            }
+        }
+        this.owner = owner;
     }
 
     public void moveTo (int x, int y){
