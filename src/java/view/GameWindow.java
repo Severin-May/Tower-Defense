@@ -32,7 +32,9 @@ public class GameWindow extends JFrame {
     private void loadResources(Player p1, Player p2) {
         Game.initialise(p1,p2);
         Map.initialise();
-        p1.setCastle(new Castle(0,0, new ImageIcon("src/resources/images/Blue/Buildings/Castle/Blue.png").getImage(), p1));
-        p2.setCastle(new Castle(mapWidthInPixels-cellWidth,mapHeightInPixels-cellHeight, new ImageIcon("src/resources/images/Red/Buildings/Castle/Red.png").getImage(), p2));
+        p1.setColor("Red");
+        p2.setColor("Blue");
+        p1.setCastle(new Castle(0,0,  p1));
+        p2.setCastle(new Castle(mapHeightInCells-1,mapWidthInCells-1, p2));
     }
 }

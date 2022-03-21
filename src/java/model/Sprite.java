@@ -10,9 +10,9 @@ public abstract class Sprite {
     protected int y;
     protected Image image;
 
-    public Sprite(int x, int y, Image image) {
-        this.x = x;
-        this.y = y;
+    public Sprite(int i, int j, Image image) {
+        this.x = j * cellWidth;
+        this.y = i * cellHeight;
         this.image = image;
     }
 
@@ -28,7 +28,7 @@ public abstract class Sprite {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(int y ) {
         this.y = y;
     }
 

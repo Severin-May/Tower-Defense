@@ -9,7 +9,7 @@ public class GameSettings {
     public final static int simpleTowerShotCount = 10;
     public final static int simpleTowerReloadTime = 10;
         //long ranged:
-    public final static int longRangeTowerRange = 10;
+    public final static int longRangeTowerRange = 5;
     public final static int longRangeAttackDamage = 10;
     public final static int longRangeCost = 10;
     public final static int longRangeShotCount = 10;
@@ -62,6 +62,10 @@ public class GameSettings {
 
     // image paths as strings
 
+    //Passive Buildings
+       // Gold Mine
+    public final static String goldMine = "src/resources/images/Area/Obstacles/notYet.png";
+    public final static String treasure = "src/resources/images/Area/Obstacles/notYet.png";
     //Obstacles
     public final static String bush = "src/resources/images/Area/Obstacles/bush2.png";
     public final static String rock = "src/resources/images/Area/Obstacles/rock.png";
@@ -78,7 +82,7 @@ public class GameSettings {
 
 
    //Blue player
-     //Buildings
+     //Active Buildings
        //Castle
        public final static String blueCastle ="src/resources/images/Blue/Buildings/Castle/Blue.png";
 
@@ -141,7 +145,7 @@ public class GameSettings {
 
 
     //Red player
-    //Buildings
+    //Active Buildings
     //Castle
     public final static String redCastle ="src/resources/images/Red/Buildings/Castle/Red.png";
 

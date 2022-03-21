@@ -19,7 +19,7 @@ public class MapPanel extends JPanel implements Runnable{
     private int mousePointY;
     public MapPanel(){
         game = Game.getInstance();
-        map = Map.getInstance(); //getInstance Loads Images
+        map = Map.getInstance();
         setPreferredSize(new Dimension(mapWidthInPixels, mapHeightInPixels));
         Thread thread = new Thread(this);
         thread.start();

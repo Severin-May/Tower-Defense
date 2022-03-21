@@ -1,6 +1,4 @@
 package model;
-
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,8 @@ import static utils.GameSettings.cellWidth;
 public class Cell extends Rectangle {
     private Building building;
     private final List<Troop> troops;
-    private Image grassImage;
-    private Game game;
+    private final Image grassImage;
+    private final Game game;
 
     public Cell(int x, int y, Image grassImage) {
         game = Game.getInstance();
@@ -27,22 +25,6 @@ public class Cell extends Rectangle {
             g.drawImage(building.image, x,y, width,height,null);
         }
         g.drawRect(x,y,width,height); //optional
-    }
-
-    public void setBuilding(Building building) {
-        this.building = building;
-    }
-
-    public boolean hasBuilding(){
-        return this.building != null;
-    }
-
-    public Building getBuilding() {
-        return building;
-    }
-
-    public List<Troop> getTroops() {
-        return troops;
     }
 
     public void click() {
@@ -81,5 +63,20 @@ public class Cell extends Rectangle {
             goldMineToBuild = (GoldMine) toBuild;
         }
         game.setBuildingHover(null); // turn off hover after clicking
+    }
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public boolean hasBuilding(){
+        return this.building != null;
+    }
+
+    public List<Troop> getTroops() {
+        return troops;
+    }
+
+    public Building getBuilding() {
+        return building;
     }
 }

@@ -2,11 +2,14 @@ package model;
 
 import utils.GameSettings;
 
+import javax.swing.*;
 import java.awt.*;
 
+import static utils.GameSettings.*;
+
 public class Castle extends ActiveBuilding{
-    public Castle(int x, int y, Image image, Player owner) {
-        super(x, y, image, owner);
+    public Castle(int i, int j, Player owner) {
+        super(i, j,new ImageIcon(owner.getColor().equals("Red") ? redCastle : blueCastle).getImage(), owner);
         this.healthPoints = GameSettings.castleInitialHP;
     }
 
@@ -21,7 +24,5 @@ public class Castle extends ActiveBuilding{
     @Override
     public void upgrade(){
        this.healthPoints += 5;
-      // this.image =
-
     }
 }

@@ -9,6 +9,8 @@ public class Player {
     protected final String name;
     protected int gold;
     protected Castle castle;
+    protected String color;
+
 
     public Player(String name) {
         this.name = name;
@@ -44,6 +46,14 @@ public class Player {
         int j = castle.getX()/cellWidth ;
         Map.getInstance().getMap()[i][j].setBuilding(castle);
         this.castle = castle;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public Castle getCastle() {

@@ -26,7 +26,7 @@ public class ShopPanel extends JPanel {
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Game.getInstance().setBuildingHover(new ShortRange(-100,-100, new ImageIcon("src/resources/images/Blue/Buildings/ShortRange/L1/Left.png").getImage(), Game.getInstance().getCurrentTurn()));
+                Game.getInstance().setBuildingHover(new ShortRange(-100,-100, Game.getInstance().getCurrentTurn()));
             }
         });
         gbc.gridx = 0;
@@ -43,7 +43,7 @@ public class ShopPanel extends JPanel {
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Game.getInstance().setBuildingHover(new LongRange(-100,-100, new ImageIcon("src/resources/images/Blue/Buildings/LongRange/L1/Left.png").getImage(), Game.getInstance().getCurrentTurn()));
+                Game.getInstance().setBuildingHover(new LongRange(-100,-100, Game.getInstance().getCurrentTurn()));
             }
         });
         gbc.gridx = 1;
@@ -57,7 +57,7 @@ public class ShopPanel extends JPanel {
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Game.getInstance().setBuildingHover(new Splash(-100,-100, new ImageIcon("src/resources/images/Blue/Buildings/Splash/L1/Left.png").getImage(), Game.getInstance().getCurrentTurn()));
+                Game.getInstance().setBuildingHover(new Splash(-100,-100, Game.getInstance().getCurrentTurn()));
             }
         });
         gbc.gridx = 2;

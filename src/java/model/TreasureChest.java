@@ -2,12 +2,13 @@ package model;
 
 import javax.swing.*;
 import java.awt.*;
+import static utils.GameSettings.treasure;
 
-public class TreasureChest extends PassiveBuilding {
+public class TreasureChest extends PassiveBuilding{
     private int reward;
 
-    public TreasureChest(int x, int y, Image image, Player owner, int reward) {
-        super(x, y, image, owner);
+    public TreasureChest(int i, int j, Player owner, int reward) {
+        super(i, j, new ImageIcon(treasure).getImage(), owner);
         this.reward = reward;
     }
 
