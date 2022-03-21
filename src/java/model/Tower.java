@@ -2,11 +2,7 @@ package model;
 
 import utils.GameSettings;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-
-import static utils.GameSettings.cellWidth;
 
 public class Tower extends ActiveBuilding{
     protected int attackRadius;
@@ -51,28 +47,9 @@ public class Tower extends ActiveBuilding{
     /**
      * @return any enemy troop if it is within the range. Returns null if there is none
      */
-    public Troop troopWithinRange(){
-        Cell[][] map = Map.getInstance().getMap();
-        int i = getI();
-        int j = getJ();// you can access the map cells like this. Here map is 2D array of Cell
-        for(int l=attackRadius;l>=1;l--){
-            if((i-l) >0){
-                if (map[i - l][j].getTroops().size() > 0)
-                    return map[i-l][j].getTroops().get(0);
-            }
-            if((i+l) < map.length){
-                if (map[i+l][j].getTroops().size() > 0)
-                    return map[i+l][j].getTroops().get(0);
-            }
-            if((j-l) >0){
-                if (map[i][j-l].getTroops().size() > 0)
-                    return map[i][j-l].getTroops().get(0);
-            }
-            if((j+l) < map.length){
-                if (map[i][j+l].getTroops().size() > 0)
-                    return map[i][j+l].getTroops().get(0);
-            }
-        }
+    protected Troop troopWithinRange(){
+        Cell[][] map = Map.getInstance().getMap(); //; you can access the map cells like this. Here map is 2D array list of Cell
+
         return null;
     }
 
@@ -104,4 +81,6 @@ public class Tower extends ActiveBuilding{
     public int getReloadTime() {
         return reloadTime;
     }
+
+
 }
