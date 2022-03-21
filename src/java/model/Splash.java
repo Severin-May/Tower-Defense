@@ -2,11 +2,15 @@ package model;
 
 import utils.GameSettings;
 
+import javax.swing.*;
 import java.awt.*;
 
+import static utils.GameSettings.blueSplashL1Right;
+import static utils.GameSettings.redSplashL1Left;
+
 public class Splash extends Tower{
-    public Splash(int x, int y, Image image, Player owner) {
-        super(x, y, image, owner);
+    public Splash(int i, int j, Player owner) {
+        super(i, j, new ImageIcon(owner.getName().equals("Red") ? redSplashL1Left : blueSplashL1Right).getImage(), owner);
         this.attackRadius = GameSettings.splashTowerRange;
         this.attackDamage = GameSettings.splashAttackDamage;
         this.reloadTime = GameSettings.splashReloadTime;

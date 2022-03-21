@@ -2,11 +2,14 @@ package model;
 
 import utils.GameSettings;
 
+import javax.swing.*;
 import java.awt.*;
 
+import static utils.GameSettings.*;
+
 public class ShortRange extends Tower{
-    public ShortRange(int x, int y, Image image, Player owner) {
-        super(x, y, image, owner);
+    public ShortRange(int i, int j, Player owner) {
+        super(i, j, new ImageIcon(owner.getName().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Right).getImage(), owner);
         this.attackRadius = GameSettings.shortRangeTowerRange;
         this.attackDamage = GameSettings.shortRangeAttackDamage;
         this.reloadTime = GameSettings.shortRangeReloadTime;

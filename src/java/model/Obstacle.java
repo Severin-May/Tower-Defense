@@ -1,10 +1,13 @@
 package model;
 
+import javax.swing.*;
 import java.awt.*;
 
+import static utils.GameSettings.rock;
+
 public class Obstacle extends PassiveBuilding{
-    public Obstacle(int x, int y, Image image, Player owner) {
-        super(x, y, image, owner);
+    public Obstacle(int i, int j,Player owner) {
+        super(i, j, new ImageIcon(rock).getImage(), owner);
     }
 
     @Override
