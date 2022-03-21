@@ -2,8 +2,11 @@ package model;
 
 import java.awt.*;
 
+import static utils.GameSettings.cellHeight;
+import static utils.GameSettings.cellWidth;
+
 public abstract class Sprite {
-    protected int x;
+    protected int x; //in pixels
     protected int y;
     protected Image image;
 
@@ -27,6 +30,21 @@ public abstract class Sprite {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    /**
+     * It returns where this current Sprite would be in the matrix. NOTE: This does not promise that it is actually there in the matrix
+     * @return returns I coordinate (outer array location)
+     */
+    public int getI (){
+        return getY()/cellHeight;
+    }
+    /**
+     * It returns where this current Sprite would be in the matrix. NOTE: This does not promise that it is actually there in the matrix
+     * @return returns J coordinate (inner array location)
+     */
+    public int getJ(){
+        return getX()/cellWidth;
     }
 
     public Image getImage() {
