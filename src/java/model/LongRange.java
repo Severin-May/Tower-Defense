@@ -20,7 +20,14 @@ public class LongRange extends Tower{
     @Override
     public void upgrade(){
         this.healthPoints += 5;
-      //  if()
+        this.attackRadius += 5;
+        this.reloadTime -= 2;
+        this.shotCount += 5;
+        if(owner.getColor().equals("Red")){
+            this.image = new ImageIcon(GameSettings.redLongRangeL2Left).getImage();
+        }else{
+            this.image = new ImageIcon(GameSettings.blueLongRangeL2Right).getImage();
+        }
 
     }
 }

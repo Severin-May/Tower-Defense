@@ -35,9 +35,9 @@ public class TowerTest {
         Troop foundTroop2 = tower2.troopWithinRange();
         Troop foundTroop3 = tower3.troopWithinRange();
 
-        //assertSame(enemyTroop, foundTroop);
-        //assertEquals(enemyTroop3,foundTroop2);
-        //assertNull(foundTroop3);
+        assertSame(enemyTroop, foundTroop);
+        assertEquals(enemyTroop3,foundTroop2);
+        assertNull(foundTroop3);
 
     }
 }
