@@ -2,7 +2,11 @@ package model;
 
 import utils.GameSettings;
 
+import javax.swing.*;
 import java.awt.*;
+
+import static model.TroopType.SimpleTroop;
+import static utils.GameSettings.*;
 
 public class Troop extends Sprite{
     private int healthPoints;
@@ -11,8 +15,8 @@ public class Troop extends Sprite{
     private int attackDamage;
     private Player owner;
 
-    public Troop(int x, int y, TroopType type, Image image, Player owner) {
-        super(x, y, image);
+    public Troop(int i, int j, TroopType type, Player owner) {
+        super(i, j,new ImageIcon(owner.getName().equals("Red") ? (type==SimpleTroop ? redMagLeftStop : redSwordLeftStop) : (type==SimpleTroop ? blueMagRightStop : blueSwordRightStop)).getImage());
         switch (type) {
             case SimpleTroop : {
                 this.healthPoints = GameSettings.simpleTroopHP;
