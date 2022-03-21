@@ -50,7 +50,18 @@ public class Cell extends Rectangle {
         if (game.isPlacingTower()){
             tryToPutBuilding();
         }
+//        // TODO: upgradeCost and level attributes should be added to Tower
+//        if(this.hasBuilding() && this.building instanceof Tower) {
+//            this.building.upgrade();
+//        }
         //... Other conditions like clicking on cell to upgrade tower, or on troops etc.
+    }
+
+    public void rightClick() {
+        // TODO: upgradeCost and level attributes should be added to Tower
+        if(this.hasBuilding() && this.building instanceof Tower) {
+            this.building.upgrade();
+        }
     }
 
     private void tryToPutBuilding(){

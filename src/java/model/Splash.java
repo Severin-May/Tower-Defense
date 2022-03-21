@@ -4,7 +4,7 @@ import utils.GameSettings;
 
 import java.awt.*;
 
-public class Splash extends Tower{
+public class Splash extends Tower {
     public Splash(int x, int y, Image image, Player owner) {
         super(x, y, image, owner);
         this.attackRadius = GameSettings.splashTowerRange;

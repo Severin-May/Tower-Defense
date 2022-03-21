@@ -32,12 +32,17 @@ public class Troop extends Sprite{
         this.owner = owner;
     }
 
-        public void moveTo (int x, int y){
+    public void moveTo (int x, int y){
         //from this.x and this.y to x and y
     }
 
+    /**
+     * calls castle object's getAttackedBy method feed with 'this' troop object
+     * TODO: Troop should be destroyed!
+     * @param castle
+     */
     public void attack (Castle castle){
-
+        castle.getAttackedBy(this);
     }
 
     public void decreaseHP (int amount){

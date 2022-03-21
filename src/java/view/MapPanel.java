@@ -29,9 +29,15 @@ public class MapPanel extends JPanel implements Runnable{
                 int x = me.getX();
                 int y = me.getY();
                 Cell cellToClick = getCellFor(x,y);
-                if (cellToClick != null){
-                    cellToClick.click();
+                if (cellToClick != null)
+                    if(me.getButton() == MouseEvent.BUTTON1) {
+                        cellToClick.click();
+                    }
+                    else if(me.getButton() == MouseEvent.BUTTON3) {
+                    cellToClick.rightClick();
                 }
+
+                System.out.println(me.getButton() == MouseEvent.BUTTON3);
             }
         });
         addMouseMotionListener(new MouseAdapter() { // map listens and records where the mouse is pointing to

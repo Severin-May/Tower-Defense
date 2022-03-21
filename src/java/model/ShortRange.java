@@ -4,7 +4,7 @@ import utils.GameSettings;
 
 import java.awt.*;
 
-public class ShortRange extends Tower{
+public class ShortRange extends Tower {
     public ShortRange(int x, int y, Image image, Player owner) {
         super(x, y, image, owner);
         this.attackRadius = GameSettings.shortRangeTowerRange;
