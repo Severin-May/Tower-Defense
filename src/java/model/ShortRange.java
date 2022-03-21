@@ -19,7 +19,14 @@ public class ShortRange extends Tower{
     @Override
     public void upgrade(){
         this.healthPoints += 5;
-        // this.image =
+        this.attackRadius += 5;
+        this.reloadTime -= 2;
+        this.shotCount += 5;
+        if(owner.getColor().equals("Red")){
+            this.image = new ImageIcon(GameSettings.redShortRangeL2Left).getImage();
+        }else{
+            this.image = new ImageIcon(GameSettings.blueShortRangeL2Right).getImage();
+        }
 
     }
 }

@@ -30,7 +30,7 @@ public class MapPanel extends JPanel implements Runnable{
                 int y = me.getY();
                 Cell cellToClick = getCellFor(x,y);
                 if (cellToClick != null){
-                    cellToClick.click();
+                   // cellToClick.click();
                 }
             }
         });
