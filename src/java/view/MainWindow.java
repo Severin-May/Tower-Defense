@@ -21,6 +21,10 @@ public class MainWindow {
 
     public MainWindow(){
         frame = new JFrame("Tower Defense - Bumblebytes");
+
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/resources/images/Red/Buildings/Splash/L1/Left.png");
+        frame.setIconImage(icon);
+
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -30,6 +34,7 @@ public class MainWindow {
         String[] mainMenuButtons = {"START", "RULES", "EXIT"};
         for (String button : mainMenuButtons){
             JButton btn = new JButton(button);
+            // TODO: change the sizes of the buttons later
             btn.addActionListener(action);
             mainPanel.add(btn);
         }

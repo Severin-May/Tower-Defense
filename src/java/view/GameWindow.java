@@ -15,6 +15,10 @@ public class GameWindow extends JFrame {
     public GameWindow(Player p1, Player p2) {
         setTitle("Game Window title");
         setSize(mapWidthInPixels+rightPanelWidth, mapHeightInPixels+30); // I do not know why +30 is needed : Jeenbek
+
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/resources/images/Red/Buildings/Splash/L1/Left.png");
+        setIconImage(icon);
+
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//int x, int y, Image image, Player owne
