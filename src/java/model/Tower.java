@@ -52,7 +52,9 @@ public class Tower extends ActiveBuilding{
      * @return any enemy troop if it is within the range. Returns null if there is none
      */
     public Troop troopWithinRange(){
-        Cell[][] map = Map.getInstance().getMap(); // you can access the map cells like this. Here map is 2D array of Cell
+        Cell[][] map = Map.getInstance().getMap();
+        int i = getI();
+        int j = getJ();// you can access the map cells like this. Here map is 2D array of Cell
         for(int l=attackRadius;l>=1;l--){
             if((i-l) >0){
                 if (map[i - l][j].getTroops().size() > 0)
