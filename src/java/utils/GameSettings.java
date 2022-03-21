@@ -42,9 +42,9 @@ public class GameSettings {
 
     //Map settings:
     public final static int numberOfObstacles = 3;
-    public final static int mapHeightInCells = 15;
-    public final static int mapWidthInCells = 25;
-    public final static int cellWidth = 45;
+    public final static int mapHeightInCells = 10;
+    public final static int mapWidthInCells = 15;
+    public final static int cellWidth = 40;
     public final static int cellHeight = cellWidth;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight;

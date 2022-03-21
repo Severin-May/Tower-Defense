@@ -4,7 +4,6 @@ import utils.GameSettings;
 
 import javax.swing.*;
 import java.awt.*;
-
 import static utils.GameSettings.blueSplashL1Right;
 import static utils.GameSettings.redSplashL1Left;
 
