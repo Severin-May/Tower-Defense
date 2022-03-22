@@ -2,14 +2,8 @@ package utils;
 
 public class GameSettings {
     // Initial Towers' stats:
-        //simple towers:
-    public final static int simpleTowerRange = 10;
-    public final static int simpleTowerAttackDamage = 10;
-    public final static int simpleTowerCost = 10;
-    public final static int simpleTowerShotCount = 10;
-    public final static int simpleTowerReloadTime = 10;
         //long ranged:
-    public final static int longRangeTowerRange = 5;
+    public final static int longRangeTowerRange = 10;
     public final static int longRangeAttackDamage = 10;
     public final static int longRangeCost = 10;
     public final static int longRangeShotCount = 10;
@@ -21,7 +15,7 @@ public class GameSettings {
     public final static int shortRangeShotCount = 10;
     public final static int shortRangeReloadTime = 10;
         //splash:
-    public final static int splashTowerRange = 10;
+    public final static int splashTowerRange = 3;
     public final static int splashAttackDamage = 10;
     public final static int splashCost = 10;
     public final static int splashShotCount = 10;

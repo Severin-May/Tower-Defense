@@ -14,11 +14,6 @@ public class Tower extends ActiveBuilding{
 
     public Tower(int i, int j, Image image, Player owner) {
         super(i, j, image, owner);
-        this.attackRadius = GameSettings.simpleTowerRange;
-        this.cost = GameSettings.simpleTowerCost;
-        this.attackDamage = GameSettings.simpleTowerAttackDamage;
-        this.shotCount = GameSettings.simpleTowerShotCount;
-        this.reloadTime = GameSettings.simpleTowerReloadTime;
     }
 
     /**
@@ -50,11 +45,7 @@ public class Tower extends ActiveBuilding{
     public Troop troopWithinRange(){
         Cell[][] map = Map.getInstance().getMap();
         int i = getI();
-<<<<<<< HEAD
-        int j = getJ();// you can access twhe map cells like this. Here map is 2D array of Cell
-=======
         int j = getJ();
->>>>>>> main
         for(int l=attackRadius;l>=1;l--){
             if((i-l) >0){
                 if (map[i - l][j].getTroops().size() > 0)
