@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+import static utils.GameSettings.blueSplashL1Left;
+
 public class MainWindow {
 
     private final JFrame frame;
@@ -21,7 +23,7 @@ public class MainWindow {
     public MainWindow(){
         frame = new JFrame("Tower Defense - Bumblebytes");
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/resources/images/Red/Buildings/Splash/L1/Left.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage(blueSplashL1Left);
         frame.setIconImage(icon);
 
         frame.setSize(800, 800);
