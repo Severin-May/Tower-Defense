@@ -6,11 +6,10 @@ import static utils.GameSettings.*;
 
 
 public class Player {
-    protected final String name;
-    protected int gold;
-    protected Castle castle;
-    protected String color;
-
+    private final String name;
+    private int gold;
+    private Castle castle;
+    private String color;
 
     public Player(String name) {
         this.name = name;

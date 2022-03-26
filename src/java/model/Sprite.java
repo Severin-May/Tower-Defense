@@ -36,6 +36,7 @@ public abstract class Sprite {
      * It returns where this current Sprite would be in the matrix. NOTE: This does not promise that it is actually there in the matrix
      * @return returns I coordinate (outer array location)
      */
+    //TODO: why are we calling getY() when we can simply access this.y???
     public int getI (){
         return getY()/cellHeight;
     }

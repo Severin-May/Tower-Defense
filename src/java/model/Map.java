@@ -30,7 +30,7 @@ public class Map {
     public void generateTreasure(){
 
     }
-    static public void initialise (){
+    public static void initialise (){
         if (instance == null){
             instance = new Map();
         }

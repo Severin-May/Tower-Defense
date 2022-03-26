@@ -45,7 +45,7 @@ public class Troop extends Sprite{
      * TODO: Troop should be destroyed!
      * @param castle
      */
-    public void attack (Castle castle){
+    public void attackCastle (Castle castle){
         castle.getAttackedBy(this);
     }
 
