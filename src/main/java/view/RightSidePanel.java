@@ -1,7 +1,6 @@
 package view;
 
 import model.Game;
-import utils.GameSettings;
 
 import javax.swing.*;
 import java.awt.*;

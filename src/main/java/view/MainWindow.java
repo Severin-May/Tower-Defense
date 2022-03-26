@@ -2,7 +2,6 @@ package view;
 
 import model.AI;
 import model.Player;
-import utils.GameSettings;
 
 import javax.swing.*;
 import java.awt.*;

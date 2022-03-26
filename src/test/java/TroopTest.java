@@ -1,9 +1,10 @@
 import model.Player;
 import model.Troop;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.Assert.*;
 
 import model.TroopType;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 // Example test
 public class TroopTest {

@@ -3,7 +3,6 @@ package model;
 import utils.GameSettings;
 
 import javax.swing.*;
-import java.awt.*;
 
 import static model.TroopType.SimpleTroop;
 import static utils.GameSettings.*;

@@ -3,7 +3,7 @@ package model;
 import utils.GameSettings;
 
 import javax.swing.*;
-import java.awt.*;
+
 import static utils.GameSettings.*;
 
 public class ShortRange extends Tower{

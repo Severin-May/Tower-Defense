@@ -14,7 +14,7 @@ public class Map {
         map = new Cell[mapHeightInCells][mapWidthInCells];
         for (int i = 0; i < mapHeightInCells; i++){
             for (int j = 0; j < mapWidthInCells; j++){
-                Image grassImage = new ImageIcon("src/resources/images/Area/Grass"+getRandomImageID()+".png").getImage();
+                Image grassImage = new ImageIcon("src/main/resources/images/Area/Grass"+getRandomImageID()+".png").getImage();
                 map[i][j] = new Cell(j*cellHeight,i*cellWidth, grassImage);
             }
         }

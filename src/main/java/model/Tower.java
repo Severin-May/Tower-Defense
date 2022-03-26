@@ -1,7 +1,5 @@
 package model;
 
-import utils.GameSettings;
-
 import java.awt.*;
 
 public class Tower extends ActiveBuilding{

@@ -9,7 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+
+import static utils.GameSettings.*;
 
 public class ShopPanel extends JPanel {
 
@@ -18,7 +19,7 @@ public class ShopPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        ImageIcon sRangeIcon = new ImageIcon("src/resources/images/Blue/Buildings/ShortRange/L1/Left.png");
+        ImageIcon sRangeIcon = new ImageIcon(blueShortRangeL1Left);
         JButton buyShortRangeTower = new JButton("Short range", sRangeIcon);
         int offset = buyShortRangeTower.getInsets().left;
         buyShortRangeTower.setIcon(resizeIcon(sRangeIcon, 40 - offset, 40 - offset));
@@ -35,7 +36,7 @@ public class ShopPanel extends JPanel {
         gbc.gridheight = 1;
         add(buyShortRangeTower,gbc);
 
-        ImageIcon lRangeIcon = new ImageIcon("src/resources/images/Blue/Buildings/LongRange/L1/Left.png");
+        ImageIcon lRangeIcon = new ImageIcon(blueLongRangeL1Left);
         JButton buyLongRangeTower = new JButton("Long range", lRangeIcon);
         int offset2 = buyLongRangeTower.getInsets().left;
         buyLongRangeTower.setIcon(resizeIcon(lRangeIcon, 40 - offset2, 40 - offset2));
@@ -49,7 +50,7 @@ public class ShopPanel extends JPanel {
         gbc.gridx = 1;
         add(buyLongRangeTower, gbc);
 
-        ImageIcon splashIcon = new ImageIcon("src/resources/images/Blue/Buildings/Splash/L1/Left.png");
+        ImageIcon splashIcon = new ImageIcon(blueSplashL1Left);
         JButton buySplashTower = new JButton("Splash", splashIcon);
         int offset3 = buySplashTower.getInsets().left;
         buySplashTower.setIcon(resizeIcon(splashIcon, 40 - offset3, 40 - offset3));
@@ -78,7 +79,7 @@ public class ShopPanel extends JPanel {
      */
     private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
         Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
 }

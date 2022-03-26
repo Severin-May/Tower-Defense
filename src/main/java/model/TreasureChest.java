@@ -1,7 +1,7 @@
 package model;
 
 import javax.swing.*;
-import java.awt.*;
+
 import static utils.GameSettings.treasure;
 
 public class TreasureChest extends PassiveBuilding{
