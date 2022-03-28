@@ -8,7 +8,7 @@ import static utils.GameSettings.*;
 
 public class Castle extends ActiveBuilding{
     public Castle(int i, int j, Player owner) {
-        super(i, j,new ImageIcon(owner.getColor().equals("Red") ? redCastle : blueCastle).getImage(), owner);
+        super(i, j, castleWidth, castleHeight, new ImageIcon(owner.getColor().equals("Red") ? redCastle : blueCastle).getImage(), owner);
         this.healthPoints = GameSettings.castleInitialHP;
     }
 

@@ -15,7 +15,7 @@ public class Map {
         for (int i = 0; i < mapHeightInCells; i++){
             for (int j = 0; j < mapWidthInCells; j++){
                 Image grassImage = new ImageIcon("src/main/resources/images/Area/Grass"+getRandomImageID()+".png").getImage();
-                map[i][j] = new Cell(j*cellHeight,i*cellWidth, grassImage);
+                map[i][j] = new Cell(j*cellWidth+padding,i*cellHeight+padding, grassImage);
             }
         }
     }
@@ -23,6 +23,12 @@ public class Map {
         for (int i = 0; i < mapHeightInCells; i++){
             for (int j = 0; j < mapWidthInCells; j++){
                 map[i][j].drawCell(g);
+            }
+        }
+        // need to draw twice because we first draw grass and only then sprites on top of it
+        for (int i = 0; i < mapHeightInCells; i++){
+            for (int j = 0; j < mapWidthInCells; j++){
+                map[i][j].drawSprites(g);
             }
         }
     }

@@ -4,8 +4,8 @@ import java.awt.*;
 
 public abstract class Building extends Sprite{
     protected Player owner;
-    public Building(int i, int j, Image image, Player owner) {
-        super(i, j, image);
+    public Building(int i, int j, int width, int height, Image image, Player owner) {
+        super(i, j, width, height, image);
         this.owner = owner;
     }
     public boolean buildAt (int x, int y){

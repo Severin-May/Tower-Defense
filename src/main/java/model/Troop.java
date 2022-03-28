@@ -15,7 +15,7 @@ public class Troop extends Sprite{
     private Player owner;
 
     public Troop(int i, int j, TroopType type, Player owner) {
-        super(i, j,new ImageIcon(owner.getName().equals("Red") ? (type==SimpleTroop ? redMagLeftStop : redSwordLeftStop) : (type==SimpleTroop ? blueMagRightStop : blueSwordRightStop)).getImage());
+        super(i, j,troopWidth, troopHeight,new ImageIcon(owner.getName().equals("Red") ? (type==SimpleTroop ? redMagLeftStop : redSwordLeftStop) : (type==SimpleTroop ? blueMagRightStop : blueSwordRightStop)).getImage());
         switch (type) {
             case SimpleTroop : {
                 this.healthPoints = GameSettings.simpleTroopHP;

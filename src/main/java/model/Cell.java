@@ -14,17 +14,21 @@ public class Cell extends Rectangle {
 
     public Cell(int x, int y, Image grassImage) {
         game = Game.getInstance();
-        setBounds(x,y, cellWidth, cellHeight);
+//        setBounds(x,y, cellWidth, cellHeight);
+        this.x = x;
+        this.y = y;
         this.grassImage = grassImage;
         troops = new ArrayList<>();
     }
 
     public void drawCell (Graphics g){
-        g.drawImage(grassImage, x, y, width,height,null );
+        g.drawImage(grassImage, x, y, cellWidth,cellHeight,null );
+        g.drawRect(x,y,cellWidth,cellHeight); //optional
+    }
+    public void drawSprites (Graphics g){
         if (hasBuilding()){
-            g.drawImage(building.image, x,y, width,height,null);
+            g.drawImage(building.image, x - (building.width - cellWidth)/2,y - (building.height - cellHeight), building.width, building.height, null);
         }
-        g.drawRect(x,y,width,height); //optional
     }
 
     public void click() {

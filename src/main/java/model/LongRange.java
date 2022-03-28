@@ -27,6 +27,7 @@ public class LongRange extends Tower{
         }else{
             this.image = new ImageIcon(GameSettings.blueLongRangeL2Right).getImage();
         }
-
+        this.width = upgradedTowerWidth;
+        this.height = upgradedTowerHeight;
     }
 }
