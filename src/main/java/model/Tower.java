@@ -2,6 +2,9 @@ package model;
 
 import java.awt.*;
 
+import static utils.GameSettings.towerHeight;
+import static utils.GameSettings.towerWidth;
+
 public class Tower extends ActiveBuilding{
     protected int attackRadius;
     protected int cost;
@@ -11,7 +14,7 @@ public class Tower extends ActiveBuilding{
     protected long lastShotTime;
 
     public Tower(int i, int j, Image image, Player owner) {
-        super(i, j, image, owner);
+        super(i, j, towerWidth, towerHeight, image, owner);
     }
 
     /**

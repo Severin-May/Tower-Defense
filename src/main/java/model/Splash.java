@@ -4,8 +4,7 @@ import utils.GameSettings;
 
 import javax.swing.*;
 
-import static utils.GameSettings.blueSplashL1Right;
-import static utils.GameSettings.redSplashL1Left;
+import static utils.GameSettings.*;
 
 public class Splash extends Tower{
     public Splash(int i, int j, Player owner) {
@@ -31,8 +30,7 @@ public class Splash extends Tower{
         }else{
             this.image = new ImageIcon(GameSettings.blueLongRangeL2Left).getImage();
         }
-
-
-
+        this.width = upgradedTowerWidth;
+        this.height = upgradedTowerHeight;
     }
 }

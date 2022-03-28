@@ -36,12 +36,13 @@ public class GameSettings {
 
     //Map settings:
     public final static int numberOfObstacles = 3;
+    public final static int padding = 25;
     public final static int mapHeightInCells = 10;
     public final static int mapWidthInCells = 15;
     public final static int cellWidth = 40;
-    public final static int cellHeight = cellWidth;
-    public final static int mapWidthInPixels = mapWidthInCells * cellWidth;
-    public final static int mapHeightInPixels = mapHeightInCells * cellHeight;
+    public final static int cellHeight = 40;
+    public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2*padding;
+    public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2*padding;
     public final static int rightPanelWidth = 350;
     //Game Settings
     public final static int fps = 10; //how many times to repaint the map in one second. Animation quality depends on this
@@ -53,9 +54,24 @@ public class GameSettings {
     public static int castleInitialHP = 1500;
 
 
+    // Image sizes in pixels:
+    public final static int castleWidth = (int)(cellWidth*1.2);
+    public final static int castleHeight = (int)(cellHeight*1.4);
+    public final static int towerWidth = (int)(cellWidth*1.0);
+    public final static int towerHeight = (int)(cellHeight*1.2);
+    public final static int upgradedTowerWidth = (int)(towerWidth*1.2);
+    public final static int upgradedTowerHeight = (int)(towerHeight*1.2);
+    public final static int goldMineWidth = cellWidth;
+    public final static int goldMineHeight = cellHeight;
+    public final static int treasureChestWidth = cellWidth;
+    public final static int treasureChestHeight = cellHeight;
+    public final static int obstacleWidth = cellWidth;
+    public final static int obstacleHeight = cellHeight;
+    public final static int troopWidth = cellWidth;
+    public final static int troopHeight = cellHeight;
 
-    // image paths as strings
 
+    // Image paths as strings
     //Passive Buildings
        // Gold Mine
     public final static String goldMine = "src/main/resources/images/Area/Obstacles/notYet.png";

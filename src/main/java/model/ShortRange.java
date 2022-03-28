@@ -27,6 +27,7 @@ public class ShortRange extends Tower{
         }else{
             this.image = new ImageIcon(GameSettings.blueShortRangeL2Right).getImage();
         }
-
+        this.width = upgradedTowerWidth;
+        this.height = upgradedTowerHeight;
     }
 }
