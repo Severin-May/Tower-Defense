@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 import static utils.GameSettings.blueSplashL1Left;
+import static utils.GameSettings.blueSplashL1Right;
 
 public class MainWindow {
 
@@ -20,20 +21,20 @@ public class MainWindow {
 
     private boolean singleplayer = false;
 
-    public MainWindow(){
+    public MainWindow() {
         frame = new JFrame("Tower Defense - Bumblebytes");
 
-        Image icon = Toolkit.getDefaultToolkit().getImage(blueSplashL1Left);
+        Image icon = Toolkit.getDefaultToolkit().getImage(blueSplashL1Right);
         frame.setIconImage(icon);
 
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(3, 1, 0, frame.getHeight()/6));
+        mainPanel.setLayout(new GridLayout(3, 1, 0, frame.getHeight() / 6));
 
         String[] mainMenuButtons = {"START", "RULES", "EXIT"};
-        for (String button : mainMenuButtons){
+        for (String button : mainMenuButtons) {
             JButton btn = new JButton(button);
             // TODO: change the sizes of the buttons later
             btn.addActionListener(action);
@@ -41,10 +42,10 @@ public class MainWindow {
         }
 
         playerPanel = new JPanel();
-        playerPanel.setLayout(new GridLayout(2, 1, 0, frame.getHeight()/3));
+        playerPanel.setLayout(new GridLayout(2, 1, 0, frame.getHeight() / 3));
 
         String[] playerButtons = {"1-PLAYER", "2-PLAYER"};
-        for (String button : playerButtons){
+        for (String button : playerButtons) {
             JButton btn = new JButton(button);
             btn.addActionListener(action);
             playerPanel.add(btn);
@@ -56,36 +57,38 @@ public class MainWindow {
 
     private final ActionListener action = e -> {
         JButton btn = (JButton) (e.getSource());
-        switch (btn.getText()){
+        switch (btn.getText()) {
             case "START":
                 start();
                 break;
-            case "RULES" :
+            case "RULES":
                 showRules();
                 break;
-            case "1-PLAYER": case "2-PLAYER" :
+            case "1-PLAYER":
+            case "2-PLAYER":
                 playerMode(Integer.parseInt(btn.getText().substring(0, 1)));
                 break;
-            case "EXIT" :
+            case "EXIT":
                 System.exit(100);
                 break;
             case "SUBMIT":
                 launchGame();
                 break;
-            default : throw new IllegalStateException("Unexpected value: " + btn.getText());
+            default:
+                throw new IllegalStateException("Unexpected value: " + btn.getText());
         }
     };
 
-    public void start(){
+    public void start() {
         mainPanel.setVisible(false);
         frame.add(playerPanel);
     }
 
-    public void showRules(){
+    public void showRules() {
         JOptionPane.showMessageDialog(frame, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
     }
 
-    public void playerMode(int n){
+    public void playerMode(int n) {
         JPanel playerSetup = new JPanel();
         playerSetup.setLayout(new GridLayout(2, 1));
         JPanel names = new JPanel();
@@ -97,11 +100,10 @@ public class MainWindow {
         JButton submit = new JButton("SUBMIT");
 
         playerPanel.setVisible(false);
-        if (n == 1){
+        if (n == 1) {
             names.add(player1name, BorderLayout.CENTER);
             singleplayer = true;
-        }
-        else if (n == 2){
+        } else if (n == 2) {
             names.add(player1name, BorderLayout.WEST);
             names.add(player2name, BorderLayout.EAST);
         }
@@ -112,8 +114,8 @@ public class MainWindow {
         frame.add(playerSetup);
     }
 
-    public void launchGame(){
-        if (singleplayer){
+    public void launchGame() {
+        if (singleplayer) {
             new GameWindow(new Player(player1name.getText()), new AI("The_Destroyer"));
         } else {
             new GameWindow(new Player(player1name.getText()), new Player(player2name.getText()));

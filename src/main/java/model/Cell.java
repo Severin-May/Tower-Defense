@@ -1,4 +1,5 @@
 package model;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,34 +7,47 @@ import java.util.List;
 import static utils.GameSettings.cellHeight;
 import static utils.GameSettings.cellWidth;
 
-public class Cell extends Rectangle {
+public class Cell extends Sprite {
     private Building building;
     private final List<Troop> troops;
-    private final Image grassImage;
     private final Game game;
 
-    public Cell(int x, int y, Image grassImage) {
+    public Cell(int i, int j, Image grassImage) {
+        super(i, j, cellWidth, cellHeight, grassImage);
         game = Game.getInstance();
-//        setBounds(x,y, cellWidth, cellHeight);
-        this.x = x;
-        this.y = y;
-        this.grassImage = grassImage;
         troops = new ArrayList<>();
     }
 
-    public void drawCell (Graphics g){
-        g.drawImage(grassImage, x, y, cellWidth,cellHeight,null );
-        g.drawRect(x,y,cellWidth,cellHeight); //optional
+    public void drawCell(Graphics g) {
+        g.drawImage(this.image, x, y, width, height, null);
+        g.drawRect(x, y, width, height); //optional
     }
-    public void drawSprites (Graphics g){
-        if (hasBuilding()){
-            g.drawImage(building.image, x - (building.width - cellWidth)/2,y - (building.height - cellHeight), building.width, building.height, null);
+
+    public void drawSprites(Graphics g) {
+        if (hasBuilding()) {
+            g.drawImage(building.image, x - (building.width - width) / 2, y - (building.height - height), building.width, building.height, null);
         }
     }
 
     public void click() {
         //If buy tower is clicked and tower is being placed
-        if (game.isPlacingTower()){
+        if (game.isPlacingTower()) {
+            if (hasBuilding()) {
+                System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
+                return;
+            }
+            Building toBuild = game.getBuildingHover();
+            Tower towerToBuild;
+            GoldMine goldMineToBuild;
+            if (toBuild instanceof Tower) {
+                towerToBuild = (Tower) toBuild; // Have to convert to get and check the cost
+                if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
+                    setBuilding(towerToBuild);
+                }
+            } else if (toBuild instanceof GoldMine) {
+                goldMineToBuild = (GoldMine) toBuild;
+            }
+            game.setBuildingHover(null); // turn off hover after clicking
             tryToPutBuilding();
         }
 //        // TODO: upgradeCost and level attributes should be added to Tower
@@ -45,34 +59,20 @@ public class Cell extends Rectangle {
 
     public void rightClick() {
         // TODO: upgradeCost and level attributes should be added to Tower
-        if(this.hasBuilding() && this.building instanceof Tower) {
+        if (this.hasBuilding() && this.building instanceof Tower) {
             this.building.upgrade();
         }
     }
 
-    private void tryToPutBuilding(){
-        if (hasBuilding()){
-            System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
-            return;
-        }
-        Building toBuild = game.getBuildingHover();
-        Tower towerToBuild;
-        GoldMine goldMineToBuild;
-        if (toBuild instanceof Tower) {
-            towerToBuild = (Tower) toBuild; // Have to convert to get and check the cost
-            if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
-                setBuilding(towerToBuild);
-            }
-        } else if (toBuild instanceof GoldMine) {
-            goldMineToBuild = (GoldMine) toBuild;
-        }
-        game.setBuildingHover(null); // turn off hover after clicking
+    private void tryToPutBuilding() {
+
     }
+
     public void setBuilding(Building building) {
         this.building = building;
     }
 
-    public boolean hasBuilding(){
+    public boolean hasBuilding() {
         return this.building != null;
     }
 

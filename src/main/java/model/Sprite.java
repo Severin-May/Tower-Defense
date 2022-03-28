@@ -19,6 +19,12 @@ public abstract class Sprite {
         this.image = image;
     }
 
+    public Sprite(int width, int height, Image image) {
+        this.width = width;
+        this.height = height;
+        this.image = image;
+    }
+
     public int getX() {
         return x;
     }
@@ -31,23 +37,26 @@ public abstract class Sprite {
         return y;
     }
 
-    public void setY(int y ) {
+    public void setY(int y) {
         this.y = y;
     }
 
     /**
      * It returns where this current Sprite would be in the matrix. NOTE: This does not promise that it is actually there in the matrix
+     *
      * @return returns I coordinate (outer array location)
      */
-    public int getI (){
-        return (getY()-padding)/cellHeight;
+    public int getI() {
+        return (getY() - padding) / cellHeight;
     }
+
     /**
      * It returns where this current Sprite would be in the matrix. NOTE: This does not promise that it is actually there in the matrix
+     *
      * @return returns J coordinate (inner array location)
      */
-    public int getJ(){
-        return (getX()-padding)/cellWidth;
+    public int getJ() {
+        return (getX() - padding) / cellWidth;
     }
 
     public Image getImage() {

@@ -14,7 +14,7 @@ public class GameWindow extends JFrame {
 
     public GameWindow(Player p1, Player p2) {
         setTitle("Game Window title");
-        setSize(mapWidthInPixels+rightPanelWidth, mapHeightInPixels+30); // I do not know why +30 is needed : Jeenbek
+        setSize(mapWidthInPixels + rightPanelWidth, mapHeightInPixels + 30); // I do not know why +30 is needed : Jeenbek
 
         Image icon = Toolkit.getDefaultToolkit().getImage("src/resources/images/Red/Buildings/Splash/L1/Left.png");
         setIconImage(icon);
@@ -22,7 +22,7 @@ public class GameWindow extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//int x, int y, Image image, Player owne
-        loadResources(p1,p2);
+        loadResources(p1, p2);
         setLayout(new BorderLayout()); //Original
         add(new MapPanel(), BorderLayout.WEST);
         add(new RightSidePanel(), BorderLayout.EAST);
@@ -30,11 +30,11 @@ public class GameWindow extends JFrame {
     }
 
     private void loadResources(Player p1, Player p2) {
-        Game.initialise(p1,p2);
+        Game.initialise(p1, p2);
         Map.initialise();
         p1.setColor("Red");
         p2.setColor("Blue");
-        p1.setCastle(new Castle(0,0,  p1));
-        p2.setCastle(new Castle(mapHeightInCells-1,mapWidthInCells-1, p2));
+        p1.setCastle(new Castle(0, 0, p1));
+        p2.setCastle(new Castle(mapHeightInCells - 1, mapWidthInCells - 1, p2));
     }
 }

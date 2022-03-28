@@ -1,9 +1,6 @@
 package view;
 
-import model.Game;
-import model.LongRange;
-import model.ShortRange;
-import model.Splash;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,12 +11,13 @@ import static utils.GameSettings.*;
 
 public class ShopPanel extends JPanel {
 
-    public ShopPanel(){
+    public ShopPanel() {
+        Player currentPlayer = Game.getInstance().getCurrentTurn();
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        ImageIcon sRangeIcon = new ImageIcon(blueShortRangeL1Left);
+        ImageIcon sRangeIcon = new ImageIcon(currentPlayer.getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Left);
         JButton buyShortRangeTower = new JButton("Short range", sRangeIcon);
         int offset = buyShortRangeTower.getInsets().left;
         buyShortRangeTower.setIcon(resizeIcon(sRangeIcon, 40 - offset, 40 - offset));
@@ -27,16 +25,16 @@ public class ShopPanel extends JPanel {
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Game.getInstance().setBuildingHover(new ShortRange(-100,-100, Game.getInstance().getCurrentTurn()));
+                Game.getInstance().setBuildingHover(new ShortRange(Game.getInstance().getCurrentTurn()));
             }
         });
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        add(buyShortRangeTower,gbc);
+        add(buyShortRangeTower, gbc);
 
-        ImageIcon lRangeIcon = new ImageIcon(blueLongRangeL1Left);
+        ImageIcon lRangeIcon = new ImageIcon(currentPlayer.getColor().equals("Red") ? redLongRangeL1Left : blueLongRangeL1Left);
         JButton buyLongRangeTower = new JButton("Long range", lRangeIcon);
         int offset2 = buyLongRangeTower.getInsets().left;
         buyLongRangeTower.setIcon(resizeIcon(lRangeIcon, 40 - offset2, 40 - offset2));
@@ -44,13 +42,13 @@ public class ShopPanel extends JPanel {
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Game.getInstance().setBuildingHover(new LongRange(-100,-100, Game.getInstance().getCurrentTurn()));
+                Game.getInstance().setBuildingHover(new LongRange(Game.getInstance().getCurrentTurn()));
             }
         });
         gbc.gridx = 1;
         add(buyLongRangeTower, gbc);
 
-        ImageIcon splashIcon = new ImageIcon(blueSplashL1Left);
+        ImageIcon splashIcon = new ImageIcon((currentPlayer.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Left));
         JButton buySplashTower = new JButton("Splash", splashIcon);
         int offset3 = buySplashTower.getInsets().left;
         buySplashTower.setIcon(resizeIcon(splashIcon, 40 - offset3, 40 - offset3));
@@ -58,7 +56,7 @@ public class ShopPanel extends JPanel {
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Game.getInstance().setBuildingHover(new Splash(-100,-100, Game.getInstance().getCurrentTurn()));
+                Game.getInstance().setBuildingHover(new Splash(Game.getInstance().getCurrentTurn()));
             }
         });
         gbc.gridx = 2;
@@ -66,20 +64,20 @@ public class ShopPanel extends JPanel {
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
-        add(new JButton("TRAIN TROOP"),gbc);
+        add(new JButton("TRAIN TROOP"), gbc);
     }
 
     /**
      * resizes the icon so that it fits the button
-     * @param icon takes an icon to be resizes
-     * @param resizedWidth desired width of the button
+     *
+     * @param icon          takes an icon to be resizes
+     * @param resizedWidth  desired width of the button
      * @param resizedHeight desired height of the button
-     * @return
-     * TODO: change the color of towers (i.e. change the pngs) as current player changes
+     * @return resized Icon
      */
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
+    private Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
         Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  Image.SCALE_SMOOTH);
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
 }

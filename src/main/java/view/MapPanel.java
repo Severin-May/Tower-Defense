@@ -29,7 +29,7 @@ public class MapPanel extends JPanel implements Runnable {
             public void mousePressed(MouseEvent me) {
                 int x = me.getX();
                 int y = me.getY();
-                Cell cellToClick = getCellFor(x, y);
+                Cell cellToClick = map.getCellFor(x, y);
                 if (cellToClick != null) {
                     if (me.getButton() == MouseEvent.BUTTON1) {
                         cellToClick.click();
@@ -47,20 +47,6 @@ public class MapPanel extends JPanel implements Runnable {
             }
         });
 
-    }
-
-    /**
-     * Takes screen pixel x and y as parameters and returns cell that is located there
-     *
-     * @param x x coordinate which will be converted to j index
-     * @param y y coordinate which will be converted to i index
-     * @return returns Cell that is located there. Returns null for invalid coordinates
-     */
-    private Cell getCellFor(int x, int y) {
-        if (x >= mapWidthInPixels - padding || x <= padding || y >= mapHeightInPixels - padding || y <= padding) {
-            return null;
-        }
-        return map.getMap()[(y - padding) / cellHeight][(x - padding) / cellWidth];
     }
 
     private void drawHoverBuilding(Graphics g, int x, int y, Building b) {

@@ -7,7 +7,7 @@ import javax.swing.*;
 import static model.TroopType.SimpleTroop;
 import static utils.GameSettings.*;
 
-public class Troop extends Sprite{
+public class Troop extends Sprite {
     private int healthPoints;
     private int cost;
     private int movementSpeed;
@@ -15,16 +15,16 @@ public class Troop extends Sprite{
     private Player owner;
 
     public Troop(int i, int j, TroopType type, Player owner) {
-        super(i, j,troopWidth, troopHeight,new ImageIcon(owner.getName().equals("Red") ? (type==SimpleTroop ? redMagLeftStop : redSwordLeftStop) : (type==SimpleTroop ? blueMagRightStop : blueSwordRightStop)).getImage());
+        super(i, j, troopWidth, troopHeight, new ImageIcon(owner.getName().equals("Red") ? (type == SimpleTroop ? redMagLeftStop : redSwordLeftStop) : (type == SimpleTroop ? blueMagRightStop : blueSwordRightStop)).getImage());
         switch (type) {
-            case SimpleTroop : {
+            case SimpleTroop: {
                 this.healthPoints = GameSettings.simpleTroopHP;
                 this.cost = GameSettings.simpleTroopCost;
                 this.movementSpeed = GameSettings.simpleTroopMovementSpeed;
                 this.attackDamage = GameSettings.simpleTroopAttackDamage;
             }
             break;
-            case SlowBigTroop : {
+            case SlowBigTroop: {
                 this.healthPoints = GameSettings.slowBigTroopHP;
                 this.cost = GameSettings.slowBigTroopCost;
                 this.movementSpeed = GameSettings.slowBigTroopMovementSpeed;
@@ -35,28 +35,29 @@ public class Troop extends Sprite{
         this.owner = owner;
     }
 
-    public void moveTo (int x, int y){
+    public void moveTo(int x, int y) {
         //from this.x and this.y to x and y
     }
 
     /**
      * calls castle object's getAttackedBy method feed with 'this' troop object
      * TODO: Troop should be destroyed!
+     *
      * @param castle
      */
-    public void attack (Castle castle){
+    public void attack(Castle castle) {
         castle.getAttackedBy(this);
     }
 
-    public void decreaseHP (int amount){
+    public void decreaseHP(int amount) {
         this.healthPoints -= amount;
     }
 
-    public Tower withinEnemyTowerRange(){
+    public Tower withinEnemyTowerRange() {
         return null;
     }
 
-    public boolean isKilled (){
+    public boolean isKilled() {
         return this.healthPoints <= 0;
     }
 

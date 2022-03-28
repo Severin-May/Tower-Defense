@@ -10,34 +10,36 @@ public class Map {
     private static Map instance = null;
     private Cell[][] map;
 
-    private Map (){
+    private Map() {
         map = new Cell[mapHeightInCells][mapWidthInCells];
-        for (int i = 0; i < mapHeightInCells; i++){
-            for (int j = 0; j < mapWidthInCells; j++){
-                Image grassImage = new ImageIcon("src/main/resources/images/Area/Grass"+getRandomImageID()+".png").getImage();
-                map[i][j] = new Cell(j*cellWidth+padding,i*cellHeight+padding, grassImage);
+        for (int i = 0; i < mapHeightInCells; i++) {
+            for (int j = 0; j < mapWidthInCells; j++) {
+                Image grassImage = new ImageIcon(grass + getRandomImageID() + ".png").getImage();
+                map[i][j] = new Cell(i, j, grassImage);
             }
         }
     }
-    public void drawMap(Graphics g){
-        for (int i = 0; i < mapHeightInCells; i++){
-            for (int j = 0; j < mapWidthInCells; j++){
+
+    public void drawMap(Graphics g) {
+        for (int i = 0; i < mapHeightInCells; i++) {
+            for (int j = 0; j < mapWidthInCells; j++) {
                 map[i][j].drawCell(g);
             }
         }
         // need to draw twice because we first draw grass and only then sprites on top of it
-        for (int i = 0; i < mapHeightInCells; i++){
-            for (int j = 0; j < mapWidthInCells; j++){
+        for (int i = 0; i < mapHeightInCells; i++) {
+            for (int j = 0; j < mapWidthInCells; j++) {
                 map[i][j].drawSprites(g);
             }
         }
     }
 
-    public void generateTreasure(){
+    public void generateTreasure() {
 
     }
-    static public void initialise (){
-        if (instance == null){
+
+    static public void initialise() {
+        if (instance == null) {
             instance = new Map();
         }
     }
@@ -46,10 +48,25 @@ public class Map {
         return map;
     }
 
-    static public Map getInstance (){
+    static public Map getInstance() {
         return instance;
     }
-    private int getRandomImageID(){
+
+    private int getRandomImageID() {
         return (int) ((Math.random() * (8 - 1)) + 1);
+    }
+
+    /**
+     * Takes screen pixel x and y as parameters and returns cell that is located there
+     *
+     * @param x x coordinate which will be converted to j index
+     * @param y y coordinate which will be converted to i index
+     * @return returns Cell that is located there. Returns null for invalid coordinates
+     */
+    public Cell getCellFor(int x, int y) {
+        if (x >= mapWidthInPixels - padding || x <= padding || y >= mapHeightInPixels - padding || y <= padding) {
+            return null;
+        }
+        return map[(y - padding) / cellHeight][(x - padding) / cellWidth];
     }
 }

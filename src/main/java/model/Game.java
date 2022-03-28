@@ -1,37 +1,38 @@
 package model;
 
 
-
 public class Game {
     private final Player player1;
     private final Player player2;
     private Player currentTurn;
     private static Game instance = null;
     private Building buildingHover;
+
     private Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentTurn = player1;
     }
 
-    public static void initialise(Player player1, Player player2){
-        if (instance == null){
-            instance = new Game(player1,player2);
+    public static void initialise(Player player1, Player player2) {
+        if (instance == null) {
+            instance = new Game(player1, player2);
         }
     }
-    public static Game getInstance(){
+
+    public static Game getInstance() {
         return instance;
     }
 
-    public void startGame(){
+    public void startGame() {
 
     }
 
-    public void refresh(){
+    public void refresh() {
 
     }
 
-    public void changeTurn(){
+    public void changeTurn() {
         currentTurn = currentTurn == player1 ? player2 : player1;
     }
 
@@ -43,7 +44,7 @@ public class Game {
         return player2;
     }
 
-    public Player getCurrentTurn(){
+    public Player getCurrentTurn() {
         return currentTurn;
     }
 
@@ -51,6 +52,7 @@ public class Game {
     public boolean isPlacingTower() {
         return this.buildingHover != null;
     }
+
     //get the building that the user clicked and hovering now
     public Building getBuildingHover() {
         return buildingHover;
@@ -63,7 +65,7 @@ public class Game {
         this.buildingHover = buildingHover;
     }
 
-    public boolean isGameEnded(){
+    public boolean isGameEnded() {
         return player1.getCastle().isDestroyed() || player2.getCastle().isDestroyed();
     }
 }

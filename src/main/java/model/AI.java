@@ -1,9 +1,10 @@
 package model;
 
-public class AI extends Player{
+public class AI extends Player {
     String Strategy;
+
     public AI(String NameForAI) {
-        super (NameForAI);
+        super(NameForAI);
     }
 
     public String getStrategy() {

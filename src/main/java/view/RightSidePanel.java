@@ -10,10 +10,11 @@ import static utils.GameSettings.rightPanelWidth;
 
 public class RightSidePanel extends JPanel {
     Game game;
+
     public RightSidePanel() {
         game = Game.getInstance();
-        setLayout(new GridLayout(3,1));
-        setPreferredSize(new Dimension(rightPanelWidth, mapHeightInCells+30 ));
+        setLayout(new GridLayout(3, 1));
+        setPreferredSize(new Dimension(rightPanelWidth, mapHeightInCells + 30));
         JLabel playerName = new JLabel("Whoever turn's name: " + game.getCurrentTurn().getName());
         add(playerName);
         add(new StatusPanel());
