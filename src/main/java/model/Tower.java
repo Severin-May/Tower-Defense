@@ -2,8 +2,7 @@ package model;
 
 import java.awt.*;
 
-import static utils.GameSettings.towerHeight;
-import static utils.GameSettings.towerWidth;
+import static utils.GameSettings.*;
 
 public abstract class Tower extends ActiveBuilding {
     protected int attackRadius;
@@ -51,24 +50,63 @@ public abstract class Tower extends ActiveBuilding {
         Cell[][] map = Map.getInstance().getMap();
         int i = getI();
         int j = getJ();
-        for (int l = attackRadius; l >= 1; l--) {
-            if ((i - l) > 0) {
-                if (map[i - l][j].getTroops().size() > 0)
-                    return map[i - l][j].getTroops().get(0);
-            }
-            if ((i + l) < map.length) {
-                if (map[i + l][j].getTroops().size() > 0)
-                    return map[i + l][j].getTroops().get(0);
-            }
-            if ((j - l) > 0) {
-                if (map[i][j - l].getTroops().size() > 0)
-                    return map[i][j - l].getTroops().get(0);
-            }
-            if ((j + l) < map.length) {
-                if (map[i][j + l].getTroops().size() > 0)
-                    return map[i][j + l].getTroops().get(0);
-            }
-        }
+        boolean inRange = false;
+        int r = attackRadius;
+        int ti = i - r;
+    System.out.println(ti);
+        int s = j;
+        int e = j;
+
+        //for (int l = 0; l <= r * 2; l++) {
+        while(ti <= mapHeightInCells){
+
+
+            if (ti >= 0 ) {
+                if (s < 0) {
+                    s = s + 1;
+                }
+                if (e > mapWidthInCells) {
+                    e = e - 1;
+                }
+
+                for (int k = s; k <= e; k++) {
+                    System.out.println("!!!");System.out.println(s +" : "+ e);
+
+
+                    if (map[ti][k].getTroops().size() > 0) {
+
+                        return map[ti][k].getTroops().get(0);
+                    }
+
+
+                }
+                s = s - 1;
+                e = e + 1;
+
+          //  }
+
+
+
+        }ti++;}
+
+//        for (int l = attackRadius; l >= 1; l--) {
+//            if ((i - l) > 0) {
+//                if (map[i - l][j].getTroops().size() > 0)
+//                    return map[i - l][j].getTroops().get(0);
+//            }
+//            if ((i + l) < map.length) {
+//                if (map[i + l][j].getTroops().size() > 0)
+//                    return map[i + l][j].getTroops().get(0);
+//            }
+//            if ((j - l) > 0) {
+//                if (map[i][j - l].getTroops().size() > 0)
+//                    return map[i][j - l].getTroops().get(0);
+//            }
+//            if ((j + l) < map.length) {
+//                if (map[i][j + l].getTroops().size() > 0)
+//                    return map[i][j + l].getTroops().get(0);
+//            }
+//        }
         return null;
     }
 
@@ -98,6 +136,10 @@ public abstract class Tower extends ActiveBuilding {
     }
 
     public int getReloadTime() {
+        return reloadTime;
+    }
+
+    public int isbuildTower() {
         return reloadTime;
     }
 

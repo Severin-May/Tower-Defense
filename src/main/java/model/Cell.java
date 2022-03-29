@@ -48,8 +48,65 @@ public class Cell extends Sprite {
         }
     }
 
+    /**
+     * Building is allowed only on 2 cells
+     * further cells from enemy building
+     * and can be built maximum 1 cell
+     * away from the nearest own building
+     * @return does the above condition match
+     */
+
+    private boolean myCondition (){
+        Cell[][] map = Map.getInstance().getMap();
+
+            int i = getI();
+            int j = getJ();
+            Player p = game.getCurrentTurn();
+            for (int l = 2; l>=1; l--) {
+                if ((i - l) > 0) {
+                if (map[i - l][j].hasBuilding() && map[i - l][j].building.owner == p)
+                    return false;
+            }
+            if ((i + l) < map.length) {
+                if (map[i + l][j].hasBuilding() && map[i + l][j].building.owner == p)
+                    return false;
+            }
+            if ((j - l) > 0) {
+                if (map[i][j - l].hasBuilding() && map[i][j - l].building.owner == p)
+                    return false;
+            }
+            if ((j + l) < map.length) {
+                if (map[i][j + l].hasBuilding() && map[i][j + l].building.owner == p)
+                    return false;
+            }
+        }
+
+        for (int l = 2; l>=1; l--){
+            if ((i - l) > 0) {
+                if (map[i - l][j].hasBuilding() && map[i - l][j].building.owner != p)
+                    return false;
+            }
+            if ((i + l) < map.length) {
+                if (map[i + l][j].hasBuilding() && map[i + l][j].building.owner != p)
+                    return false;
+            }
+            if ((j - l) > 0) {
+                if (map[i][j-l].hasBuilding() && map[i][j-l].building.owner != p )
+                    return false;
+            }
+            if ((j + l) < map.length) {
+                if (map[i][j+l].hasBuilding() && map[i][j+l].building.owner != p)
+                    return false;
+            }
+        }
+        return true;
+    }
     private void tryToPutBuilding() {
         if (hasBuilding()) {
+            System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
+            return;
+        }
+        if (myCondition()){
             System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
             return;
         }
