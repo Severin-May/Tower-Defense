@@ -8,7 +8,7 @@ import static utils.GameSettings.*;
 
 public class Map {
     private static Map instance = null;
-    private Cell[][] map;
+    private final Cell[][] map;
 
     private Map() {
         map = new Cell[mapHeightInCells][mapWidthInCells];
@@ -53,7 +53,7 @@ public class Map {
     }
 
     private int getRandomImageID() {
-        return (int) ((Math.random() * (8 - 1)) + 1);
+        return (int) (Math.random() * 8);
     }
 
     /**

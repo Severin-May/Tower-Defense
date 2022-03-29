@@ -1,5 +1,7 @@
 package utils;
 
+import model.Game;
+
 public class GameSettings {
     // Initial Towers' stats:
     //long ranged:
@@ -43,7 +45,7 @@ public class GameSettings {
     public final static int cellHeight = 40;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2 * padding;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
-    public final static int rightPanelWidth = 350;
+    public final static int rightPanelWidth = 400;
     //Game Settings
     public final static int fps = 10; //how many times to repaint the map in one second. Animation quality depends on this
 
@@ -161,6 +163,29 @@ public class GameSettings {
     public final static String redSplashL1Right = "src/main/resources/images/Red/Buildings/Splash/L1/Right.png";
     public final static String redSplashL2Right = "src/main/resources/images/Red/Buildings/Splash/L2/Right.png";
     public final static String redSplashL2Left = "src/main/resources/images/Red/Buildings/Splash/L2/Left.png";
+
+    public static String getShortRangeL1Left() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Left;
+    }
+
+    public static String getLongRangeL1Left() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redLongRangeL1Left : blueLongRangeL1Left;
+    }
+
+    public static String getSplashL1Left() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSplashL1Left : blueSplashL1Left;
+    }
+
+    public static String getMagLeftStop() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redMagLeftStop : blueMagLeftStop;
+    }
+
+    public static String getSwordLeftStop() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSwordLeftStop : blueSwordLeftStop;
+
+    }
+
+
     //Troop
     //Mag
     //Back

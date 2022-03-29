@@ -20,9 +20,7 @@ public abstract class Sprite {
     }
 
     public Sprite(int width, int height, Image image) {
-        this.width = width;
-        this.height = height;
-        this.image = image;
+        this(0, 0, width, height, image);
     }
 
     public int getX() {

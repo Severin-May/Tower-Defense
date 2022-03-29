@@ -35,6 +35,10 @@ public class Troop extends Sprite {
         this.owner = owner;
     }
 
+    public Troop(TroopType type, Player owner) {
+        this(0, 0, type, owner);
+    }
+
     public void moveTo(int x, int y) {
         //from this.x and this.y to x and y
     }

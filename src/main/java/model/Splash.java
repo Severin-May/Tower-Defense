@@ -15,6 +15,7 @@ public class Splash extends Tower {
         this.cost = GameSettings.splashCost;
         this.shotCount = GameSettings.splashShotCount;
     }
+
     public Splash(Player owner) {
         super(new ImageIcon(owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right).getImage(), owner);
         this.attackRadius = GameSettings.splashTowerRange;
@@ -36,9 +37,9 @@ public class Splash extends Tower {
         this.reloadTime -= 2;
         this.shotCount += 5;
         if (owner.getColor().equals("Red")) {
-            this.image = new ImageIcon(GameSettings.redSplashL2Left).getImage();
+            this.image = new ImageIcon(redSplashL2Left).getImage();
         } else {
-            this.image = new ImageIcon(GameSettings.blueLongRangeL2Left).getImage();
+            this.image = new ImageIcon(blueSplashL2Right).getImage();
         }
         this.width = upgradedTowerWidth;
         this.height = upgradedTowerHeight;

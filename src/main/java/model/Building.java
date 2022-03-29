@@ -23,8 +23,4 @@ public abstract class Building extends Sprite {
         return owner;
     }
 
-    public void upgrade() {
-    }
-
-
 }
