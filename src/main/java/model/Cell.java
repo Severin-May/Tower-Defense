@@ -32,22 +32,6 @@ public class Cell extends Sprite {
     public void click() {
         //If buy tower is clicked and tower is being placed
         if (game.isPlacingTower()) {
-            if (hasBuilding()) {
-                System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
-                return;
-            }
-            Building toBuild = game.getBuildingHover();
-            Tower towerToBuild;
-            GoldMine goldMineToBuild;
-            if (toBuild instanceof Tower) {
-                towerToBuild = (Tower) toBuild; // Have to convert to get and check the cost
-                if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
-                    setBuilding(towerToBuild);
-                }
-            } else if (toBuild instanceof GoldMine) {
-                goldMineToBuild = (GoldMine) toBuild;
-            }
-            game.setBuildingHover(null); // turn off hover after clicking
             tryToPutBuilding();
         }
 //        // TODO: upgradeCost and level attributes should be added to Tower
@@ -60,15 +44,32 @@ public class Cell extends Sprite {
     public void rightClick() {
         // TODO: upgradeCost and level attributes should be added to Tower
         if (this.hasBuilding() && this.building instanceof Tower) {
-            this.building.upgrade();
+            ((Tower) this.building).upgrade();
         }
     }
 
     private void tryToPutBuilding() {
-
+        if (hasBuilding()) {
+            System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
+            return;
+        }
+        Building toBuild = game.getBuildingHover();
+        Tower towerToBuild;
+        GoldMine goldMineToBuild;
+        if (toBuild instanceof Tower) {
+            towerToBuild = (Tower) toBuild; // Have to convert to get and check the cost
+            if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
+                setBuilding(towerToBuild);
+            }
+        } else if (toBuild instanceof GoldMine) {
+            goldMineToBuild = (GoldMine) toBuild;
+        }
+        game.setBuildingHover(null); // turn off hover after clicking
     }
 
     public void setBuilding(Building building) {
+        building.setX(x);
+        building.setY(y);
         this.building = building;
     }
 

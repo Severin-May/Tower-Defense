@@ -6,30 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StatusPanel extends JPanel {
-    Game game;
-
-    public StatusPanel() {
-        game = Game.getInstance();
-        setLayout(new GridLayout(5, 1, 0, 0));
-
-        JLabel gold = new JLabel("GOLD: " + game.getCurrentTurn().getGold());
-        gold.setSize(new Dimension(1, 1));
+    public StatusPanel(JLabel gold, JLabel magsTrained, JLabel swordTrained, JLabel goldMines, JLabel towers, JLabel castleHp) {
+        setLayout(new GridLayout(6, 1, 0, 0));
         add(gold);
-
-        JLabel troops = new JLabel("TROOPS: " + "0");
-        troops.setSize(new Dimension(1, 1));
-        add(troops);
-
-        JLabel goldMines = new JLabel("Gold Mines: " + "0");
-        troops.setSize(new Dimension(1, 1));
+        add(swordTrained);
+        add(magsTrained);
         add(goldMines);
-
-        JLabel towers = new JLabel("Towers: " + "0");
-        troops.setSize(new Dimension(1, 1));
         add(towers);
-
-        JLabel castleHp = new JLabel("YourCastleHP: " + game.getCurrentTurn().getCastle().getHealthPoints());
-        troops.setSize(new Dimension(1, 1));
         add(castleHp);
     }
 }

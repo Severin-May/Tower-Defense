@@ -32,9 +32,9 @@ public class ShortRange extends Tower {
         this.reloadTime -= 2;
         this.shotCount += 5;
         if (owner.getColor().equals("Red")) {
-            this.image = new ImageIcon(GameSettings.redShortRangeL2Left).getImage();
+            this.image = new ImageIcon(redShortRangeL2Left).getImage();
         } else {
-            this.image = new ImageIcon(GameSettings.blueShortRangeL2Right).getImage();
+            this.image = new ImageIcon(blueShortRangeL2Right).getImage();
         }
         this.width = upgradedTowerWidth;
         this.height = upgradedTowerHeight;

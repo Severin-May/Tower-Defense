@@ -7,6 +7,7 @@ public class Game {
     private Player currentTurn;
     private static Game instance = null;
     private Building buildingHover;
+    private boolean isPreparationTime = true;
 
     private Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -67,5 +68,13 @@ public class Game {
 
     public boolean isGameEnded() {
         return player1.getCastle().isDestroyed() || player2.getCastle().isDestroyed();
+    }
+
+    public boolean isPreparationTime() {
+        return isPreparationTime;
+    }
+
+    public void setPreparationTime(boolean preparationTime) {
+        isPreparationTime = preparationTime;
     }
 }

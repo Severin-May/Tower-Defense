@@ -5,7 +5,7 @@ import java.awt.*;
 import static utils.GameSettings.towerHeight;
 import static utils.GameSettings.towerWidth;
 
-public class Tower extends ActiveBuilding {
+public abstract class Tower extends ActiveBuilding {
     protected int attackRadius;
     protected int cost;
     protected int attackDamage;
@@ -100,4 +100,6 @@ public class Tower extends ActiveBuilding {
     public int getReloadTime() {
         return reloadTime;
     }
+
+    public abstract void upgrade();
 }
