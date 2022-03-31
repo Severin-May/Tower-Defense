@@ -50,45 +50,59 @@ public abstract class Tower extends ActiveBuilding {
         Cell[][] map = Map.getInstance().getMap();
         int i = getI();
         int j = getJ();
-        boolean inRange = false;
+        boolean einRange = false;
+        boolean sinRange = false;
         int r = attackRadius;
         int ti = i - r;
-    System.out.println(ti);
         int s = j;
         int e = j;
 
-        //for (int l = 0; l <= r * 2; l++) {
-        while(ti <= mapHeightInCells){
-
-
-            if (ti >= 0 ) {
+        while (ti <= mapHeightInCells && ti <= i + r) {
+            if (ti >= 0) {
                 if (s < 0) {
-                    s = s + 1;
+                    sinRange = true;
                 }
                 if (e > mapWidthInCells) {
+                    // e =e-1;
+                    einRange = true;
+                }
+                if (einRange) {
+                    for (int k = s; k <= (mapWidthInCells - 1) && ti >= 0; k++) {
+                        if (map[ti][k].getTroops().size() > 0) {
+                            return map[ti][k].getTroops().get(0);
+                        }
+                    }
+                } else if (sinRange) {
+                    for (int k = 0; k <= e && ti >= 0; k++) {
+
+                        if (map[ti][k].getTroops().size() > 0) {
+
+                            return map[ti][k].getTroops().get(0);
+                        }
+                    }
+                } else {
+                    for (int k = s; k <= e && ti >= 0; k++) {
+
+                        if (map[ti][k].getTroops().size() > 0) {
+
+                            return map[ti][k].getTroops().get(0);
+                        }
+                    }
+                }
+                if (ti < i) {
+                    s = s - 1;
+                    e = e + 1;
+                } else if (ti >= i) {
+                    s = s + 1;
                     e = e - 1;
                 }
-
-                for (int k = s; k <= e; k++) {
-                    System.out.println("!!!");System.out.println(s +" : "+ e);
-
-
-                    if (map[ti][k].getTroops().size() > 0) {
-
-                        return map[ti][k].getTroops().get(0);
-                    }
-
-
-                }
+            }
+            if (ti < 0) {
                 s = s - 1;
                 e = e + 1;
-
-          //  }
-
-
-
-        }ti++;}
-
+            }
+            ti++;
+        }
 //        for (int l = attackRadius; l >= 1; l--) {
 //            if ((i - l) > 0) {
 //                if (map[i - l][j].getTroops().size() > 0)

@@ -5,7 +5,7 @@ import model.Game;
 public class GameSettings {
     // Initial Towers' stats:
     //long ranged:
-    public final static int longRangeTowerRange = 10;
+    public final static int longRangeTowerRange = 3;
     public final static int longRangeAttackDamage = 10;
     public final static int longRangeCost = 10;
     public final static int longRangeShotCount = 10;
