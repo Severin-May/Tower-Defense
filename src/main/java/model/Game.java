@@ -1,6 +1,14 @@
 package model;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+
+import static utils.GameSettings.mapHeightInCells;
+import static utils.GameSettings.mapWidthInCells;
+
 public class Game {
     private final Player player1;
     private final Player player2;
@@ -103,5 +111,89 @@ public class Game {
 
     public void setPreparationTime(boolean preparationTime) {
         isPreparationTime = preparationTime;
+    }
+
+    /**
+     *
+     * @param x coordinate on grid
+     * @param y coordinate on grid
+     * @param grid matrix/grid
+     * @param visited matrix which stores if the Cell is visited or not
+     * @return if the Cell is within the borders of the board and is free (i.e. does not have any buildings)
+     * and is not yet visited it returns true, otherwise false
+     */
+    private static boolean isValid(int x, int y, Cell[][] grid , boolean[][] visited)
+    {
+        return (x >= 0 && y >= 0 && x < mapHeightInCells
+                && y < mapWidthInCells && !grid[x][y].hasBuilding() && !visited[x][y]) ;
+    }
+
+    /**
+     *
+     * @param startNode starting Cell (i.e. the Castle or the current position of the Troop who starts the movement)
+     * @param endNode end Cell (i.e. enemy's Castle or TreasureChest)
+     * @param grid matrix/grid
+     * @return returns the shortest path between the given two points on the grid
+     */
+    public static ArrayList<Cell> bfs(Cell startNode, Cell endNode, Cell[][] grid) {
+
+        if(grid.length == 0) { System.out.println("Grid is empty"); return null; }
+
+        HashMap<Cell, Cell> parentNodes = new HashMap<>();
+        Queue<Cell> queue = new LinkedList<>();
+        ArrayList<Cell> shortestPath = new ArrayList<>();
+
+        // TODO: distance should be set to inf at the beginning, not sure tho
+        // TODO: distance of the starting point should be set to 0, where the bfs is called
+
+        queue.add(startNode); //startNode's distance is 0
+
+        boolean [][] visited = new boolean[mapHeightInCells][mapWidthInCells];
+        visited[startNode.getI()][startNode.getJ()] = true;
+        parentNodes.put(startNode, null);
+        Cell rem;
+
+        while(!queue.isEmpty()) {
+
+            rem = queue.remove();
+
+            if(rem.getI() == endNode.getI() && rem.getJ() == endNode.getJ()) {
+                Cell curr = rem;
+                ArrayList<Cell> currentPath = new ArrayList<>();
+                while (curr != null) {
+                    currentPath.add(0, curr);
+                    curr = parentNodes.get(curr);
+                }
+                if(currentPath.size() < shortestPath.size() || shortestPath.size() == 0) {
+                    shortestPath = currentPath;
+                }
+            }
+
+            if(isValid(rem.getI()-1, rem.getJ(), grid, visited)) {
+                Cell neighbor = new Cell(rem.getI()-1, rem.getJ(), rem.getDist()+1);
+                parentNodes.put(neighbor, rem);
+                queue.add(neighbor);
+                visited[rem.getI()-1][rem.getJ()] = true;
+            }
+            if(isValid(rem.getI()+1, rem.getJ(), grid, visited)) {
+                Cell neighbor = new Cell(rem.getI()+1, rem.getJ(), rem.getDist()+1);
+                parentNodes.put(neighbor, rem);
+                queue.add(neighbor);
+                visited[rem.getI()+1][rem.getJ()] = true;
+            }
+            if(isValid(rem.getI(), rem.getJ()-1, grid, visited)) {
+                Cell neighbor = new Cell(rem.getI(), rem.getJ()-1, rem.getDist()+1);
+                parentNodes.put(neighbor, rem);
+                queue.add(neighbor);
+                visited[rem.getI()][rem.getJ()-1] = true;
+            }
+            if(isValid(rem.getI(), rem.getJ()+1, grid, visited)) {
+                Cell neighbor = new Cell(rem.getI(), rem.getJ()+1, rem.getDist()+1);
+                parentNodes.put(neighbor, rem);
+                queue.add(neighbor);
+                visited[rem.getI()][rem.getJ()+1] = true;
+            }
+        }
+        return shortestPath;
     }
 }

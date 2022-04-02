@@ -11,11 +11,19 @@ public class Cell extends Sprite {
     private Building building;
     private final List<Troop> troops;
     private final Game game;
+    private int d;
 
     public Cell(int i, int j, Image grassImage) {
         super(i, j, cellWidth, cellHeight, grassImage);
         game = Game.getInstance();
         troops = new ArrayList<>();
+    }
+
+    public Cell(int i, int j, int d) {
+        super(i, j, cellWidth, cellHeight, null);
+        game = Game.getInstance();
+        troops = new ArrayList<>();
+        this.d = d;
     }
 
     public void drawCell(Graphics g) {
@@ -62,11 +70,8 @@ public class Cell extends Sprite {
      * further cells from enemy building
      * and can be built maximum 1 cell
      * away from the nearest own building
-     *
-     * @return does the above condition match
+     * does the above condition match
      */
-
-
 
     private void tryToPutBuilding() {
         if (hasBuilding()) {
@@ -100,6 +105,14 @@ public class Cell extends Sprite {
 
     public List<Troop> getTroops() {
         return troops;
+    }
+
+    public int getDist() {
+        return d;
+    }
+
+    public void setDist(int d) {
+        this.d = d;
     }
 
     public Building getBuilding() {
