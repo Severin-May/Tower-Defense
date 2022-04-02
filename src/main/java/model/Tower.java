@@ -63,7 +63,6 @@ public abstract class Tower extends ActiveBuilding {
                     sinRange = true;
                 }
                 if (e > mapWidthInCells) {
-                    // e =e-1;
                     einRange = true;
                 }
                 if (einRange) {
