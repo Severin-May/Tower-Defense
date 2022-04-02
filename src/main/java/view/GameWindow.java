@@ -16,7 +16,7 @@ public class GameWindow extends JFrame {
         setTitle("Game Window title");
         setSize(mapWidthInPixels + rightPanelWidth, mapHeightInPixels + 30); // I do not know why +30 is needed : Jeenbek
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/resources/images/Red/Buildings/Splash/L1/Left.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/Blue/Buildings/Splash/L1/Right.png");
         setIconImage(icon);
 
         setResizable(false);

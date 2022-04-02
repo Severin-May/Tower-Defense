@@ -152,9 +152,17 @@ public abstract class Tower extends ActiveBuilding {
         return reloadTime;
     }
 
-    public int isbuildTower() {
+    /**
+     * I don't know what it does
+     * TODO: Jeenbek write the doc please
+     * @return
+     */
+    public int isbuiltTower() {
         return reloadTime;
     }
 
+    /**
+     * upgrades the building
+     */
     public abstract void upgrade();
 }

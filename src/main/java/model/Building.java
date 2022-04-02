@@ -15,6 +15,12 @@ public abstract class Building extends Sprite {
         this.owner = owner;
     }
 
+    /**
+     *
+     * @param i position of building to be built on the grid
+     * @param j position of building to be built on the grid
+     * @return if the building can be built on this given position, if yes it builts, otherwise it returns false
+     */
     public boolean buildAt(int i, int j) {
         return false;
     }

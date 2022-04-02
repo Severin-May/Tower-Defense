@@ -20,6 +20,10 @@ public class Map {
         }
     }
 
+    /**
+     * draws the grass and sprite images on grid
+     * @param g used for drawing
+     */
     public void drawMap(Graphics g) {
         for (int i = 0; i < mapHeightInCells; i++) {
             for (int j = 0; j < mapWidthInCells; j++) {
@@ -34,10 +38,17 @@ public class Map {
         }
     }
 
+    /**
+     * generates treasure chests on a game board
+     */
     public void generateTreasure() {
 
     }
 
+    /**
+     * since Map class is a singleton class, this method is responsible for initializing
+     * an instance of Map class if it was not initialized yet
+     */
     static public void initialise() {
         if (instance == null) {
             instance = new Map();

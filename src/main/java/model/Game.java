@@ -15,16 +15,29 @@ public class Game {
         this.currentTurn = player1;
     }
 
+    /**
+     * initialises game by calling game constructor with two players
+     * @param player1 player1
+     * @param player2 player2, in case of 1-player mode, player2 is AI
+     */
     public static void initialise(Player player1, Player player2) {
         if (instance == null) {
             instance = new Game(player1, player2);
         }
     }
 
+    /**
+     * gets the instance of the Game class which is singleton
+     * @return the instance of the Game class
+     */
     public static Game getInstance() {
         return instance;
     }
 
+    /**
+     * this function is responsible for the start of the game
+     * when the preparation stage is completed, the actual game starts
+     */
     public void startGame() {
 
     }
@@ -33,6 +46,9 @@ public class Game {
 
     }
 
+    /**
+     * changes the turns of the players
+     */
     public void changeTurn() {
         currentTurn = currentTurn == player1 ? player2 : player1;
     }
@@ -49,12 +65,16 @@ public class Game {
         return currentTurn;
     }
 
-    //to check if tower is clicked and being hovered on the screen
+    /**
+     *  checks if a tower is clicked and is being hovered on the screen
+     */
     public boolean isPlacingTower() {
         return this.buildingHover != null;
     }
 
-    //get the building that the user clicked and hovering now
+    /**
+     *  gets the building that the user clicked and is hovering now
+     */
     public Building getBuildingHover() {
         return buildingHover;
     }
@@ -66,13 +86,20 @@ public class Game {
         this.buildingHover = buildingHover;
     }
 
+    /**
+     * @return if one of the player's castle is destroyed or not
+     */
     public boolean isGameEnded() {
         return player1.getCastle().isDestroyed() || player2.getCastle().isDestroyed();
     }
 
+    /**
+     * @return if the game is in preparation stage or not
+     */
     public boolean isPreparationTime() {
         return isPreparationTime;
     }
+
 
     public void setPreparationTime(boolean preparationTime) {
         isPreparationTime = preparationTime;

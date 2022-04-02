@@ -40,8 +40,8 @@ public abstract class Sprite {
     }
 
     /**
-     * It returns where this current Sprite would be in the matrix. NOTE: This does not promise that it is actually there in the matrix
-     *
+     * It returns where this current Sprite would be in the matrix.
+     * NOTE: This does not promise that it is actually there in the matrix
      * @return returns I coordinate (outer array location)
      */
     public int getI() {

@@ -14,6 +14,10 @@ public class GoldMine extends PassiveBuilding {
         super(goldMineWidth, goldMineHeight, new ImageIcon(goldMine).getImage(), owner);
     }
 
+    /**
+     * increases the money of the owner by the given amount of input
+     * @param amount money recceived from TreasureChest or GoldMine
+     */
     public void increaseMoney(int amount) {
         getOwner().increaseGold(amount);
     }
