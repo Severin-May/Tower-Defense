@@ -6,20 +6,24 @@ import model.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import static utils.GameSettings.blueSplashL1Left;
 import static utils.GameSettings.blueSplashL1Right;
 
-public class MainWindow {
+public class  MainWindow implements KeyListener {
 
     private final JFrame frame;
 
     private final JPanel mainPanel;
     private final JPanel playerPanel;
+    private JPanel playerSetup;
 
     private JTextField player1name, player2name;
 
     private boolean singleplayer = false;
+
+    private int currentScreen = 0;
 
     public MainWindow() {
         frame = new JFrame("Tower Defense - Bumblebytes");
@@ -51,8 +55,11 @@ public class MainWindow {
             playerPanel.add(btn);
         }
 
+        frame.setFocusable(true);
+        frame.addKeyListener(this);
         frame.add(mainPanel);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
     private final ActionListener action = e -> {
@@ -80,7 +87,9 @@ public class MainWindow {
     };
 
     public void start() {
+        currentScreen=1;
         mainPanel.setVisible(false);
+        playerPanel.setVisible(true);
         frame.add(playerPanel);
     }
 
@@ -89,7 +98,7 @@ public class MainWindow {
     }
 
     public void playerMode(int n) {
-        JPanel playerSetup = new JPanel();
+        playerSetup = new JPanel();
         playerSetup.setLayout(new GridLayout(2, 1));
         JPanel names = new JPanel();
         names.setLayout(new BorderLayout());
@@ -108,9 +117,11 @@ public class MainWindow {
             names.add(player2name, BorderLayout.EAST);
         }
 
+        currentScreen=2;
         submit.addActionListener(action);
         playerSetup.add(names);
         playerSetup.add(submit);
+        playerSetup.setVisible(true);
         frame.add(playerSetup);
     }
 
@@ -121,5 +132,42 @@ public class MainWindow {
             new GameWindow(new Player(player1name.getText()), new Player(player2name.getText()));
         }
         frame.setVisible(false);
+    }
+
+    /**
+     * allows switching between menu screens
+     * @param screen the screen to be displayed
+     */
+    public void display(int screen) {
+        switch (screen) {
+            case 0:
+                mainPanel.setVisible(true);
+                playerPanel.setVisible(false);
+                break;
+            case 1:
+                playerPanel.setVisible(true);
+                playerSetup.setVisible(false);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + screen);
+        }
+    }
+
+    @Override
+    public void keyPressed (KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            System.out.println("ESC");
+            if (currentScreen > 0){
+                currentScreen--;
+            }
+            display(currentScreen);
+        }
+    }
+    @Override
+    public void keyReleased (KeyEvent ke) {
+    }
+    @Override
+    public void keyTyped (KeyEvent ke) {
     }
 }
