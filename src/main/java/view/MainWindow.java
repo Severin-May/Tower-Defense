@@ -8,58 +8,42 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.concurrent.Flow;
 
 import static utils.GameSettings.blueSplashL1Right;
 
-public class  MainWindow implements KeyListener {
+public class  MainWindow extends JFrame implements KeyListener {
 
-    private final JFrame frame;
 
-    private final JPanel mainPanel;
-    private final JPanel playerPanel;
-    private JPanel playerSetup;
+    private final MainPanel mainPanel;
+    private final PlayerPanel playerPanel;
+    private SetupPanel playerSetup;
 
-    private JTextField player1name, player2name;
 
     private boolean singleplayer = false;
 
     private int currentScreen = 0;
 
     public MainWindow() {
-        frame = new JFrame("Tower Defense - Bumblebytes");
+        setTitle("Tower Defense - Bumblebytes");
 
         Image icon = Toolkit.getDefaultToolkit().getImage(blueSplashL1Right);
-        frame.setIconImage(icon);
+        setIconImage(icon);
 
-        frame.setSize(800, 800);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(3, 1, 0, frame.getHeight() / 6));
+        mainPanel = new MainPanel(action);
 
-        String[] mainMenuButtons = {"START", "RULES", "EXIT"};
-        for (String button : mainMenuButtons) {
-            JButton btn = new JButton(button);
-            // TODO: change the sizes of the buttons later
-            btn.addActionListener(action);
-            mainPanel.add(btn);
-        }
+        playerPanel = new PlayerPanel(action);
 
-        playerPanel = new JPanel();
-        playerPanel.setLayout(new GridLayout(2, 1, 0, frame.getHeight() / 3));
+        add(panelToDisplay(mainPanel));
 
-        String[] playerButtons = {"1-PLAYER", "2-PLAYER"};
-        for (String button : playerButtons) {
-            JButton btn = new JButton(button);
-            btn.addActionListener(action);
-            playerPanel.add(btn);
-        }
-
-        frame.setFocusable(true);
-        frame.addKeyListener(this);
-        frame.add(mainPanel);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+        setResizable(false);
+        setFocusable(true);
+        addKeyListener(this);
+        setVisible(true);
+        setLocationRelativeTo(null);
     }
 
     private final ActionListener action = e -> {
@@ -88,50 +72,49 @@ public class  MainWindow implements KeyListener {
 
     public void start() {
         currentScreen=1;
-        mainPanel.setVisible(false);
-        playerPanel.setVisible(true);
-        frame.add(playerPanel);
+        add(changePanel(playerPanel, mainPanel));
     }
 
     public void showRules() {
-        JOptionPane.showMessageDialog(frame, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
+        JOptionPane.showMessageDialog(this, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
     }
 
     public void playerMode(int n) {
-        playerSetup = new JPanel();
-        playerSetup.setLayout(new GridLayout(2, 1));
-        JPanel names = new JPanel();
-        names.setLayout(new BorderLayout());
-
-        player1name = new JTextField(20);
-        player2name = new JTextField(20);
-
-        JButton submit = new JButton("SUBMIT");
-
         playerPanel.setVisible(false);
         if (n == 1) {
-            names.add(player1name, BorderLayout.CENTER);
+            playerSetup = new SinglePlayerSetup(action);
             singleplayer = true;
         } else if (n == 2) {
-            names.add(player1name, BorderLayout.WEST);
-            names.add(player2name, BorderLayout.EAST);
+            playerSetup = new DoublePlayerSetup(action);
         }
-
         currentScreen=2;
-        submit.addActionListener(action);
-        playerSetup.add(names);
-        playerSetup.add(submit);
         playerSetup.setVisible(true);
-        frame.add(playerSetup);
+        add(panelToDisplay(playerSetup));
     }
 
     public void launchGame() {
         if (singleplayer) {
-            new GameWindow(new Player(player1name.getText()), new AI("The_Destroyer"));
+            new GameWindow(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
         } else {
-            new GameWindow(new Player(player1name.getText()), new Player(player2name.getText()));
+            new GameWindow(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
         }
-        frame.setVisible(false);
+        dispose();
+    }
+
+    private Box panelToDisplay(JPanel newPanel){
+
+        Box box = new Box(BoxLayout.Y_AXIS);
+        box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        box.add(Box.createVerticalGlue());
+        box.add(newPanel);
+        box.add(Box.createVerticalGlue());
+        return box;
+    }
+
+    private Box changePanel(JPanel newPanel, JPanel oldPanel){
+        newPanel.setVisible(true);
+        oldPanel.setVisible(false);
+        return panelToDisplay(newPanel);
     }
 
     /**
@@ -157,7 +140,6 @@ public class  MainWindow implements KeyListener {
     public void keyPressed (KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
         {
-            System.out.println("ESC");
             if (currentScreen > 0){
                 currentScreen--;
             }
