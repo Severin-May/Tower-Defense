@@ -57,22 +57,22 @@ public abstract class Tower extends ActiveBuilding {
         int s = j;
         int e = j;
 
-        while (ti <= mapHeightInCells && ti <= i + r) {
+        while (ti < mapHeightInCells && ti <= i + r) {
             if (ti >= 0) {
                 if (s < 0) {
                     sinRange = true;
                 }
-                if (e > mapWidthInCells) {
+                if (e >= mapWidthInCells) {
                     einRange = true;
                 }
                 if (einRange) {
-                    for (int k = s; k <= (mapWidthInCells - 1) && ti >= 0; k++) {
+                    for (int k = s; k <= (mapWidthInCells - 1); k++) {
                         if (map[ti][k].getTroops().size() > 0) {
                             return map[ti][k].getTroops().get(0);
                         }
                     }
                 } else if (sinRange) {
-                    for (int k = 0; k <= e && ti >= 0; k++) {
+                    for (int k = 0; k <= e; k++) {
 
                         if (map[ti][k].getTroops().size() > 0) {
 
@@ -80,7 +80,7 @@ public abstract class Tower extends ActiveBuilding {
                         }
                     }
                 } else {
-                    for (int k = s; k <= e && ti >= 0; k++) {
+                    for (int k = s; k <= e; k++) {
 
                         if (map[ti][k].getTroops().size() > 0) {
 
@@ -91,7 +91,7 @@ public abstract class Tower extends ActiveBuilding {
                 if (ti < i) {
                     s = s - 1;
                     e = e + 1;
-                } else if (ti >= i) {
+                } else  {
                     s = s + 1;
                     e = e - 1;
                 }

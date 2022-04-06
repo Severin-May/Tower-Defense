@@ -7,7 +7,7 @@ import java.util.List;
 import static utils.GameSettings.*;
 import static utils.GameSettings.mapWidthInCells;
 
-public class Cell extends Sprite {
+public class  Cell extends Sprite {
     private Building building;
     private final List<Troop> troops;
     private final Game game;
@@ -55,27 +55,148 @@ public class Cell extends Sprite {
             ((Tower) this.building).upgrade();
         }
     }
-    // int i = getI();
-    //            int j = getJ();
-    //            Player p = game.getCurrentTurn();
-
-
-//   if ((j - l) > 0) {
-//                if (map[i][j-l].hasBuilding() && map[i][j-l].building.owner != p )
-//                    return false;
-//            }
 
     /**
-     * Building is allowed only on 2 cells
-     * further cells from enemy building
-     * and can be built maximum 1 cell
+     * Building can be built maximum 1 cell
      * away from the nearest own building
-     * does the above condition match
+     *
+     *@return true if everything is ok/ false if it's far from own buildings
      */
+    public boolean isCloseToOwnBuilding() {
+        Cell[][] map = Map.getInstance().getMap();
+        int i = getI();
+        int j = getJ();
+        Player p = game.getCurrentTurn();
+        boolean einRange = false;
+        boolean sinRange = false;
+        int r = 2;
+        int ti = i - r;
+        int s = j;
+        int e = j;
+
+        while (ti < mapHeightInCells && ti <= i + r) {
+            if (ti >= 0) {
+                if (s < 0) {
+                    sinRange = true;
+                }
+                if (e >= mapWidthInCells) {
+                    einRange = true;
+                }
+                if (einRange) {
+                    for (int k = s; k <= (mapWidthInCells - 1); k++) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p ) {
+                            return true;
+                        }
+                    }
+                } else if (sinRange) {
+                    for (int k = 0; k <= e; k++) {
+
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p ) {
+                            return true;
+                        }
+                    }
+                } else {
+                    for (int k = s; k <= e; k++) {
+
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p ) {
+                            return true;
+                        }
+                    }
+                }
+                if (ti < i) {
+                    s = s - 1;
+                    e = e + 1;
+                } else  {
+                    s = s + 1;
+                    e = e - 1;
+                }
+            }
+            if (ti < 0) {
+                s = s - 1;
+                e = e + 1;
+            }
+            ti++;
+        }
+
+        return false;
+    }
+
+    /** Building is allowed only on 2 cells
+     * further cells from enemy building
+     *
+     * @return true if everything is ok/ false if it's close to enemy buildings
+     */
+    public boolean isInEnemyBuildingRange() {
+        Cell[][] map = Map.getInstance().getMap();
+        int i = getI();
+        int j = getJ();
+        Player p = game.getCurrentTurn();
+        boolean einRange = false;
+        boolean sinRange = false;
+        int r = 2;
+        int ti = i - r;
+        int s = j;
+        int e = j;
+
+        while (ti < mapHeightInCells && ti <= i + r) {
+            if (ti >= 0) {
+                if (s < 0) {
+                    sinRange = true;
+                }
+                if (e >= mapWidthInCells) {
+                    einRange = true;
+                }
+                if (einRange) {
+                    for (int k = s; k <= (mapWidthInCells - 1); k++) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p ) {
+                            return false;
+                        }
+                    }
+                } else if (sinRange) {
+                    for (int k = 0; k <= e; k++) {
+
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p ) {
+                            return false;
+                        }
+                    }
+                } else {
+                    for (int k = s; k <= e; k++) {
+
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p ) {
+                            return false;
+                        }
+                    }
+                }
+                if (ti < i) {
+                    s = s - 1;
+                    e = e + 1;
+                } else  {
+                    s = s + 1;
+                    e = e - 1;
+                }
+            }
+            if (ti < 0) {
+                s = s - 1;
+                e = e + 1;
+            }
+            ti++;
+        }
+
+        return true;
+    }
 
     private void tryToPutBuilding() {
         if (hasBuilding()) {
             System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
+            return;
+        }
+        if (!isInEnemyBuildingRange()) {
+            System.out.println("Close to the enemy building!");
+            return;
+        }
+        if (!isCloseToOwnBuilding()) {
+            System.out.println("Too far from your own buildings!"); // TODO: Implement error dialogue
+
             return;
         }
 

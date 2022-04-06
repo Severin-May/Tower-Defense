@@ -17,8 +17,8 @@ public class TowerTest {
         Tower tower = new ShortRange(pl1);
         Tower tower2 = new LongRange(pl1);
         Tower tower3 = new ShortRange(pl1);
-        map[5][8].setBuilding(tower);
-        map[0][14].setBuilding(tower2);
+        map[5][9].setBuilding(tower);
+        map[1][14].setBuilding(tower2);
         map[5][0].setBuilding(tower3);
 
         Troop enemyTroop = new Troop(TroopType.SimpleTroop, pl2);
