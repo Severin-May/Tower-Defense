@@ -38,4 +38,36 @@ public class TowerTest {
         assertSame(enemyTroop3, foundTroop3);
 
     }
+    @Test
+    public void testTowerUpgrade(){
+        Player player_a = new Player("p1");
+        player_a.setColor("Red");
+        Player player_b = new Player("p2");
+        player_b.setColor("Blue");
+        Game.initialise(player_a, player_b);
+        Map.initialise();
+        Cell[][] map = Map.getInstance().getMap();
+        Tower tower = new ShortRange(player_a);
+        Tower tower2 = new LongRange(player_a);
+        Tower tower3 = new ShortRange(player_a);
+
+        System.out.println(tower.getHealthPoints());
+        tower.upgrade();
+        System.out.println(tower.getHealthPoints());
+
+        //ShortRange
+        assertEquals(1505, tower.getHealthPoints());
+        assertEquals(7, tower.getAttackRadius());
+        assertEquals(8, tower.getReloadTime());
+        // assertEquals(3, tower.getShotCount());
+
+
+        //LongRange
+        tower2.upgrade();
+        assertEquals(1505, tower2.getHealthPoints());
+        assertEquals(8, tower2.getAttackRadius());
+        assertEquals(8, tower2.getReloadTime());
+
+
+    }
 }
