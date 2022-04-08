@@ -56,7 +56,6 @@ public abstract class Tower extends ActiveBuilding {
         int ti = i - r;
         int s = j;
         int e = j;
-
         while (ti < mapHeightInCells && ti <= i + r) {
             if (ti >= 0) {
                 if (s < 0) {
@@ -73,17 +72,13 @@ public abstract class Tower extends ActiveBuilding {
                     }
                 } else if (sinRange) {
                     for (int k = 0; k <= e; k++) {
-
                         if (map[ti][k].getTroops().size() > 0) {
-
                             return map[ti][k].getTroops().get(0);
                         }
                     }
                 } else {
                     for (int k = s; k <= e; k++) {
-
                         if (map[ti][k].getTroops().size() > 0) {
-
                             return map[ti][k].getTroops().get(0);
                         }
                     }
@@ -102,24 +97,6 @@ public abstract class Tower extends ActiveBuilding {
             }
             ti++;
         }
-//        for (int l = attackRadius; l >= 1; l--) {
-//            if ((i - l) > 0) {
-//                if (map[i - l][j].getTroops().size() > 0)
-//                    return map[i - l][j].getTroops().get(0);
-//            }
-//            if ((i + l) < map.length) {
-//                if (map[i + l][j].getTroops().size() > 0)
-//                    return map[i + l][j].getTroops().get(0);
-//            }
-//            if ((j - l) > 0) {
-//                if (map[i][j - l].getTroops().size() > 0)
-//                    return map[i][j - l].getTroops().get(0);
-//            }
-//            if ((j + l) < map.length) {
-//                if (map[i][j + l].getTroops().size() > 0)
-//                    return map[i][j + l].getTroops().get(0);
-//            }
-//        }
         return null;
     }
 
@@ -149,15 +126,6 @@ public abstract class Tower extends ActiveBuilding {
     }
 
     public int getReloadTime() {
-        return reloadTime;
-    }
-
-    /**
-     * I don't know what it does
-     * TODO: Jeenbek write the doc please
-     * @return
-     */
-    public int isbuiltTower() {
         return reloadTime;
     }
 

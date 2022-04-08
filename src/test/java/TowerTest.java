@@ -2,7 +2,6 @@ import model.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static utils.GameSettings.cellWidth;
 
 public class TowerTest {
     @Test
@@ -21,9 +20,9 @@ public class TowerTest {
         map[1][14].setBuilding(tower2);
         map[5][0].setBuilding(tower3);
 
-        Troop enemyTroop = new Troop(TroopType.SimpleTroop, pl2);
-        Troop enemyTroop2 = new Troop(TroopType.SimpleTroop, pl2);
-        Troop enemyTroop3 = new Troop(TroopType.SimpleTroop, pl2);
+        Troop enemyTroop = new Troop(TroopType.SWORD_MAN, pl2);
+        Troop enemyTroop2 = new Troop(TroopType.SWORD_MAN, pl2);
+        Troop enemyTroop3 = new Troop(TroopType.SWORD_MAN, pl2);
 //        Troop notInRangeTroop = new Troop(10,15, TroopType.SimpleTroop,pl2);
         map[6][9].getTroops().add(enemyTroop);
         map[3][14].getTroops().add(enemyTroop2);
@@ -51,9 +50,7 @@ public class TowerTest {
         Tower tower2 = new LongRange(player_a);
         Tower tower3 = new ShortRange(player_a);
 
-        System.out.println(tower.getHealthPoints());
         tower.upgrade();
-        System.out.println(tower.getHealthPoints());
 
         //ShortRange
         assertEquals(1505, tower.getHealthPoints());

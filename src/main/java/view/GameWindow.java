@@ -24,7 +24,7 @@ public class GameWindow extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loadResources(p1, p2);
-        setLayout(new BorderLayout()); //Original
+        setLayout(new BorderLayout());
         add(new MapPanel(), BorderLayout.WEST);
         add(new RightSidePanel(), BorderLayout.EAST);
         setVisible(true);

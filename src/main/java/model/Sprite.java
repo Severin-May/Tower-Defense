@@ -22,7 +22,6 @@ public abstract class Sprite {
     public Sprite(int width, int height, Image image) {
         this(0, 0, width, height, image);
     }
-
     public int getX() {
         return x;
     }

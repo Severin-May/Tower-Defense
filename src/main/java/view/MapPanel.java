@@ -58,7 +58,7 @@ public class MapPanel extends JPanel implements Runnable {
         g.clearRect(0, 0, getWidth(), getHeight());
         map.drawMap(g);
         if (game.isPlacingTower()) {
-            drawHoverBuilding(g, mousePointX, mousePointY, Game.getInstance().getBuildingHover()); //temporarily now it drags only shortRange
+            drawHoverBuilding(g, mousePointX, mousePointY, Game.getInstance().getBuildingHover());
         }
     }
 

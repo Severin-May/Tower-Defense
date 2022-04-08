@@ -8,7 +8,7 @@ import org.junit.Test;
 
 // Example test
 public class TroopTest {
-    Troop troop = new Troop(0,0, TroopType.SimpleTroop, new Player("pl"));
+    Troop troop = new Troop(0,0, TroopType.SWORD_MAN, new Player("pl"));
 
     @Test
     public void troopIsKilledTest(){

@@ -4,7 +4,7 @@ import utils.GameSettings;
 
 import javax.swing.*;
 
-import static model.TroopType.SimpleTroop;
+import static model.TroopType.SWORD_MAN;
 import static utils.GameSettings.*;
 
 public class Troop extends Sprite {
@@ -12,20 +12,19 @@ public class Troop extends Sprite {
     private int cost;
     private int movementSpeed;
     private int attackDamage;
-    private Player owner;
-    //TODO: owner can be final
+    private final Player owner;
 
     public Troop(int i, int j, TroopType type, Player owner) {
-        super(i, j, troopWidth, troopHeight, new ImageIcon(owner.getName().equals("Red") ? (type == SimpleTroop ? redMagLeftStop : redSwordLeftStop) : (type == SimpleTroop ? blueMagRightStop : blueSwordRightStop)).getImage());
+        super(i, j, troopWidth, troopHeight, new ImageIcon(owner.getName().equals("Red") ? (type == SWORD_MAN ? redMagLeftStop : redSwordLeftStop) : (type == SWORD_MAN ? blueMagRightStop : blueSwordRightStop)).getImage());
         switch (type) {
-            case SimpleTroop: {
+            case SWORD_MAN: {
                 this.healthPoints = GameSettings.simpleTroopHP;
                 this.cost = GameSettings.simpleTroopCost;
                 this.movementSpeed = GameSettings.simpleTroopMovementSpeed;
                 this.attackDamage = GameSettings.simpleTroopAttackDamage;
             }
             break;
-            case SlowBigTroop: {
+            case MAG: {
                 this.healthPoints = GameSettings.slowBigTroopHP;
                 this.cost = GameSettings.slowBigTroopCost;
                 this.movementSpeed = GameSettings.slowBigTroopMovementSpeed;
@@ -64,16 +63,6 @@ public class Troop extends Sprite {
      */
     public void decreaseHP(int amount) {
         this.healthPoints -= amount;
-    }
-
-    /**
-     * if troop gets to the range of the enemy's buildings (towers)
-     * then this method returns that Tower
-     * TODO: Jeenbek, do we need this method?
-     * @return
-     */
-    public Tower withinEnemyTowerRange() {
-        return null;
     }
 
     /**

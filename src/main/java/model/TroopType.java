@@ -1,6 +1,6 @@
 package model;
 
 public enum TroopType {
-    SimpleTroop,
-    SlowBigTroop
+    SWORD_MAN,
+    MAG
 }

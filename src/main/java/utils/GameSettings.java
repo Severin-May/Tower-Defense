@@ -26,12 +26,12 @@ public class GameSettings {
     //Initial Troops' stat:
     //simple troop:
     public final static int simpleTroopHP = 10;
-    public final static int simpleTroopMovementSpeed = 10;
+    public final static int simpleTroopMovementSpeed = 2;
     public final static int simpleTroopAttackDamage = 10;
     public final static int simpleTroopCost = 10;
     //slower but lots of hp
     public final static int slowBigTroopHP = 10;
-    public final static int slowBigTroopMovementSpeed = 10;
+    public final static int slowBigTroopMovementSpeed = 2;
     public final static int slowBigTroopAttackDamage = 10;
     public final static int slowBigTroopCost = 10;
     // ... etc. for rest type of troops
