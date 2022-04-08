@@ -11,7 +11,7 @@ public class PlayerPanel extends JPanel {
 
         String[] playerButtons = {"1-PLAYER", "2-PLAYER"};
         for (String button : playerButtons) {
-            CustomButton btn = new CustomButton(275, 100, button, null);
+            CustomButton btn = new CustomButton(275, 100, button, null, 1);
             btn.addActionListener(action);
             add(btn);
         }

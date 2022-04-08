@@ -17,14 +17,14 @@ public class DoublePlayerSetup extends SetupPanel{
         namePanels.add(namePanelOne);
         namePanels.add(namePanelTwo);
 
-        CustomButton submit = new CustomButton(250, 80, "SUBMIT", null);
+        CustomButton submit = new CustomButton(250, 80, "SUBMIT", null, 1);
         submit.addActionListener(action);
 
         setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 30));
         add(namePanels);
         add(submit);
 
-        setPreferredSize(new Dimension(800, 60));
+        setPreferredSize(new Dimension(800, 0));
 
         setPlayerOneName(namePanelOne.getNameField());
         setPlayerTwoName(namePanelTwo.getNameField());

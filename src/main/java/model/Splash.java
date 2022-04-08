@@ -4,6 +4,8 @@ import utils.GameSettings;
 
 import javax.swing.*;
 
+import java.util.ArrayList;
+
 import static utils.GameSettings.*;
 
 public class Splash extends Tower {
@@ -27,7 +29,18 @@ public class Splash extends Tower {
 
     @Override
     public void launchAttackIfPossible() {
-        //override for splash
+        long currentTime = System.currentTimeMillis();
+        long timeElapsedFromLastShot = currentTime - lastShotTime;
+        boolean reloaded = timeElapsedFromLastShot >= reloadTime * 1000L;
+        ArrayList<Troop> allInRange = new ArrayList<>();
+        if (shotCount > 0 && reloaded) {
+            Troop troopToAttack = troopWithinRange();
+            if (troopToAttack != null) {
+                shotCount--;
+                troopToAttack.decreaseHP(attackDamage);
+                lastShotTime = currentTime;
+            }
+        }
     }
 
     @Override
