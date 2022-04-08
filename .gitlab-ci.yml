@@ -9,6 +9,4 @@ build:
 test:
     stage: test
     script:
-        - echo "Running tests..."
-        - sleep 30
-        - echo "Test passed."
+        - mvn clean install
