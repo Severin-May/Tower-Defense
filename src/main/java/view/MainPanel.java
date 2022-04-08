@@ -11,7 +11,7 @@ public class MainPanel extends JPanel {
 
         String[] mainMenuButtons = {"START", "RULES", "EXIT"};
         for (String button : mainMenuButtons) {
-            CustomButton btn = new CustomButton(225, 80, button, null);
+            CustomButton btn = new CustomButton(225, 80, button, null, 1);
             btn.addActionListener(action);
             add(btn);
         }

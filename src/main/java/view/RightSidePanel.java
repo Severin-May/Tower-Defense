@@ -23,13 +23,19 @@ public class RightSidePanel extends JPanel {
     JLabel towers;
     JLabel castleHp;
     //Shop panel depends on:
-    JButton buyShortRangeTower;
-    JButton buyLongRangeTower;
-    JButton buySplashTower;
-    JButton trainSword;
-    JButton trainMag;
-    JButton endTurn;
-    JButton startFightingStage;
+    CustomButton buyShortRangeTower;
+    CustomButton buyLongRangeTower;
+    CustomButton buySplashTower;
+    CustomButton trainSword;
+    CustomButton trainMag;
+    CustomButton endTurn;
+    CustomButton startFightingStage;
+
+    private int colorId = 3;
+
+    private final Color RED = new Color(255, 105, 105);
+    private final Color BLUE = new Color(111, 196, 255);
+
 
     public RightSidePanel() {
         game = Game.getInstance();
@@ -57,58 +63,52 @@ public class RightSidePanel extends JPanel {
     }
 
     private void setLabelText() {
-        playerName.setText("Whoever turn's name: " + game.getCurrentTurn().getName());
+        playerName.setText("Current Player: " + game.getCurrentTurn().getName());
         gold.setText("GOLD: " + game.getCurrentTurn().getGold());
-        swordTrained.setText("Sword men trained: " + "0");
-        magsTrained.setText("Mags trained: " + "0");
+        swordTrained.setText("Melee units trained: " + "0");
+        magsTrained.setText("Wizards trained: " + "0");
         goldMines.setText("Gold mines count: " + "0");
         towers.setText("Towers: " + "0");
         castleHp.setText("Your Castle HP: " + game.getCurrentTurn().getCastle().getHealthPoints());
+        if (colorId == 2){
+            setColorId(3);
+        } else {
+            setColorId(2);
+        }
     }
 
     private void createButtons() {
         int buttonWidth = 180;
         int buttonHeight = 80;
-        int borderThickness = 3;
-        buyShortRangeTower = new JButton("Short range");
-        buyShortRangeTower.setPreferredSize(new Dimension(buttonWidth,buttonHeight));
-        buyShortRangeTower.setBorder(BorderFactory.createMatteBorder(0,borderThickness,0,0,Color.BLACK));
+        buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new ShortRange(game.getCurrentTurn()));
             }
         });
-        buyLongRangeTower = new JButton("Long range");
-        buyLongRangeTower.setPreferredSize(new Dimension(buttonWidth,buttonHeight));
-        buyLongRangeTower.setBorder(BorderFactory.createMatteBorder(borderThickness,borderThickness,0,0,Color.BLACK));
+        buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range", resizeIcon(new ImageIcon(getLongRangeL1Left())), colorId);
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new LongRange(game.getCurrentTurn()));
             }
         });
-        buySplashTower = new JButton("Spash");
-        buySplashTower.setPreferredSize(new Dimension(buttonWidth,buttonHeight));
-        buySplashTower.setBorder(BorderFactory.createMatteBorder(borderThickness,borderThickness,borderThickness,0,Color.BLACK));
+        buySplashTower = new CustomButton(buttonWidth, buttonHeight, "Splash", resizeIcon(new ImageIcon(getSplashL1Left())), colorId);
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new Splash(game.getCurrentTurn()));
             }
         });
-        trainSword = new JButton("Sword troop");
-        trainSword.setPreferredSize(new Dimension(buttonWidth,buttonHeight*3/2));
-        trainSword.setBorder(BorderFactory.createMatteBorder(0,borderThickness,borderThickness,borderThickness,Color.BLACK));
+        trainSword = new CustomButton(buttonWidth, buttonHeight*3/2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Sword man was clicked");
+                System.out.println("Melee unit was clicked");
             }
         });
-        trainMag = new JButton("Mag troop");
-        trainMag.setPreferredSize(new Dimension(buttonWidth,buttonHeight*3/2));
-        trainMag.setBorder(BorderFactory.createMatteBorder(0,borderThickness,borderThickness,borderThickness,Color.BLACK));
+        trainMag = new CustomButton(buttonWidth, buttonHeight*3/2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -117,19 +117,19 @@ public class RightSidePanel extends JPanel {
                 Map.getInstance().getMap()[1][1].getTroops().add(t);
             }
         });
-        endTurn = new JButton("End turn");
+        endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);
         endTurn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.changeTurn();
                 System.out.println("Changed to " + game.getCurrentTurn().getColor());
                 setLabelText();
-                setButtonIcons();
+                changeButtons();
                 startFightingStage.setVisible(true);
                 endTurn.setVisible(false);
             }
         });
-        startFightingStage = new JButton("Start fighting stage");
+        startFightingStage = new CustomButton(buttonWidth, buttonHeight, "Attack", null, 4);
         startFightingStage.setVisible(false);
         startFightingStage.addMouseListener(new MouseAdapter() {
             @Override
@@ -137,17 +137,41 @@ public class RightSidePanel extends JPanel {
                 game.setPreparationTime(false);
                 System.out.println("Starting the fighting stage!");
                 game.startGame();
+                startFightingStage.setVisible(false);
+                endTurn.setVisible(true);
             }
         });
-        setButtonIcons();
+        changeButtons();
     }
 
-    private void setButtonIcons() {
+    private void changeButtons() {
+        buttonColors(colorId);
         buyShortRangeTower.setIcon(resizeIcon(new ImageIcon(getShortRangeL1Left())));
         buyLongRangeTower.setIcon(resizeIcon(new ImageIcon(getLongRangeL1Left())));
         buySplashTower.setIcon(resizeIcon(new ImageIcon(getSplashL1Left())));
         trainSword.setIcon(resizeIcon(new ImageIcon(getSwordLeftStop())));
         trainMag.setIcon(resizeIcon(new ImageIcon(getMagLeftStop())));
+    }
+
+    private void buttonColors(int n){
+        if (n == 2){
+            buyShortRangeTower.setBackground(RED);
+            buyLongRangeTower.setBackground(RED);
+            buySplashTower.setBackground(RED);
+            trainSword.setBackground(RED);
+            trainMag.setBackground(RED);
+        }
+        if (n == 3){
+            buyShortRangeTower.setBackground(BLUE);
+            buyLongRangeTower.setBackground(BLUE);
+            buySplashTower.setBackground(BLUE);
+            trainSword.setBackground(BLUE);
+            trainMag.setBackground(BLUE);
+        }
+    }
+
+    private void setColorId(int n){
+        this.colorId = n;
     }
 
     /**

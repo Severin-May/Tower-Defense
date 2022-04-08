@@ -13,7 +13,7 @@ import static utils.GameSettings.*;
 public class GameWindow extends JFrame {
 
     public GameWindow(Player p1, Player p2) {
-        System.out.println(p1.getName() + " || " + p2.getName());
+        //System.out.println(p1.getName() + " || " + p2.getName());
         setTitle("Game Window title");
         setSize(mapWidthInPixels + rightPanelWidth, mapHeightInPixels + 30); // I do not know why +30 is needed : Jeenbek
 
@@ -22,7 +22,7 @@ public class GameWindow extends JFrame {
 
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loadResources(p1, p2);
         setLayout(new BorderLayout());
         add(new MapPanel(), BorderLayout.WEST);

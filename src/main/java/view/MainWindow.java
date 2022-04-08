@@ -18,6 +18,7 @@ public class  MainWindow extends JFrame implements KeyListener {
     private final PlayerPanel playerPanel;
     private SetupPanel playerSetup;
 
+    private JLabel help;
 
     private boolean singleplayer = false;
 
@@ -33,6 +34,7 @@ public class  MainWindow extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainPanel = new MainPanel(action);
+        setBackground(Color.black);
 
         playerPanel = new PlayerPanel(action);
 
@@ -71,6 +73,8 @@ public class  MainWindow extends JFrame implements KeyListener {
 
     public void start() {
         currentScreen=1;
+        help = new JLabel("Press 'ESC' to go back");
+        add(help, BorderLayout.NORTH);
         add(changePanel(playerPanel, mainPanel));
     }
 
@@ -79,7 +83,6 @@ public class  MainWindow extends JFrame implements KeyListener {
     }
 
     public void playerMode(int n) {
-        playerPanel.setVisible(false);
         if (n == 1) {
             playerSetup = new SinglePlayerSetup(action);
             singleplayer = true;
@@ -87,8 +90,7 @@ public class  MainWindow extends JFrame implements KeyListener {
             playerSetup = new DoublePlayerSetup(action);
         }
         currentScreen=2;
-        playerSetup.setVisible(true);
-        add(panelToDisplay(playerSetup));
+        add(changePanel(playerSetup, playerPanel));
     }
 
     public void launchGame() {
@@ -99,6 +101,22 @@ public class  MainWindow extends JFrame implements KeyListener {
         }
         dispose();
     }
+
+    /*private JPanel panelToDisplay(JPanel newPanel){
+
+        JPanel hold = new JPanel();
+        hold.setLayout(new GridLayout(1,1));
+        hold.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        newPanel.setBackground(Color.cyan);
+        hold.add(newPanel, SwingConstants.CENTER);
+        return hold;
+    }
+
+    private JPanel changePanel(JPanel newPanel, JPanel oldPanel){
+        newPanel.setVisible(true);
+        oldPanel.setVisible(false);
+        return panelToDisplay(newPanel);
+    }*/
 
     private Box panelToDisplay(JPanel newPanel){
 
@@ -125,8 +143,10 @@ public class  MainWindow extends JFrame implements KeyListener {
             case 0:
                 mainPanel.setVisible(true);
                 playerPanel.setVisible(false);
+                help.setVisible(false);
                 break;
             case 1:
+                help.setVisible(true);
                 playerPanel.setVisible(true);
                 playerSetup.setVisible(false);
                 break;
