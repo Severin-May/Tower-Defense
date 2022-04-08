@@ -6,9 +6,9 @@ stages:
 build:
     stage: build
     script:
-      - javac Main.java
-#       - echo "Compiling the code..."
-#       - echo "Compile compelte."
+      #- javac Main.java
+       - echo "Compiling the code..."
+       - echo "Compile compelte."
 
 test:
     stage: test
