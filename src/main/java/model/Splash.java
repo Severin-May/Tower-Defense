@@ -50,9 +50,9 @@ public class Splash extends Tower {
         this.reloadTime -= 2;
         this.shotCount += 5;
         if (owner.getColor().equals("Red")) {
-            this.image = new ImageIcon(redSplashL2Left).getImage();
+            this.image = redSplashL2Left;
         } else {
-            this.image = new ImageIcon(blueSplashL2Right).getImage();
+            this.image = blueSplashL2Right;
         }
         this.width = upgradedTowerWidth;
         this.height = upgradedTowerHeight;

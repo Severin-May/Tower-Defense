@@ -11,7 +11,7 @@ public class GoldMine extends PassiveBuilding {
     }
 
     public GoldMine(Player owner) {
-        super(goldMineWidth, goldMineHeight, new ImageIcon(goldMine).getImage(), owner);
+        super(goldMineWidth, goldMineHeight, goldMine, owner);
     }
 
     /**

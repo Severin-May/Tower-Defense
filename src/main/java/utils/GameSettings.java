@@ -45,8 +45,8 @@ public class GameSettings {
     public final static int padding = 25;
     public final static int mapHeightInCells = 15;
     public final static int mapWidthInCells = 20;
-    public final static int cellWidth = 70;
-    public final static int cellHeight = 70;
+    public final static int cellWidth = 50;
+    public final static int cellHeight = 50;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2 * padding;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
     public final static int rightPanelWidth = 600;
@@ -73,10 +73,8 @@ public class GameSettings {
     public final static int treasureChestHeight = cellHeight;
     public final static int obstacleWidth = cellWidth;
     public final static int obstacleHeight = cellHeight;
-    public final static int troopWidth = cellWidth;
-    public final static int troopHeight = cellHeight;
-
-
+    public final static int troopWidth = (int)(cellWidth * 0.9);
+    public final static int troopHeight = (int)(cellWidth * 0.99);
     // Image paths as strings
     //Passive Buildings
     // Gold Mine
@@ -86,6 +84,7 @@ public class GameSettings {
     public final static Image bush = new ImageIcon("src/main/resources/images/Area/Obstacles/bush2.png").getImage();
     public final static Image rock = new ImageIcon("src/main/resources/images/Area/Obstacles/rock.png").getImage();
     public final static Image stump = new ImageIcon("src/main/resources/images/Area/Obstacles/stump.png").getImage();
+    public final static Image[] obstacles = {bush,rock,stump};
     //Grass
     public final static Image grass0 = new ImageIcon("src/main/resources/images/Area/Grass0.png").getImage();
     public final static Image grass1 = new ImageIcon("src/main/resources/images/Area/Grass1.png").getImage();

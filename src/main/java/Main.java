@@ -3,12 +3,11 @@ import view.MainWindow;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         new MainWindow();
-        Thread.sleep(5000L);
         while (!Game.everyThingReady.get()){
             //waiting till everything ready
         }
         Game game = Game.getInstance();
-        while (!game.isGameEnded()){
+        while (game.BothCastlesAlive()){
             if (game.isFightingStage()){
                 game.startGame();
             }

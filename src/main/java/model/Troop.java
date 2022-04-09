@@ -55,6 +55,11 @@ public class Troop extends Sprite {
         //from this.x and this.y to x and y
     }
 
+    public enum Direction {
+        UP,DOWN,LEFT,RIGHT;
+    }
+
+    Direction direction;
 
 
     public void buildShortestPath(){
@@ -72,20 +77,51 @@ public class Troop extends Sprite {
         if (i == shortestPath.size()-1){
             System.out.println("Reached destination!");
             movementPoints = 0;
-            return ;
+            return;
         }
-        if (shortestPath.get(i+1).getY() < getY()){     // go up
+        //force troop go to the same direction if its sprite is not fully inside the cell
+        if (!currentCell.isInsideThisCell(getX(),getY(),getWidth()-10,getHeight()-10) && direction != null) {
+            switch (direction) {
+                case UP: {
+                    faceUp();
+                    this.y -= movementSpeed;
+                    break;
+                }
+                case DOWN: {
+                    faceRight();
+                    this.y += movementSpeed;
+                    break;
+                }
+                case RIGHT: {
+                    faceRight();
+                    this.x += movementSpeed;
+                    break;
+                }
+                case LEFT: {
+                    faceLeft();
+                    this.x -= movementSpeed;
+                    break;
+                }
+                default: break;
+            }
+            return;
+        }
+        if (shortestPath.get(i+1).getI() < getI()){     // go up
             faceUp();
             this.y -= movementSpeed;
-        }else if (shortestPath.get(i+1).getY() > getY()){// go down
+            direction = Direction.UP;
+        }else if (shortestPath.get(i+1).getI() > getI()){// go down
             faceRight();
             this.y += movementSpeed;
-        }else if (shortestPath.get(i+1).getX() > getX()){// go right
+            direction = Direction.DOWN;
+        }else if (shortestPath.get(i+1).getJ() > getJ()){// go right
             faceRight();
             this.x += movementSpeed;
-        }else if (shortestPath.get(i+1).getX() < getX()){ // go left
+            direction = Direction.RIGHT;
+        }else { // go left
             faceLeft();
             this.x -= movementSpeed;
+            direction = Direction.LEFT;
         }
     }
 
@@ -145,6 +181,10 @@ public class Troop extends Sprite {
 
     public void resetMovementPoints(){
         this.movementPoints = type == MAG ? slowBigTroopMovementPoints : simpleTroopMovementPoints;
+    }
+
+    public ArrayList<Cell> getShortestPath() {
+        return shortestPath;
     }
 
     /**

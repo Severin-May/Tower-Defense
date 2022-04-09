@@ -20,16 +20,16 @@ public class Cell extends Sprite {
     }
 
     public void drawCell(Graphics g) {
-        g.drawImage(this.image, x - width / 2, y - height / 2, width, height, null);
-        g.drawRect(x - height / 2, y - height / 2, width, height); //optional
+        g.drawImage(this.image, x - width/2, y - height/2, width, height, null);
+        g.drawRect(x - height/2, y - height/2, width, height); //optional
     }
 
     public void drawSprites(Graphics g) {
         if (hasBuilding()) {
-            g.drawImage(building.image, x - building.width / 2, y - building.height / 2, building.width, building.height, null);
+            g.drawImage(building.image, x - building.width/2, y - building.height/2, building.width, building.height, null);
         }
         for (Troop t : troops) {
-            g.drawImage(t.image, t.x - t.width / 2, t.y - t.height / 2, t.width, t.height, null);
+            g.drawImage(t.image, t.x - t.width/2, t.y - t.height/2, t.width, t.height, null);
         }
     }
 
@@ -38,6 +38,9 @@ public class Cell extends Sprite {
         if (game.isPlacingTower()) {
             tryToPutBuilding();
         }
+
+
+
 //        // TODO: upgradeCost and level attributes should be added to Tower
 //        if(this.hasBuilding() && this.building instanceof Tower) {
 //            this.building.upgrade();
@@ -215,6 +218,18 @@ public class Cell extends Sprite {
         this.building = building;
     }
 
+    public boolean isInsideThisCell (int x, int y, int width, int height){
+        int leftSide = x - width/2;
+        int rightSide = x + width/2;
+        int upSide = y - height/2;
+        int downSide = y + height/2;
+        int leftSideOfCell = this.x - this.width/2;
+        int rightSideOfCell = this.x + this.width/2;
+        int upSideOfCell = this.y - this.height/2;
+        int downSideOfCell = this.y + this.height/2;
+        return leftSide > leftSideOfCell && rightSide < rightSideOfCell && upSide > upSideOfCell && downSide < downSideOfCell;
+    }
+
     public boolean hasBuilding() {
         return this.building != null;
     }
@@ -228,6 +243,10 @@ public class Cell extends Sprite {
     }
 
     public boolean isFreeCell() {
-        return !this.hasBuilding() && this.troops.size()==0;
+        return !this.hasBuilding() && this.troops.size() == 0;
+    }
+
+    public void removeTroop(Troop t) {
+        troops.remove(t);
     }
 }

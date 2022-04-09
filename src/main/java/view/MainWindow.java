@@ -1,14 +1,12 @@
 package view;
 
-import model.AI;
-import model.Player;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.concurrent.Flow;
 
 import static utils.GameSettings.*;
 
@@ -94,40 +92,23 @@ public class MainWindow extends JFrame implements KeyListener {
 
     public void launchGame() {
         if (singleplayer) {
-            initialise(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
+            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
         } else {
-            initialise(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
+            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
         }
         new GameWindow();
         dispose();
     }
 
 
-    private void initialise(Player p1, Player p2) {
+    private void loadGameAndMap(Player p1, Player p2) {
         Game.initialise(p1, p2);
         Map.initialise();
         p1.setColor("Red");
         p2.setColor("Blue");
-        p1.setCastle(new Castle(0, 0, p2));
-        p2.setCastle(new Castle(mapHeightInCells - 1, mapWidthInCells - 1, p1));
+        p1.setCastle(new Castle(0, 0, p1));
+        p2.setCastle(new Castle(mapHeightInCells - 1, mapWidthInCells - 1, p2));
     }
-
-    private Box panelToDisplay(JPanel newPanel) {
-    /*private JPanel panelToDisplay(JPanel newPanel){
-
-        JPanel hold = new JPanel();
-        hold.setLayout(new GridLayout(1,1));
-        hold.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        newPanel.setBackground(Color.cyan);
-        hold.add(newPanel, SwingConstants.CENTER);
-        return hold;
-    }
-
-    private JPanel changePanel(JPanel newPanel, JPanel oldPanel){
-        newPanel.setVisible(true);
-        oldPanel.setVisible(false);
-        return panelToDisplay(newPanel);
-    }*/
 
     private Box panelToDisplay(JPanel newPanel){
 

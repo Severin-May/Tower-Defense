@@ -1,12 +1,8 @@
 package model;
 
 
-import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static utils.GameSettings.*;
 
@@ -67,7 +63,7 @@ public class Map {
     public static void resetMap() {
         for (int i = 0; i < mapHeightInCells; i++) {
             for (int j = 0; j < mapWidthInCells; j++) {
-                Image grassImage = new ImageIcon(grass + instance.getRandomImageID() + ".png").getImage();
+                Image grassImage = grass[getRandomImageID()];
                 instance.getMap()[i][j] = new Cell(i, j, grassImage);
             }
         }
@@ -82,7 +78,7 @@ public class Map {
         return instance;
     }
 
-    private int getRandomImageID() {
+    private static int getRandomImageID() {
         return (int) (Math.random() * 8);
     }
 

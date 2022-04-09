@@ -113,8 +113,6 @@ public class RightSidePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Mag was clicked");
-                Troop t = new Troop(1,1,TroopType.MAG,Game.getInstance().getPlayer1());
-                Map.getInstance().getMap()[1][1].getTroops().add(t);
             }
         });
         endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);
@@ -122,11 +120,11 @@ public class RightSidePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.changeTurn();
-                System.out.println("Changed to " + game.getCurrentTurn().getColor());
+                endTurn.setVisible(false);
+                startFightingStage.setVisible(true);
                 setLabelText();
                 changeButtons();
-                startFightingStage.setVisible(true);
-                endTurn.setVisible(false);
+                System.out.println("Changed to " + game.getCurrentTurn().getColor());
             }
         });
         startFightingStage = new CustomButton(buttonWidth, buttonHeight, "Attack", null, 4);
@@ -134,11 +132,10 @@ public class RightSidePanel extends JPanel {
         startFightingStage.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                game.setFightingStage(true);
-                System.out.println("Starting the fighting stage!");
-                game.startGame();
                 startFightingStage.setVisible(false);
                 endTurn.setVisible(true);
+                game.setFightingStage(true);
+                System.out.println("Starting the fighting stage!");
             }
         });
         changeButtons();

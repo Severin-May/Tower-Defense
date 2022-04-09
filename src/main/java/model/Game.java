@@ -56,7 +56,7 @@ public class Game {
      * when the preparation stage is completed, the actual game starts
      */
     public void startGame() {
-        new Troop(1, 1, TroopType.SWORD_MAN, player2);
+        new Troop(1, 1, TroopType.SWORD_MAN, player1);
         ArrayList<Troop> troopsOnTheField = getAllTroops();
         for (Troop t : troopsOnTheField) {
             t.resetMovementPoints();
@@ -69,6 +69,8 @@ public class Game {
                 t.move();
                 Cell newCell = map[t.getI()][t.getJ()];
                 if (currentCell != newCell) {
+                    currentCell.removeTroop(t);
+                    newCell.getTroops().add(t);
                     t.decreaseMovementPoint();
                     System.out.println("Moved to the next cell!");
                 }
@@ -130,8 +132,8 @@ public class Game {
     /**
      * @return if one of the player's castle is destroyed or not
      */
-    public boolean isGameEnded() {
-        return player1.getCastle().isDestroyed() || player2.getCastle().isDestroyed();
+    public boolean BothCastlesAlive() {
+        return !player1.getCastle().isDestroyed() && !player2.getCastle().isDestroyed();
     }
 
     /**

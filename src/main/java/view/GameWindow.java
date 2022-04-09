@@ -26,8 +26,11 @@ public class GameWindow extends JFrame {
         add(new MapPanel(), BorderLayout.WEST);
         add(new RightSidePanel(), BorderLayout.EAST);
         setVisible(true);
+        setUpMenuBar();
+        Game.everyThingReady.set(true);
     }
 
+    private void setUpMenuBar(){
         JMenuBar mb = new JMenuBar();
         JMenu menu = new JMenu("Menu");
         mb.add(menu);
@@ -36,8 +39,8 @@ public class GameWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //restartGame();
-                p1.resetPlayer();
-                p2.resetPlayer();
+                Game.getInstance().getPlayer1().resetPlayer();
+                Game.getInstance().getPlayer2().resetPlayer();
                 Map.resetMap(); //todo
             }
         });
@@ -58,15 +61,6 @@ public class GameWindow extends JFrame {
         menu.add(menuGameExit);
     }
 
-    private void loadResources(Player p1, Player p2) {
-        Game.initialise(p1, p2);
-        Map.initialise();
-        p1.setColor("Red");
-        p2.setColor("Blue");
-        p1.setCastle(new Castle(0, 0, p1));
-        p2.setCastle(new Castle(mapHeightInCells - 1, mapWidthInCells - 1, p2));
-        Game.everyThingReady.set(true);
-
     public void showRules() {
         JOptionPane.showMessageDialog(this, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
     }
@@ -74,7 +68,6 @@ public class GameWindow extends JFrame {
     public void restartGame(Game g) {
         g.getPlayer1().resetPlayer();
         g.getPlayer2().resetPlayer();
-
     }
 
 
