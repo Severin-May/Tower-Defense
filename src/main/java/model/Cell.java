@@ -8,11 +8,10 @@ import java.util.Random;
 import static utils.GameSettings.*;
 import static utils.GameSettings.mapWidthInCells;
 
-public class  Cell extends Sprite {
+public class Cell extends Sprite {
     private Building building;
     private final List<Troop> troops;
     private final Game game;
-    private int d;
 
     public Cell(int i, int j, Image grassImage) {
         super(i, j, cellWidth, cellHeight, grassImage);
@@ -20,21 +19,17 @@ public class  Cell extends Sprite {
         troops = new ArrayList<>();
     }
 
-    public Cell(int i, int j, int d) {
-        super(i, j, cellWidth, cellHeight, null);
-        game = Game.getInstance();
-        troops = new ArrayList<>();
-        this.d = d;
-    }
-
     public void drawCell(Graphics g) {
-        g.drawImage(this.image, x, y, width, height, null);
-        g.drawRect(x, y, width, height); //optional
+        g.drawImage(this.image, x - width / 2, y - height / 2, width, height, null);
+        g.drawRect(x - height / 2, y - height / 2, width, height); //optional
     }
 
     public void drawSprites(Graphics g) {
         if (hasBuilding()) {
-            g.drawImage(building.image, x - (building.width - width) / 2, y - (building.height - height), building.width, building.height, null);
+            g.drawImage(building.image, x - building.width / 2, y - building.height / 2, building.width, building.height, null);
+        }
+        for (Troop t : troops) {
+            g.drawImage(t.image, t.x - t.width / 2, t.y - t.height / 2, t.width, t.height, null);
         }
     }
 
@@ -61,7 +56,7 @@ public class  Cell extends Sprite {
      * Building can be built maximum 1 cell
      * away from the nearest own building
      *
-     *@return true if everything is ok/ false if it's far from own buildings
+     * @return true if everything is ok/ false if it's far from own buildings
      */
     public boolean isCloseToOwnBuilding() {
         Cell[][] map = Map.getInstance().getMap();
@@ -85,21 +80,21 @@ public class  Cell extends Sprite {
                 }
                 if (einRange) {
                     for (int k = s; k <= (mapWidthInCells - 1); k++) {
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p ) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p) {
                             return true;
                         }
                     }
                 } else if (sinRange) {
                     for (int k = 0; k <= e; k++) {
 
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p ) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p) {
                             return true;
                         }
                     }
                 } else {
                     for (int k = s; k <= e; k++) {
 
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p ) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == p) {
                             return true;
                         }
                     }
@@ -107,7 +102,7 @@ public class  Cell extends Sprite {
                 if (ti < i) {
                     s = s - 1;
                     e = e + 1;
-                } else  {
+                } else {
                     s = s + 1;
                     e = e - 1;
                 }
@@ -122,7 +117,8 @@ public class  Cell extends Sprite {
         return false;
     }
 
-    /** Building is allowed only on 2 cells
+    /**
+     * Building is allowed only on 2 cells
      * further cells from enemy building
      *
      * @return true if everything is ok/ false if it's close to enemy buildings
@@ -149,21 +145,19 @@ public class  Cell extends Sprite {
                 }
                 if (einRange) {
                     for (int k = s; k <= (mapWidthInCells - 1); k++) {
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p ) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p) {
                             return false;
                         }
                     }
                 } else if (sinRange) {
                     for (int k = 0; k <= e; k++) {
-
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p ) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p) {
                             return false;
                         }
                     }
                 } else {
                     for (int k = s; k <= e; k++) {
-
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p ) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p) {
                             return false;
                         }
                     }
@@ -171,7 +165,7 @@ public class  Cell extends Sprite {
                 if (ti < i) {
                     s = s - 1;
                     e = e + 1;
-                } else  {
+                } else {
                     s = s + 1;
                     e = e - 1;
                 }
@@ -227,14 +221,6 @@ public class  Cell extends Sprite {
 
     public List<Troop> getTroops() {
         return troops;
-    }
-
-    public int getDist() {
-        return d;
-    }
-
-    public void setDist(int d) {
-        this.d = d;
     }
 
     public Building getBuilding() {

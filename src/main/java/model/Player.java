@@ -74,6 +74,7 @@ public class Player {
 
     /**
      * Remove given troop from the player. Only troops belonging to this player can be added
+     * NOTE: This should be called when troop is dead OR reached the enemy castle
      *
      * @param t troop that belongs to this player
      */
@@ -81,6 +82,27 @@ public class Player {
         if (t.getOwner() == this) {
             troops.remove(t);
         }
+    }
+
+    /**
+     * Check if there are any alive troops left
+     *
+     * @return true if there is at least one troop. False otherwise
+     */
+    public boolean noTroops() {
+        return troops.size() == 0;
+    }
+
+    /**
+     * @return Checks if all the troop of this player are done moving
+     */
+    public boolean allTroopsFinishedMoving() {
+        for (Troop t : troops) {
+            if (t.getMovementPoints() > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getName() {

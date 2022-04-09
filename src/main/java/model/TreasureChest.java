@@ -8,7 +8,7 @@ public class TreasureChest extends PassiveBuilding {
     private int reward;
 
     public TreasureChest(int i, int j, Player owner, int reward) {
-        super(i, j, treasureChestWidth, treasureChestHeight, new ImageIcon(treasure).getImage(), owner);
+        super(i, j, treasureChestWidth, treasureChestHeight, treasure, owner);
         this.reward = reward;
     }
 

@@ -10,7 +10,7 @@ import static utils.GameSettings.*;
 
 public class Splash extends Tower {
     public Splash(int i, int j, Player owner) {
-        super(i, j, new ImageIcon(owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right).getImage(), owner);
+        super(i, j, owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right, owner);
         this.attackRadius = GameSettings.splashTowerRange;
         this.attackDamage = GameSettings.splashAttackDamage;
         this.reloadTime = GameSettings.splashReloadTime;
@@ -19,7 +19,7 @@ public class Splash extends Tower {
     }
 
     public Splash(Player owner) {
-        super(new ImageIcon(owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right).getImage(), owner);
+        super(owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right, owner);
         this.attackRadius = GameSettings.splashTowerRange;
         this.attackDamage = GameSettings.splashAttackDamage;
         this.reloadTime = GameSettings.splashReloadTime;

@@ -2,12 +2,7 @@ package model;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
-
-import static utils.GameSettings.mapHeightInCells;
-import static utils.GameSettings.mapWidthInCells;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Game {
     private final Player player1;
@@ -15,7 +10,8 @@ public class Game {
     private Player currentTurn;
     private static Game instance = null;
     private Building buildingHover;
-    private boolean isPreparationTime = true;
+    private final AtomicBoolean fightingStage = new AtomicBoolean(false);
+    public static final AtomicBoolean everyThingReady = new AtomicBoolean(false);
 
     private Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -25,6 +21,7 @@ public class Game {
 
     /**
      * initialises game by calling game constructor with two players
+     *
      * @param player1 player1
      * @param player2 player2, in case of 1-player mode, player2 is AI
      */
@@ -36,10 +33,22 @@ public class Game {
 
     /**
      * gets the instance of the Game class which is singleton
+     *
      * @return the instance of the Game class
      */
     public static Game getInstance() {
         return instance;
+    }
+
+    private boolean bothPlayersFinishedMoving() {
+        return player1.allTroopsFinishedMoving() && player2.allTroopsFinishedMoving();
+    }
+
+    private ArrayList<Troop> getAllTroops() {
+        ArrayList<Troop> list = new ArrayList<>(player1.getTroops().size() + player2.getTroops().size());
+        list.addAll(player1.getTroops());
+        list.addAll(player2.getTroops());
+        return list;
     }
 
     /**
@@ -47,7 +56,31 @@ public class Game {
      * when the preparation stage is completed, the actual game starts
      */
     public void startGame() {
-
+        new Troop(1, 1, TroopType.SWORD_MAN, player2);
+        ArrayList<Troop> troopsOnTheField = getAllTroops();
+        for (Troop t : troopsOnTheField) {
+            t.resetMovementPoints();
+            t.buildShortestPath(); // update the shortest path
+        }
+        Cell[][] map = Map.getInstance().getMap();
+        while (!bothPlayersFinishedMoving()) {
+            for (Troop t : troopsOnTheField) {
+                Cell currentCell = map[t.getI()][t.getJ()];
+                t.move();
+                Cell newCell = map[t.getI()][t.getJ()];
+                if (currentCell != newCell) {
+                    t.decreaseMovementPoint();
+                    System.out.println("Moved to the next cell!");
+                }
+                try {
+                    Thread.sleep(100L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("All troops finished!");
+        fightingStage.set(false);
     }
 
     public void refresh() {
@@ -74,14 +107,14 @@ public class Game {
     }
 
     /**
-     *  checks if a tower is clicked and is being hovered on the screen
+     * checks if a tower is clicked and is being hovered on the screen
      */
     public boolean isPlacingTower() {
         return this.buildingHover != null;
     }
 
     /**
-     *  gets the building that the user clicked and is hovering now
+     * gets the building that the user clicked and is hovering now
      */
     public Building getBuildingHover() {
         return buildingHover;
@@ -104,96 +137,13 @@ public class Game {
     /**
      * @return if the game is in preparation stage or not
      */
-    public boolean isPreparationTime() {
-        return isPreparationTime;
+    public boolean isFightingStage() {
+        return this.fightingStage.get();
     }
 
 
-    public void setPreparationTime(boolean preparationTime) {
-        isPreparationTime = preparationTime;
+    public void setFightingStage(boolean fightingStage) {
+        this.fightingStage.set(fightingStage);
     }
 
-    /**
-     *
-     * @param x coordinate on grid
-     * @param y coordinate on grid
-     * @param grid matrix/grid
-     * @param visited matrix which stores if the Cell is visited or not
-     * @return if the Cell is within the borders of the board and is free (i.e. does not have any buildings)
-     * and is not yet visited it returns true, otherwise false
-     */
-    private static boolean isValid(int x, int y, Cell[][] grid , boolean[][] visited)
-    {
-        return (x >= 0 && y >= 0 && x < mapHeightInCells
-                && y < mapWidthInCells && !grid[x][y].hasBuilding() && !visited[x][y]) ;
-    }
-
-    /**
-     *
-     * @param startNode starting Cell (i.e. the Castle or the current position of the Troop who starts the movement)
-     * @param endNode end Cell (i.e. enemy's Castle or TreasureChest)
-     * @param grid matrix/grid
-     * @return returns the shortest path between the given two points on the grid
-     */
-    public static ArrayList<Cell> bfs(Cell startNode, Cell endNode, Cell[][] grid) {
-
-        if(grid.length == 0) { System.out.println("Grid is empty"); return null; }
-
-        HashMap<Cell, Cell> parentNodes = new HashMap<>();
-        Queue<Cell> queue = new LinkedList<>();
-        ArrayList<Cell> shortestPath = new ArrayList<>();
-
-        // TODO: distance should be set to inf at the beginning, not sure tho
-        // TODO: distance of the starting point should be set to 0, where the bfs is called
-
-        queue.add(startNode); //startNode's distance is 0
-
-        boolean [][] visited = new boolean[mapHeightInCells][mapWidthInCells];
-        visited[startNode.getI()][startNode.getJ()] = true;
-        parentNodes.put(startNode, null);
-        Cell rem;
-
-        while(!queue.isEmpty()) {
-
-            rem = queue.remove();
-
-            if(rem.getI() == endNode.getI() && rem.getJ() == endNode.getJ()) {
-                Cell curr = rem;
-                ArrayList<Cell> currentPath = new ArrayList<>();
-                while (curr != null) {
-                    currentPath.add(0, curr);
-                    curr = parentNodes.get(curr);
-                }
-                if(currentPath.size() < shortestPath.size() || shortestPath.size() == 0) {
-                    shortestPath = currentPath;
-                }
-            }
-
-            if(isValid(rem.getI()-1, rem.getJ(), grid, visited)) {
-                Cell neighbor = new Cell(rem.getI()-1, rem.getJ(), rem.getDist()+1);
-                parentNodes.put(neighbor, rem);
-                queue.add(neighbor);
-                visited[rem.getI()-1][rem.getJ()] = true;
-            }
-            if(isValid(rem.getI()+1, rem.getJ(), grid, visited)) {
-                Cell neighbor = new Cell(rem.getI()+1, rem.getJ(), rem.getDist()+1);
-                parentNodes.put(neighbor, rem);
-                queue.add(neighbor);
-                visited[rem.getI()+1][rem.getJ()] = true;
-            }
-            if(isValid(rem.getI(), rem.getJ()-1, grid, visited)) {
-                Cell neighbor = new Cell(rem.getI(), rem.getJ()-1, rem.getDist()+1);
-                parentNodes.put(neighbor, rem);
-                queue.add(neighbor);
-                visited[rem.getI()][rem.getJ()-1] = true;
-            }
-            if(isValid(rem.getI(), rem.getJ()+1, grid, visited)) {
-                Cell neighbor = new Cell(rem.getI(), rem.getJ()+1, rem.getDist()+1);
-                parentNodes.put(neighbor, rem);
-                queue.add(neighbor);
-                visited[rem.getI()][rem.getJ()+1] = true;
-            }
-        }
-        return shortestPath;
-    }
 }

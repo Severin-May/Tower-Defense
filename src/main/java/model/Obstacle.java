@@ -6,7 +6,7 @@ import static utils.GameSettings.*;
 
 public class Obstacle extends PassiveBuilding {
     public Obstacle(int i, int j, Player owner) {
-        super(i, j, obstacleWidth, obstacleHeight, new ImageIcon(rock).getImage(), owner);
+        super(i, j, obstacleWidth, obstacleHeight, rock, owner);
     }
 
     @Override

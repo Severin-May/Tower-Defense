@@ -12,8 +12,8 @@ public abstract class Sprite {
     protected Image image;
 
     public Sprite(int i, int j, int width, int height, Image image) {
-        this.x = j * cellWidth + padding;
-        this.y = i * cellHeight + padding;
+        this.x = j * cellWidth + padding + width/2;
+        this.y = i * cellHeight + padding + height/2;
         this.width = width;
         this.height = height;
         this.image = image;

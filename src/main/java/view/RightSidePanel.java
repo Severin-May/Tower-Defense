@@ -134,7 +134,7 @@ public class RightSidePanel extends JPanel {
         startFightingStage.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                game.setPreparationTime(false);
+                game.setFightingStage(true);
                 System.out.println("Starting the fighting stage!");
                 game.startGame();
                 startFightingStage.setVisible(false);

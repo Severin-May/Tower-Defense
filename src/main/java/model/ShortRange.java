@@ -8,7 +8,7 @@ import static utils.GameSettings.*;
 
 public class ShortRange extends Tower {
     public ShortRange(int i, int j, Player owner) {
-        super(i, j, new ImageIcon(owner.getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Right).getImage(), owner);
+        super(i, j, owner.getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Right, owner);
         this.attackRadius = GameSettings.shortRangeTowerRange;
         this.attackDamage = GameSettings.shortRangeAttackDamage;
         this.reloadTime = GameSettings.shortRangeReloadTime;
@@ -17,7 +17,7 @@ public class ShortRange extends Tower {
     }
 
     public ShortRange(Player owner) {
-        super(new ImageIcon(owner.getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Right).getImage(), owner);
+        super(owner.getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Right, owner);
         this.attackRadius = GameSettings.shortRangeTowerRange;
         this.attackDamage = GameSettings.shortRangeAttackDamage;
         this.reloadTime = GameSettings.shortRangeReloadTime;
@@ -32,9 +32,9 @@ public class ShortRange extends Tower {
         this.reloadTime -= 2;
         this.shotCount += 5;
         if (owner.getColor().equals("Red")) {
-            this.image = new ImageIcon(redShortRangeL2Left).getImage();
+            this.image = redShortRangeL2Left;
         } else {
-            this.image = new ImageIcon(blueShortRangeL2Right).getImage();
+            this.image = blueShortRangeL2Right;
         }
         this.width = upgradedTowerWidth;
         this.height = upgradedTowerHeight;

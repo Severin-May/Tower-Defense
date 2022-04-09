@@ -2,6 +2,8 @@ package utils;
 
 import model.Game;
 
+import javax.swing.*;
+import java.awt.*;
 public class GameSettings {
     // Initial Towers' stats:
     //long ranged:
@@ -29,20 +31,22 @@ public class GameSettings {
     public final static int simpleTroopMovementSpeed = 2;
     public final static int simpleTroopAttackDamage = 10;
     public final static int simpleTroopCost = 10;
+    public final static int simpleTroopMovementPoints = 100;
     //slower but lots of hp
     public final static int slowBigTroopHP = 10;
     public final static int slowBigTroopMovementSpeed = 2;
     public final static int slowBigTroopAttackDamage = 10;
     public final static int slowBigTroopCost = 10;
+    public final static int slowBigTroopMovementPoints = 100;
     // ... etc. for rest type of troops
 
     //Map settings:
     public final static int numberOfObstacles = 3;
     public final static int padding = 25;
-    public final static int mapHeightInCells = 10;
-    public final static int mapWidthInCells = 15;
-    public final static int cellWidth = 40;
-    public final static int cellHeight = 40;
+    public final static int mapHeightInCells = 15;
+    public final static int mapWidthInCells = 20;
+    public final static int cellWidth = 70;
+    public final static int cellHeight = 70;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2 * padding;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
     public final static int rightPanelWidth = 600;
@@ -76,111 +80,121 @@ public class GameSettings {
     // Image paths as strings
     //Passive Buildings
     // Gold Mine
-    public final static String goldMine = "src/main/resources/images/Area/Obstacles/notYet.png";
-    public final static String treasure = "src/main/resources/images/Area/Obstacles/notYet.png";
+    public final static Image goldMine = new ImageIcon("src/main/resources/images/Area/Obstacles/notYet.png").getImage();
+    public final static Image treasure = new ImageIcon("src/main/resources/images/Area/Obstacles/notYet.png").getImage();
     //Obstacles
-    public final static String bush = "src/main/resources/images/Area/Obstacles/bush2.png";
-    public final static String rock = "src/main/resources/images/Area/Obstacles/rock.png";
-    public final static String stump = "src/main/resources/images/Area/Obstacles/stump.png";
+    public final static Image bush = new ImageIcon("src/main/resources/images/Area/Obstacles/bush2.png").getImage();
+    public final static Image rock = new ImageIcon("src/main/resources/images/Area/Obstacles/rock.png").getImage();
+    public final static Image stump = new ImageIcon("src/main/resources/images/Area/Obstacles/stump.png").getImage();
     //Grass
-    //All the 8 types of grasses are located with the following name convention : src/main/resources/images/Area/Grass + [0-7] + .png
-    //So when accessing the pictures' location you must concatenate "X.png" to this constant where X ranges from 0 to 7
-    public final static String grass = "src/main/resources/images/Area/Grass";
+    public final static Image grass0 = new ImageIcon("src/main/resources/images/Area/Grass0.png").getImage();
+    public final static Image grass1 = new ImageIcon("src/main/resources/images/Area/Grass1.png").getImage();
+    public final static Image grass2 = new ImageIcon("src/main/resources/images/Area/Grass2.png").getImage();
+    public final static Image grass3 = new ImageIcon("src/main/resources/images/Area/Grass3.png").getImage();
+    public final static Image grass4 = new ImageIcon("src/main/resources/images/Area/Grass4.png").getImage();
+    public final static Image grass5 = new ImageIcon("src/main/resources/images/Area/Grass5.png").getImage();
+    public final static Image grass6 = new ImageIcon("src/main/resources/images/Area/Grass6.png").getImage();
+    public final static Image grass7 = new ImageIcon("src/main/resources/images/Area/Grass7.png").getImage();
+    public final static Image[] grass = {grass0,grass1,grass2,grass3,grass4,grass5,grass6,grass7};
+
+
 
 
     //Blue player
     //Active Buildings
     //Castle
-    public final static String blueCastle = "src/main/resources/images/Blue/Buildings/Castle/Blue.png";
+    public final static Image blueCastle = new ImageIcon("src/main/resources/images/Blue/Buildings/Castle/Blue.png").getImage();
 
     // LongRange
-    public final static String blueLongRangeL1Left = "src/main/resources/images/Blue/Buildings/LongRange/L1/Left.png";
-    public final static String blueLongRangeL1Right = "src/main/resources/images/Blue/Buildings/LongRange/L1/Right.png";
-    public final static String blueLongRangeL2Right = "src/main/resources/images/Blue/Buildings/LongRange/L2/Right.png";
-    public final static String blueLongRangeL2Left = "src/main/resources/images/Blue/Buildings/LongRange/L2/Left.png";
+    public final static Image blueLongRangeL1Left = new ImageIcon("src/main/resources/images/Blue/Buildings/LongRange/L1/Left.png").getImage();
+    public final static Image blueLongRangeL1Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/LongRange/L1/Right.png").getImage();
+    public final static Image blueLongRangeL2Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/LongRange/L2/Right.png").getImage();
+    public final static Image blueLongRangeL2Left = new ImageIcon ("src/main/resources/images/Blue/Buildings/LongRange/L2/Left.png").getImage();
     //ShortRange
-    public final static String blueShortRangeL1Left = "src/main/resources/images/Blue/Buildings/ShortRange/L1/Left.png";
-    public final static String blueShortRangeL1Right = "src/main/resources/images/Blue/Buildings/ShortRange/L1/Right.png";
-    public final static String blueShortRangeL2Right = "src/main/resources/images/Blue/Buildings/ShortRange/L2/Right.png";
-    public final static String blueShortRangeL2Left = "src/main/resources/images/Blue/Buildings/ShortRange/L2/Left.png";
+    public final static Image blueShortRangeL1Left = new ImageIcon ("src/main/resources/images/Blue/Buildings/ShortRange/L1/Left.png").getImage();
+    public final static Image blueShortRangeL1Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/ShortRange/L1/Right.png").getImage();
+    public final static Image blueShortRangeL2Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/ShortRange/L2/Right.png").getImage();
+    public final static Image blueShortRangeL2Left = new ImageIcon ("src/main/resources/images/Blue/Buildings/ShortRange/L2/Left.png").getImage();
     //Splash
-    public final static String blueSplashL1Left = "src/main/resources/images/Blue/Buildings/Splash/L1/Left.png";
-    public final static String blueSplashL1Right = "src/main/resources/images/Blue/Buildings/Splash/L1/Right.png";
-    public final static String blueSplashL2Right = "src/main/resources/images/Blue/Buildings/Splash/L2/Right.png";
-    public final static String blueSplashL2Left = "src/main/resources/images/Blue/Buildings/Splash/L2/Left.png";
+    public final static Image blueSplashL1Left = new ImageIcon ("src/main/resources/images/Blue/Buildings/Splash/L1/Left.png").getImage();
+    public final static Image blueSplashL1Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/Splash/L1/Right.png").getImage();
+    public final static Image blueSplashL2Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/Splash/L2/Right.png").getImage();
+    public final static Image blueSplashL2Left = new ImageIcon ("src/main/resources/images/Blue/Buildings/Splash/L2/Left.png").getImage();
 
     //Troop
     //Mag
     //Back
-    public final static String blueMagBackStop = "src/main/resources/images/Blue/Troop/Mag/Back/Stop.png";
-    public final static String blueMagBackW1 = "src/main/resources/images/Blue/Troop/Mag/Back/V1.png";
-    public final static String blueMagBackW2 = "src/main/resources/images/Blue/Troop/Mag/Back/V2.png";
+    public final static Image blueMagBackStop = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Back/Stop.png").getImage();
+    public final static Image blueMagBackW1 = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Back/V1.png").getImage();
+    public final static Image blueMagBackW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Back/V2.png").getImage();
+    public final static Image[] blueMagBackWalk = {blueMagBackW1,blueMagBackW2};
 
     //Left
-    public final static String blueMagLeftStop = "src/main/resources/images/Blue/Troop/Mag/Left/Stop.png";
-    public final static String blueMagLeftW1 = "src/main/resources/images/Blue/Troop/Mag/Left/V1.png";
-    public final static String blueMagLeftW2 = "src/main/resources/images/Blue/Troop/Mag/Left/V2.png";
+    public final static Image blueMagLeftStop = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Left/Stop.png").getImage();
+    public final static Image blueMagLeftW1 = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Left/V1.png").getImage();
+    public final static Image blueMagLeftW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Left/V2.png").getImage();
+    public final static Image[] blueMagLeftWalk = {blueMagLeftW1,blueMagLeftW2};
 
     //Right
-    public final static String blueMagRightStop = "src/main/resources/images/Blue/Troop/Mag/Right/Stop.png";
-    public final static String blueMagRightW1 = "src/main/resources/images/Blue/Troop/Mag/Right/V1.png";
-    public final static String blueMagRightW2 = "src/main/resources/images/Blue/Troop/Mag/Right/V2.png";
-
+    public final static Image blueMagRightStop = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Right/Stop.png").getImage();
+    public final static Image blueMagRightW1 = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Right/V1.png").getImage();
+    public final static Image blueMagRightW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Right/V2.png").getImage();
+    public final static Image[] blueMagRightWalk = {blueMagRightW1,blueMagRightW2};
     //Sword
     //Back
-    public final static String blueSwordBackStop = "src/main/resources/images/Blue/Troop/Sword/Back/Stop.png";
-    public final static String blueSwordBackW1 = "src/main/resources/images/Blue/Troop/Sword/Back/V1.png";
-    public final static String blueSwordBackW2 = "src/main/resources/images/Blue/Troop/Sword/Back/V2.png";
-
+    public final static Image blueSwordBackStop = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Back/Stop.png").getImage();
+    public final static Image blueSwordBackW1 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Back/V1.png").getImage();
+    public final static Image blueSwordBackW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Back/V2.png").getImage();
+    public final static Image[] blueSwordBackWalk = {blueSwordBackW1,blueSwordBackW2};
     //Left
-    public final static String blueSwordLeftStop = "src/main/resources/images/Blue/Troop/Sword/Left/Stop.png";
-    public final static String blueSwordLeftW1 = "src/main/resources/images/Blue/Troop/Sword/Left/V1.png";
-    public final static String blueSwordLeftW2 = "src/main/resources/images/Blue/Troop/Sword/Left/V2.png";
-
+    public final static Image blueSwordLeftStop = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Left/Stop.png").getImage();
+    public final static Image blueSwordLeftW1 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Left/V1.png").getImage();
+    public final static Image blueSwordLeftW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Left/V2.png").getImage();
+    public final static Image[] blueSwordLeftWalk = {blueSwordLeftW1,blueSwordLeftW2};
     //Right
-    public final static String blueSwordRightStop = "src/main/resources/images/Blue/Troop/Sword/Right/Stop.png";
-    public final static String blueSwordRightW1 = "src/main/resources/images/Blue/Troop/Sword/Right/V1.png";
-    public final static String blueSwordRightW2 = "src/main/resources/images/Blue/Troop/Sword/Right/V2.png";
-
+    public final static Image blueSwordRightStop = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Right/Stop.png").getImage();
+    public final static Image blueSwordRightW1 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Right/V1.png").getImage();
+    public final static Image blueSwordRightW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Right/V2.png").getImage();
+    public final static Image[] blueSwordRightWalk = {blueSwordRightW1,blueSwordRightW2};
 
     //Red player
     //Active Buildings
     //Castle
-    public final static String redCastle = "src/main/resources/images/Red/Buildings/Castle/Red.png";
+    public final static Image redCastle = new ImageIcon ("src/main/resources/images/Red/Buildings/Castle/Red.png").getImage();
 
     // LongRange
-    public final static String redLongRangeL1Left = "src/main/resources/images/Red/Buildings/LongRange/L1/Left.png";
-    public final static String redLongRangeL1Right = "src/main/resources/images/Red/Buildings/LongRange/L1/Right.png";
-    public final static String redLongRangeL2Right = "src/main/resources/images/Red/Buildings/LongRange/L2/Right.png";
-    public final static String redLongRangeL2Left = "src/main/resources/images/Red/Buildings/LongRange/L2/Left.png";
+    public final static Image redLongRangeL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L1/Left.png").getImage();
+    public final static Image redLongRangeL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L1/Right.png").getImage();
+    public final static Image redLongRangeL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L2/Right.png").getImage();
+    public final static Image redLongRangeL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L2/Left.png").getImage();
     //ShortRange
-    public final static String redShortRangeL1Left = "src/main/resources/images/Red/Buildings/ShortRange/L1/Left.png";
-    public final static String redShortRangeL1Right = "src/main/resources/images/Red/Buildings/ShortRange/L1/Right.png";
-    public final static String redShortRangeL2Right = "src/main/resources/images/Red/Buildings/ShortRange/L2/Right.png";
-    public final static String redShortRangeL2Left = "src/main/resources/images/Red/Buildings/ShortRange/L2/Left.png";
+    public final static Image redShortRangeL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L1/Left.png").getImage();
+    public final static Image redShortRangeL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L1/Right.png").getImage();
+    public final static Image redShortRangeL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L2/Right.png").getImage();
+    public final static Image redShortRangeL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L2/Left.png").getImage();
     //Splash
-    public final static String redSplashL1Left = "src/main/resources/images/Red/Buildings/Splash/L1/Left.png";
-    public final static String redSplashL1Right = "src/main/resources/images/Red/Buildings/Splash/L1/Right.png";
-    public final static String redSplashL2Right = "src/main/resources/images/Red/Buildings/Splash/L2/Right.png";
-    public final static String redSplashL2Left = "src/main/resources/images/Red/Buildings/Splash/L2/Left.png";
+    public final static Image redSplashL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L1/Left.png").getImage();
+    public final static Image redSplashL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L1/Right.png").getImage();
+    public final static Image redSplashL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Right.png").getImage();
+    public final static Image redSplashL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Left.png").getImage();
 
-    public static String getShortRangeL1Left() {
+    public static Image getShortRangeL1Left() {
         return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Left;
     }
 
-    public static String getLongRangeL1Left() {
+    public static Image getLongRangeL1Left() {
         return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redLongRangeL1Left : blueLongRangeL1Left;
     }
 
-    public static String getSplashL1Left() {
+    public static Image getSplashL1Left() {
         return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSplashL1Left : blueSplashL1Left;
     }
 
-    public static String getMagLeftStop() {
+    public static Image getMagLeftStop() {
         return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redMagLeftStop : blueMagLeftStop;
     }
 
-    public static String getSwordLeftStop() {
+    public static Image getSwordLeftStop() {
         return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSwordLeftStop : blueSwordLeftStop;
 
     }
@@ -189,34 +203,34 @@ public class GameSettings {
     //Troop
     //Mag
     //Back
-    public final static String redMagBackStop = "src/main/resources/images/Red/Troop/Mag/Back/Stop.png";
-    public final static String redMagBackW1 = "src/main/resources/images/Red/Troop/Mag/Back/V1.png";
-    public final static String redMagBackW2 = "src/main/resources/images/Red/Troop/Mag/Back/V2.png";
-
+    public final static Image redMagBackStop = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Back/Stop.png").getImage();
+    public final static Image redMagBackW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Back/V1.png").getImage();
+    public final static Image redMagBackW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Back/V2.png").getImage();
+    public final static Image[] redMagBackWalk = {redMagBackW1,redMagBackW2};
     //Left
-    public final static String redMagLeftStop = "src/main/resources/images/Red/Troop/Mag/Left/Stop.png";
-    public final static String redMagLeftW1 = "src/main/resources/images/Red/Troop/Mag/Left/V1.png";
-    public final static String redMagLeftW2 = "src/main/resources/images/Red/Troop/Mag/Left/V2.png";
-
+    public final static Image redMagLeftStop = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Left/Stop.png").getImage();
+    public final static Image redMagLeftW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Left/V1.png").getImage();
+    public final static Image redMagLeftW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Left/V2.png").getImage();
+    public final static Image[] redMagLeftWalk = {redMagLeftW1,redMagLeftW2};
     //Right
-    public final static String redMagRightStop = "src/main/resources/images/Red/Troop/Mag/Right/Stop.png";
-    public final static String redMagRightW1 = "src/main/resources/images/Red/Troop/Mag/Right/V1.png";
-    public final static String redMagRightW2 = "src/main/resources/images/Red/Troop/Mag/Right/V2.png";
-
+    public final static Image redMagRightStop = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Right/Stop.png").getImage();
+    public final static Image redMagRightW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Right/V1.png").getImage();
+    public final static Image redMagRightW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Right/V2.png").getImage();
+    public final static Image[] redMagRightWalk = {redMagRightW1,redMagRightW2};
     //Sword
     //Back
-    public final static String redSwordBackStop = "src/main/resources/images/Red/Troop/Sword/Back/Stop.png";
-    public final static String redSwordBackW1 = "src/main/resources/images/Red/Troop/Sword/Back/V1.png";
-    public final static String redSwordBackW2 = "src/main/resources/images/Red/Troop/Sword/Back/V2.png";
-
+    public final static Image redSwordBackStop = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Back/Stop.png").getImage();
+    public final static Image redSwordBackW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Back/V1.png").getImage();
+    public final static Image redSwordBackW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Back/V2.png").getImage();
+    public final static Image[] redSwordBackWalk = {redSwordBackW1,redSwordBackW2};
     //Left
-    public final static String redSwordLeftStop = "src/main/resources/images/Red/Troop/Sword/Left/Stop.png";
-    public final static String redSwordLeftW1 = "src/main/resources/images/Red/Troop/Sword/Left/V1.png";
-    public final static String redSwordLeftW2 = "src/main/resources/images/Red/Troop/Sword/Left/V2.png";
-
+    public final static Image redSwordLeftStop = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Left/Stop.png").getImage();
+    public final static Image redSwordLeftW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Left/V1.png").getImage();
+    public final static Image redSwordLeftW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Left/V2.png").getImage();
+    public final static Image[] redSwordLeftWalk = {redSwordLeftW1,redSwordLeftW2};
     //Right
-    public final static String redSwordRightStop = "src/main/resources/images/Red/Troop/Sword/Right/Stop.png";
-    public final static String redSwordRightW1 = "src/main/resources/images/Red/Troop/Sword/Right/V1.png";
-    public final static String redSwordRightW2 = "src/main/resources/images/Red/Troop/Sword/Right/V2.png";
-
+    public final static Image redSwordRightStop = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Right/Stop.png").getImage();
+    public final static Image redSwordRightW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Right/V1.png").getImage();
+    public final static Image redSwordRightW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Right/V2.png").getImage();
+    public final static Image[] redSwordRightWalk = {redSwordRightW1,redSwordRightW2};
 }

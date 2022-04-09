@@ -8,8 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.concurrent.Flow;
 
-import static utils.GameSettings.blueSplashL1Right;
+import static utils.GameSettings.*;
 
 public class MainWindow extends JFrame implements KeyListener {
 
@@ -26,8 +27,7 @@ public class MainWindow extends JFrame implements KeyListener {
     public MainWindow() {
         setTitle("Tower Defense - Bumblebytes");
 
-        Image icon = Toolkit.getDefaultToolkit().getImage(blueSplashL1Right);
-        setIconImage(icon);
+        setIconImage(blueSplashL1Right);
 
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,13 +94,25 @@ public class MainWindow extends JFrame implements KeyListener {
 
     public void launchGame() {
         if (singleplayer) {
-            new GameWindow(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
+            initialise(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
         } else {
-            new GameWindow(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
+            initialise(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
         }
+        new GameWindow();
         dispose();
     }
 
+
+    private void initialise(Player p1, Player p2) {
+        Game.initialise(p1, p2);
+        Map.initialise();
+        p1.setColor("Red");
+        p2.setColor("Blue");
+        p1.setCastle(new Castle(0, 0, p2));
+        p2.setCastle(new Castle(mapHeightInCells - 1, mapWidthInCells - 1, p1));
+    }
+
+    private Box panelToDisplay(JPanel newPanel) {
     /*private JPanel panelToDisplay(JPanel newPanel){
 
         JPanel hold = new JPanel();
@@ -135,6 +147,7 @@ public class MainWindow extends JFrame implements KeyListener {
 
     /**
      * allows switching between menu screens
+     *
      * @param screen the screen to be displayed
      */
     public void display(int screen) {
@@ -155,19 +168,20 @@ public class MainWindow extends JFrame implements KeyListener {
     }
 
     @Override
-    public void keyPressed (KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
-        {
-            if (currentScreen > 0){
+    public void keyPressed(KeyEvent ke) {
+        if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            if (currentScreen > 0) {
                 currentScreen--;
             }
             display(currentScreen);
         }
     }
+
     @Override
-    public void keyReleased (KeyEvent ke) {
+    public void keyReleased(KeyEvent ke) {
     }
+
     @Override
-    public void keyTyped (KeyEvent ke) {
+    public void keyTyped(KeyEvent ke) {
     }
 }
