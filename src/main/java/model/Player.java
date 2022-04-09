@@ -109,4 +109,17 @@ public class Player {
     public Castle getCastle() {
         return castle;
     }
+
+    public ArrayList<Troop> getTroops() {
+        return this.troops;
+    }
+    /**
+     * when players want to restart the game, their current state will be lost
+     * gold will be set to initial gold
+     * and number of troops will become 0
+     */
+    public void resetPlayer() {
+        gold = GameSettings.initialGold;
+        troops = null;
+    }
 }

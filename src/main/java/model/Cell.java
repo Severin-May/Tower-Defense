@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static utils.GameSettings.*;
 import static utils.GameSettings.mapWidthInCells;
@@ -238,5 +239,9 @@ public class  Cell extends Sprite {
 
     public Building getBuilding() {
         return building;
+    }
+
+    public boolean isFreeCell() {
+        return !this.hasBuilding() && this.troops.size()==0;
     }
 }

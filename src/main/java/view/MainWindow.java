@@ -11,8 +11,7 @@ import java.awt.event.KeyListener;
 
 import static utils.GameSettings.blueSplashL1Right;
 
-public class  MainWindow extends JFrame implements KeyListener {
-
+public class MainWindow extends JFrame implements KeyListener {
 
     private final MainPanel mainPanel;
     private final PlayerPanel playerPanel;
@@ -78,9 +77,9 @@ public class  MainWindow extends JFrame implements KeyListener {
         add(changePanel(playerPanel, mainPanel));
     }
 
-    public void showRules() {
-        JOptionPane.showMessageDialog(this, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
-    }
+   public void showRules() {
+       JOptionPane.showMessageDialog(this, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
+   }
 
     public void playerMode(int n) {
         if (n == 1) {

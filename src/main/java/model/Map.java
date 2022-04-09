@@ -3,6 +3,10 @@ package model;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.text.ParsePosition;
+import java.util.ArrayList;
+import java.util.Random;
 
 import static utils.GameSettings.*;
 
@@ -41,7 +45,7 @@ public class Map {
     /**
      * generates treasure chests on a game board
      */
-    public void generateTreasure() {
+    public void generateTreasure(int counter) {
 
     }
 
@@ -53,6 +57,21 @@ public class Map {
         if (instance == null) {
             instance = new Map();
         }
+    }
+
+    /**
+     * when players want to restart the game,
+     * the board should gain its initial state
+     * where there are nothing on board
+     */
+    public static void resetMap() {
+        for (int i = 0; i < mapHeightInCells; i++) {
+            for (int j = 0; j < mapWidthInCells; j++) {
+                Image grassImage = new ImageIcon(grass + instance.getRandomImageID() + ".png").getImage();
+                instance.getMap()[i][j] = new Cell(i, j, grassImage);
+            }
+        }
+        //todo: generate randomCastles()
     }
 
     public Cell[][] getMap() {
@@ -80,4 +99,38 @@ public class Map {
         }
         return map[(y - padding) / cellHeight][(x - padding) / cellWidth];
     }
+
+    /**
+     *
+     * @return random Cell in which there is no building and troop
+     */
+    public Cell getRandomPos() {
+        int i = (int) (Math.random() * mapHeightInPixels);
+        int j = (int) (Math.random() * mapWidthInCells);
+
+        if(!map[i][j].isFreeCell()){
+            return getRandomPos();
+        }
+        return map[i][j];
+    }
+
+    /**
+     * todo: check later for proper functionality
+     * @param minIDistance min distance between i indices of two castles
+     * @param minJDistance min distance between j indices of two castles
+     * @return returns two Cell in which there can be built two castles
+     */
+    public ArrayList<Cell> getRandomCastlesPoss(int minIDistance, int minJDistance) {
+        Cell c1 = getRandomPos();
+        Cell c2 = getRandomPos();
+        if(Math.abs(c1.getI() - c2.getI() ) < minIDistance && Math.abs(c1.getJ() - c2.getJ() ) < minJDistance) {
+            getRandomCastlesPoss(minIDistance, minJDistance);
+        }
+        ArrayList<Cell> castlePositions = new ArrayList<>();
+        castlePositions.add(c1);
+        castlePositions.add(c2);
+        return castlePositions;
+    }
+
+
 }

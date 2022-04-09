@@ -45,7 +45,7 @@ public class GameSettings {
     public final static int cellHeight = 40;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2 * padding;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
-    public final static int rightPanelWidth = 400;
+    public final static int rightPanelWidth = 600;
     //Game Settings
     public final static int fps = 10; //how many times to repaint the map in one second. Animation quality depends on this
 
