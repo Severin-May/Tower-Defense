@@ -206,15 +206,15 @@ public class Cell extends Sprite {
             System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
             return;
         }
-//        if (!isInEnemyBuildingRange()) {
-//            System.out.println("Close to the enemy building!");
-//            return;
-//        }
-//        if (!isCloseToOwnBuilding()) {
-//            System.out.println("Too far from your own buildings!"); // TODO: Implement error dialogue
-//
-//            return;
-//        }
+        if (!isInEnemyBuildingRange()) {
+            System.out.println("Close to the enemy building!");
+            return;
+        }
+        if (!isCloseToOwnBuilding()) {
+            System.out.println("Too far from your own buildings!"); // TODO: Implement error dialogue
+
+            return;
+        }
 
         Building toBuild = game.getBuildingHover();
         Tower towerToBuild;
