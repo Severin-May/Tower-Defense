@@ -1,7 +1,5 @@
 package model;
 
-import utils.GameSettings;
-
 import java.util.ArrayList;
 
 import static utils.GameSettings.*;
@@ -13,12 +11,14 @@ public class Player {
     protected Castle castle;
     protected String color;
     protected ArrayList<Troop> troops;
+    protected ArrayList<Tower> towers;
 
 
     public Player(String name) {
         this.name = name;
-        this.gold = GameSettings.initialGold;
+        this.gold = initialGold;
         this.troops = new ArrayList<>();
+        this.towers = new ArrayList<>();
     }
 
     /**
@@ -69,6 +69,17 @@ public class Player {
     public void addTroop(Troop t) {
         if (t.getOwner() == this) {
             troops.add(t);
+        }
+    }
+
+    /**
+     * Adds given tower to the player. Only towers belonging to this player can be added
+     *
+     * @param t tower that belongs to this player
+     */
+    public void addTower(Tower t) {
+        if (t.getOwner() == this) {
+            towers.add(t);
         }
     }
 
@@ -135,13 +146,18 @@ public class Player {
     public ArrayList<Troop> getTroops() {
         return this.troops;
     }
+
+    public ArrayList<Tower> getTowers() {
+        return this.towers;
+    }
+
     /**
      * when players want to restart the game, their current state will be lost
      * gold will be set to initial gold
      * and number of troops will become 0
      */
     public void resetPlayer() {
-        gold = GameSettings.initialGold;
+        gold = initialGold;
         troops = null;
     }
 }

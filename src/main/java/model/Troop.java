@@ -16,23 +16,23 @@ public class Troop extends Sprite {
     private ArrayList <Cell> shortestPath;
 
     public Troop(int i, int j, TroopType type, Player owner) {
-        super(i, j, troopWidth, troopHeight, owner.getName().equals("Red") ? (type == MAG ? redMagLeftStop : redSwordLeftStop) : (type == MAG ? blueMagRightStop : blueSwordRightStop));
+        super(i, j, troopWidth, troopHeight, owner.getColor().equals("Red") ? (type == MAG ? redMagLeftStop : redSwordLeftStop) : (type == MAG ? blueMagRightStop : blueSwordRightStop));
         switch (type) {
             case SWORD_MAN: {
-                this.healthPoints = simpleTroopHP;
-                this.cost = simpleTroopCost;
-                this.movementSpeed = simpleTroopMovementSpeed;
-                this.attackDamage = simpleTroopAttackDamage;
-                this.movementPoints = simpleTroopMovementPoints;
+                this.healthPoints = swordManHp;
+                this.cost = swordManCost;
+                this.movementSpeed = swordManSpeed;
+                this.attackDamage = swordManAttackDamage;
+                this.movementPoints = swordManMovementPoints;
                 this.type = type;
                 break;
             }
             case MAG: {
-                this.healthPoints = slowBigTroopHP;
-                this.cost = slowBigTroopCost;
-                this.movementSpeed = slowBigTroopMovementSpeed;
-                this.attackDamage = slowBigTroopAttackDamage;
-                this.movementPoints = slowBigTroopMovementPoints;
+                this.healthPoints = magHp;
+                this.cost = magCost;
+                this.movementSpeed = magSpeed;
+                this.attackDamage = magAttackDamage;
+                this.movementPoints = magMovementPoints;
                 this.type = type;
                 break;
             }
@@ -61,22 +61,36 @@ public class Troop extends Sprite {
 
     Direction direction;
 
-
+    private Player getEnemyPlayer(){
+        Game game = Game.getInstance();
+        return game.getPlayer1() != getOwner() ? game.getPlayer1() : game.getPlayer2();
+    }
     public void buildShortestPath(){
         Cell[][] map = Map.getInstance().getMap();
-        shortestPath = bfs(map[getI()][getJ()], map[5][5], map);
+        //center of the map
+//        int destinationI = (map.length-1)/2;
+//        int destinationJ = (map[0].length-1)/2;
+        //enemy castle
+        int destinationI = getEnemyPlayer().castle.getI();
+        int destinationJ = getEnemyPlayer().castle.getJ();
+        shortestPath = bfs(map[getI()][getJ()], map[destinationI][destinationJ], map);
     }
 
-    public void move() {
+    /**
+     * if there are any movement points left and if not already in the destination
+     * then makes the troop move to the direction of the destination by movement point of the troop
+     */
+    public void moveIfPossible() {
         if (movementPoints <= 0){
-            System.out.println("No movement points left");
             return;
         }
         Cell currentCell = Map.getInstance().getMap()[getI()][getJ()];
         int i = shortestPath.indexOf(currentCell);
         if (i == shortestPath.size()-1){
-            System.out.println("Reached destination!");
-            movementPoints = 0;
+//            System.out.println("Reached destination!");
+            if (currentCell.hasBuilding() && currentCell.getBuilding() == getEnemyPlayer().getCastle()){
+                attack(getEnemyPlayer().getCastle());
+            }
             return;
         }
         //force troop go to the same direction if its sprite is not fully inside the cell
@@ -127,7 +141,6 @@ public class Troop extends Sprite {
 
     /**
      * calls castle object's getAttackedBy method feed with 'this' troop object
-     * TODO: Troop should be destroyed!
      * @param castle the castle of the enemy
      */
     public void attack(Castle castle) {
@@ -140,6 +153,23 @@ public class Troop extends Sprite {
      */
     public void decreaseHP(int amount) {
         this.healthPoints -= amount;
+        if (isKilled()){
+            selfDestruct();
+        }
+    }
+
+    /**
+     * removes the troop from the map and from the players
+     */
+    public void selfDestruct() {
+        Cell[][] map = Map.getInstance().getMap();
+        for (Cell[] cells : map) {
+            for (Cell cell : cells) {
+                cell.removeTroop(this);
+            }
+        }
+        Game.getInstance().getPlayer1().removeTroop(this);
+        Game.getInstance().getPlayer2().removeTroop(this);
     }
 
     /**
@@ -180,7 +210,7 @@ public class Troop extends Sprite {
     }
 
     public void resetMovementPoints(){
-        this.movementPoints = type == MAG ? slowBigTroopMovementPoints : simpleTroopMovementPoints;
+        this.movementPoints = type == MAG ? magMovementPoints : swordManMovementPoints;
     }
 
     public ArrayList<Cell> getShortestPath() {
@@ -199,7 +229,9 @@ public class Troop extends Sprite {
     private static boolean isValid(int i, int j, Cell[][] grid , boolean[][] visited)
     {
         return (i >= 0 && j >= 0 && i < mapHeightInCells
-                && j < mapWidthInCells && !grid[i][j].hasBuilding() && !visited[i][j]) ;
+                && j < mapWidthInCells && !visited[i][j]
+                && (!grid[i][j].hasBuilding() || (grid[i][j].hasBuilding() && (grid[i][j].getBuilding() instanceof Castle))));
+                //if it does not have building OR has building and that's Castle then valid => Castle is exception and not counted as obstacle
     }
 
     /**
@@ -211,7 +243,7 @@ public class Troop extends Sprite {
      */
     public static ArrayList<Cell> bfs (Cell startNode, Cell endNode, Cell[][] grid) {
 
-        if(grid.length == 0) { System.out.println("Grid is empty"); return null; }
+        if(grid.length == 0 || grid[0].length == 0) { System.out.println("Grid is empty"); return null; }
 
         HashMap<Cell, Cell> parentNodes = new HashMap<>();
         Queue<Cell> queue = new LinkedList<>();
@@ -273,6 +305,10 @@ public class Troop extends Sprite {
     }
 
     private int walk = 0;
+
+    /**
+     * makes the sprite turn right and switch legs
+     */
     private void faceRight(){
         if (owner.getColor().equals("Red")){
             this.image = type == MAG ? redMagLeftWalk[walk++%2] : redSwordLeftWalk[walk++%2];
@@ -280,6 +316,9 @@ public class Troop extends Sprite {
             this.image = type == MAG ? blueMagLeftWalk[walk++%2] : blueSwordLeftWalk[walk++%2];
         }
     }
+    /**
+     * makes the sprite turn left and switch legs
+     */
     private void faceLeft (){
         if (owner.getColor().equals("Red")){
             this.image = type == MAG ? redMagRightWalk[walk++%2] : redSwordRightWalk[walk++%2];
@@ -287,6 +326,9 @@ public class Troop extends Sprite {
             this.image = type == MAG ? blueMagRightWalk[walk++%2] : blueSwordRightWalk[walk++%2];
         }
     }
+    /**
+     * makes the sprite up right and switch legs
+     */
     private void faceUp (){
         if (owner.getColor().equals("Red")){
             this.image = type == MAG ? redMagBackWalk[walk++%2] : redSwordBackWalk[walk++%2];

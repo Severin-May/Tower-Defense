@@ -11,34 +11,33 @@ public class GameSettings {
     public final static int longRangeAttackDamage = 10;
     public final static int longRangeCost = 10;
     public final static int longRangeShotCount = 10;
-    public final static int longRangeReloadTime = 10;
+    public final static int longRangeReloadTime = 2;
     //short ranged:
     public final static int shortRangeTowerRange = 2;
     public final static int shortRangeAttackDamage = 10;
     public final static int shortRangeCost = 10;
     public final static int shortRangeShotCount = 10;
-    public final static int shortRangeReloadTime = 10;
+    public final static int shortRangeReloadTime = 2;
     //splash:
     public final static int splashTowerRange = 3;
     public final static int splashAttackDamage = 10;
     public final static int splashCost = 10;
     public final static int splashShotCount = 10;
-    public final static int splashReloadTime = 10;
+    public final static int splashReloadTime = 2;
 
     //Initial Troops' stat:
-    //simple troop:
-    public final static int simpleTroopHP = 10;
-    public final static int simpleTroopMovementSpeed = 2;
-    public final static int simpleTroopAttackDamage = 10;
-    public final static int simpleTroopCost = 10;
-    public final static int simpleTroopMovementPoints = 100;
-    //slower but lots of hp
-    public final static int slowBigTroopHP = 10;
-    public final static int slowBigTroopMovementSpeed = 2;
-    public final static int slowBigTroopAttackDamage = 10;
-    public final static int slowBigTroopCost = 10;
-    public final static int slowBigTroopMovementPoints = 100;
-    // ... etc. for rest type of troops
+    //sword man troop:
+    public final static int swordManHp = 100;
+    public final static int swordManSpeed = 2;
+    public final static int swordManAttackDamage = 10;
+    public final static int swordManCost = 10;
+    public final static int swordManMovementPoints = 5;
+    //mag troop
+    public final static int magHp = 50;
+    public final static int magSpeed = 4;
+    public final static int magAttackDamage = 10;
+    public final static int magCost = 10;
+    public final static int magMovementPoints = 3;
 
     //Map settings:
     public final static int numberOfObstacles = 3;
@@ -51,13 +50,13 @@ public class GameSettings {
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
     public final static int rightPanelWidth = 600;
     //Game Settings
-    public final static int fps = 10; //how many times to repaint the map in one second. Animation quality depends on this
+    public final static int fps = 15; //how many times to repaint the map in one second. Animation quality depends on this
 
 
     //Other initial states:
     public static int initialGold = 969696;
-    public static int towerInitialHP = 1500;
-    public static int castleInitialHP = 1500;
+    public static int towerInitialHP = 50;
+    public static int castleInitialHP = 100;
 
 
     // Image sizes in pixels:
@@ -73,13 +72,14 @@ public class GameSettings {
     public final static int treasureChestHeight = cellHeight;
     public final static int obstacleWidth = cellWidth;
     public final static int obstacleHeight = cellHeight;
+    // IMPORTANT: Troop size MUST fit into cell otherwise it makes it move in one direction infinitely because it always tries to fit himself into the cell
     public final static int troopWidth = (int)(cellWidth * 0.9);
     public final static int troopHeight = (int)(cellWidth * 0.99);
     // Image paths as strings
     //Passive Buildings
     // Gold Mine
-    public final static Image goldMine = new ImageIcon("src/main/resources/images/Area/Obstacles/notYet.png").getImage();
-    public final static Image treasure = new ImageIcon("src/main/resources/images/Area/Obstacles/notYet.png").getImage();
+    public final static Image goldMine = new ImageIcon("src/main/resources/images/GoldMine.png").getImage();
+    public final static Image treasure = new ImageIcon("src/main/resources/images/Treasure.png").getImage();
     //Obstacles
     public final static Image bush = new ImageIcon("src/main/resources/images/Area/Obstacles/bush2.png").getImage();
     public final static Image rock = new ImageIcon("src/main/resources/images/Area/Obstacles/rock.png").getImage();
@@ -96,8 +96,12 @@ public class GameSettings {
     public final static Image grass7 = new ImageIcon("src/main/resources/images/Area/Grass7.png").getImage();
     public final static Image[] grass = {grass0,grass1,grass2,grass3,grass4,grass5,grass6,grass7};
 
-
-
+    public final static Image magBall = new ImageIcon("src/main/resources/images/MagBall.png").getImage();
+    public final static int magBallSize = 12;
+    public final static Image swordBall = new ImageIcon("src/main/resources/images/SwordBall.png").getImage();
+    public final static int swordBallSize = 10;
+    public final static Image splashBall = new ImageIcon("src/main/resources/images/SplashBall.png").getImage();
+    public final static int splashBallSize = 15;
 
     //Blue player
     //Active Buildings
@@ -119,6 +123,27 @@ public class GameSettings {
     public final static Image blueSplashL1Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/Splash/L1/Right.png").getImage();
     public final static Image blueSplashL2Right = new ImageIcon ("src/main/resources/images/Blue/Buildings/Splash/L2/Right.png").getImage();
     public final static Image blueSplashL2Left = new ImageIcon ("src/main/resources/images/Blue/Buildings/Splash/L2/Left.png").getImage();
+
+    //Red player
+    //Active Buildings
+    //Castle
+    public final static Image redCastle = new ImageIcon ("src/main/resources/images/Red/Buildings/Castle/Red.png").getImage();
+
+    // LongRange
+    public final static Image redLongRangeL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L1/Left.png").getImage();
+    public final static Image redLongRangeL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L1/Right.png").getImage();
+    public final static Image redLongRangeL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L2/Right.png").getImage();
+    public final static Image redLongRangeL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L2/Left.png").getImage();
+    //ShortRange
+    public final static Image redShortRangeL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L1/Left.png").getImage();
+    public final static Image redShortRangeL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L1/Right.png").getImage();
+    public final static Image redShortRangeL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L2/Right.png").getImage();
+    public final static Image redShortRangeL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L2/Left.png").getImage();
+    //Splash
+    public final static Image redSplashL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L1/Left.png").getImage();
+    public final static Image redSplashL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L1/Right.png").getImage();
+    public final static Image redSplashL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Right.png").getImage();
+    public final static Image redSplashL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Left.png").getImage();
 
     //Troop
     //Mag
@@ -156,48 +181,6 @@ public class GameSettings {
     public final static Image blueSwordRightW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Right/V2.png").getImage();
     public final static Image[] blueSwordRightWalk = {blueSwordRightW1,blueSwordRightW2};
 
-    //Red player
-    //Active Buildings
-    //Castle
-    public final static Image redCastle = new ImageIcon ("src/main/resources/images/Red/Buildings/Castle/Red.png").getImage();
-
-    // LongRange
-    public final static Image redLongRangeL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L1/Left.png").getImage();
-    public final static Image redLongRangeL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L1/Right.png").getImage();
-    public final static Image redLongRangeL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L2/Right.png").getImage();
-    public final static Image redLongRangeL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/LongRange/L2/Left.png").getImage();
-    //ShortRange
-    public final static Image redShortRangeL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L1/Left.png").getImage();
-    public final static Image redShortRangeL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L1/Right.png").getImage();
-    public final static Image redShortRangeL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L2/Right.png").getImage();
-    public final static Image redShortRangeL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/ShortRange/L2/Left.png").getImage();
-    //Splash
-    public final static Image redSplashL1Left = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L1/Left.png").getImage();
-    public final static Image redSplashL1Right = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L1/Right.png").getImage();
-    public final static Image redSplashL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Right.png").getImage();
-    public final static Image redSplashL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Left.png").getImage();
-
-    public static Image getShortRangeL1Left() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Left;
-    }
-
-    public static Image getLongRangeL1Left() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redLongRangeL1Left : blueLongRangeL1Left;
-    }
-
-    public static Image getSplashL1Left() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSplashL1Left : blueSplashL1Left;
-    }
-
-    public static Image getMagLeftStop() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redMagLeftStop : blueMagLeftStop;
-    }
-
-    public static Image getSwordLeftStop() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSwordLeftStop : blueSwordLeftStop;
-
-    }
-
 
     //Troop
     //Mag
@@ -232,4 +215,25 @@ public class GameSettings {
     public final static Image redSwordRightW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Right/V1.png").getImage();
     public final static Image redSwordRightW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Right/V2.png").getImage();
     public final static Image[] redSwordRightWalk = {redSwordRightW1,redSwordRightW2};
+
+    public static Image getShortRangeL1Left() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Left;
+    }
+
+    public static Image getLongRangeL1Left() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redLongRangeL1Left : blueLongRangeL1Left;
+    }
+
+    public static Image getSplashL1Left() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSplashL1Left : blueSplashL1Left;
+    }
+
+    public static Image getMagLeftStop() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redMagLeftStop : blueMagLeftStop;
+    }
+
+    public static Image getSwordLeftStop() {
+        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSwordLeftStop : blueSwordLeftStop;
+    }
+
 }

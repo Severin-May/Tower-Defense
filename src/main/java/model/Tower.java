@@ -12,6 +12,27 @@ public abstract class Tower extends ActiveBuilding {
     protected int reloadTime;
     protected long lastShotTime;
 
+    /**
+     * shotSprite is inner class of towers responsible for the shooting animation
+     * it inherits all the functionalities from Sprite
+     */
+    protected static class ShotSprite extends Sprite {
+        public Troop destinationTroop;
+        public ShotSprite(int i, int j, int width, int height, Image image) {
+            super(i, j, width, height, image);
+        }
+
+        /**
+         *
+         * @return checks if the ball reached the destination troop. If yes, then damages it
+         */
+        public boolean hasReachedDestination (){
+            return Math.abs(x - destinationTroop.x) <= 5 && Math.abs(y - destinationTroop.y) <= 5;
+        }
+    }
+    protected ShotSprite shotSprite;
+
+
     public Tower(int i, int j, Image image, Player owner) {
         super(i, j, towerWidth, towerHeight, image, owner);
     }
@@ -22,7 +43,7 @@ public abstract class Tower extends ActiveBuilding {
 
     /**
      * If any shots left then:
-     * scans its radius and if there's a troop and reload time is passed then:
+     * scans its radius and if there's an enemy troop and reload time is passed then:
      * shoots it
      * spends a shot
      * decreases given troop's health point by its attack damage
@@ -33,14 +54,15 @@ public abstract class Tower extends ActiveBuilding {
         long currentTime = System.currentTimeMillis();
         long timeElapsedFromLastShot = currentTime - lastShotTime;
         boolean reloaded = timeElapsedFromLastShot >= reloadTime * 1000L;
-        if (shotCount > 0 && reloaded) {
-            Troop troopToAttack = troopWithinRange();
-            if (troopToAttack != null) {
-                shotCount--;
-                troopToAttack.decreaseHP(attackDamage);
-                lastShotTime = currentTime;
-            }
+        Troop troopToAttack;
+        if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
+            return;//not allowed shooting
         }
+        if (shotSprite == null){
+            shotSprite = createShotSprite(troopToAttack);
+        }
+        shotCount--;
+        lastShotTime = currentTime;
     }
 
     /**
@@ -66,27 +88,33 @@ public abstract class Tower extends ActiveBuilding {
                 }
                 if (einRange) {
                     for (int k = s; k <= (mapWidthInCells - 1); k++) {
-                        if (map[ti][k].getTroops().size() > 0) {
-                            return map[ti][k].getTroops().get(0);
+                        for (Troop t : map[ti][k].getTroops()){
+                            if (isEnemyTroop(t)){
+                                return t;
+                            }
                         }
                     }
                 } else if (sinRange) {
                     for (int k = 0; k <= e; k++) {
-                        if (map[ti][k].getTroops().size() > 0) {
-                            return map[ti][k].getTroops().get(0);
+                        for (Troop t : map[ti][k].getTroops()){
+                            if (isEnemyTroop(t)){
+                                return t;
+                            }
                         }
                     }
                 } else {
                     for (int k = s; k <= e; k++) {
-                        if (map[ti][k].getTroops().size() > 0) {
-                            return map[ti][k].getTroops().get(0);
+                        for (Troop t : map[ti][k].getTroops()){
+                            if (isEnemyTroop(t)){
+                                return t;
+                            }
                         }
                     }
                 }
                 if (ti < i) {
                     s = s - 1;
                     e = e + 1;
-                } else  {
+                } else {
                     s = s + 1;
                     e = e - 1;
                 }
@@ -133,4 +161,45 @@ public abstract class Tower extends ActiveBuilding {
      * upgrades the building
      */
     public abstract void upgrade();
+
+    /**
+     * reload tower's ammo
+     */
+    public abstract void resetShotCount();
+
+    /**
+     * If there is already a bullet of this tower flying then makes it move toward the targeted troop
+     * If after the move it reaches the target then deals damage to it and disappears
+     * Use when shooting
+     */
+    public void shotAnimation(){
+        if (shotSprite != null){
+            //if targeted troop already does not exist when the bullet is already shot then bullet disappears midair
+            if (shotSprite.destinationTroop == null){
+                shotSprite = null;
+                return;
+            }
+            double toPlayerX = shotSprite.destinationTroop.x - shotSprite.x;
+            double toPlayerY = shotSprite.destinationTroop.y - shotSprite.y;
+            // Normalize
+            double toPlayerLength = Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY);
+            toPlayerX = toPlayerX / toPlayerLength;
+            toPlayerY = toPlayerY / toPlayerLength;
+            this.shotSprite.x += toPlayerX * 13;
+            this.shotSprite.y += toPlayerY * 13;
+            //if bullet reached then, it deals damage and disappears
+            if (shotSprite.hasReachedDestination()){
+                System.out.println("Hit!");
+                shotSprite.destinationTroop.decreaseHP(attackDamage);
+                shotSprite = null;
+            }
+        }
+    }
+
+    /**
+     * Creates a new instance of bullet sprite
+     * @param troopToAttack bullet's target
+     * @return created instance
+     */
+    public abstract ShotSprite createShotSprite(Troop troopToAttack);
 }

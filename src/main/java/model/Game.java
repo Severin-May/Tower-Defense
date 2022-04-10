@@ -12,6 +12,7 @@ public class Game {
     private Building buildingHover;
     private final AtomicBoolean fightingStage = new AtomicBoolean(false);
     public static final AtomicBoolean everyThingReady = new AtomicBoolean(false);
+    public static final AtomicBoolean gameOver = new AtomicBoolean(false);
 
     private Game(Player player1, Player player2) {
         this.player1 = player1;
@@ -40,10 +41,16 @@ public class Game {
         return instance;
     }
 
+    /**
+     * @return true if both player's units finished moving
+     */
     private boolean bothPlayersFinishedMoving() {
         return player1.allTroopsFinishedMoving() && player2.allTroopsFinishedMoving();
     }
 
+    /**
+     * @return all the troops from player1 and player2
+     */
     private ArrayList<Troop> getAllTroops() {
         ArrayList<Troop> list = new ArrayList<>(player1.getTroops().size() + player2.getTroops().size());
         list.addAll(player1.getTroops());
@@ -52,36 +59,57 @@ public class Game {
     }
 
     /**
+     * @return all the towers from player1 and player2
+     */
+    private ArrayList<Tower> getAllTowers() {
+        ArrayList<Tower> list = new ArrayList<>(player1.getTowers().size() + player2.getTowers().size());
+        list.addAll(player1.getTowers());
+        list.addAll(player2.getTowers());
+        return list;
+    }
+
+    /**
      * this function is responsible for the start of the game
      * when the preparation stage is completed, the actual game starts
      */
     public void startGame() {
-        new Troop(1, 1, TroopType.SWORD_MAN, player1);
         ArrayList<Troop> troopsOnTheField = getAllTroops();
+        ArrayList<Tower> towersOnTheField = getAllTowers();
+        for (Tower t : towersOnTheField) {
+            t.resetShotCount();
+        }
         for (Troop t : troopsOnTheField) {
             t.resetMovementPoints();
             t.buildShortestPath(); // update the shortest path
         }
         Cell[][] map = Map.getInstance().getMap();
+        //while all troops either died or finished moving
         while (!bothPlayersFinishedMoving()) {
-            for (Troop t : troopsOnTheField) {
-                Cell currentCell = map[t.getI()][t.getJ()];
-                t.move();
-                Cell newCell = map[t.getI()][t.getJ()];
+            //towers shoot and display the animation
+            for (Tower tower : towersOnTheField) {
+                tower.shotAnimation();
+                tower.launchAttackIfPossible();
+            }
+            //troops move
+            for (Troop troop : troopsOnTheField) {
+                Cell currentCell = map[troop.getI()][troop.getJ()];
+                troop.moveIfPossible();
+                Cell newCell = map[troop.getI()][troop.getJ()];
+                //if troop is in new cell then move from old to new
                 if (currentCell != newCell) {
-                    currentCell.removeTroop(t);
-                    newCell.getTroops().add(t);
-                    t.decreaseMovementPoint();
-                    System.out.println("Moved to the next cell!");
+                    currentCell.removeTroop(troop);
+                    newCell.getTroops().add(troop);
+                    troop.decreaseMovementPoint();
                 }
-                try {
-                    Thread.sleep(100L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            }
+            try {
+                Thread.sleep(100L); // handle speed of the game by holding the loop
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
         System.out.println("All troops finished!");
+        clearBullets();
         fightingStage.set(false);
     }
 
@@ -129,12 +157,6 @@ public class Game {
         this.buildingHover = buildingHover;
     }
 
-    /**
-     * @return if one of the player's castle is destroyed or not
-     */
-    public boolean BothCastlesAlive() {
-        return !player1.getCastle().isDestroyed() && !player2.getCastle().isDestroyed();
-    }
 
     /**
      * @return if the game is in preparation stage or not
@@ -146,6 +168,15 @@ public class Game {
 
     public void setFightingStage(boolean fightingStage) {
         this.fightingStage.set(fightingStage);
+    }
+
+    /**
+     * removes all the bullet sprites from the map
+     */
+    private void clearBullets(){
+        for (Tower t : getAllTowers()){
+            t.shotSprite = null;
+        }
     }
 
 }
