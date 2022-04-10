@@ -105,6 +105,8 @@ public class RightSidePanel extends JPanel {
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Player currentPlayer = game.getCurrentTurn();
+                new Troop(currentPlayer.getCastle().getI(), currentPlayer.getCastle().getJ(), TroopType.SWORD_MAN, currentPlayer);
                 System.out.println("Melee unit was clicked");
             }
         });
@@ -113,6 +115,8 @@ public class RightSidePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Mag was clicked");
+                Player currentPlayer = game.getCurrentTurn();
+                new Troop(currentPlayer.getCastle().getI(), currentPlayer.getCastle().getJ(), TroopType.MAG, currentPlayer);
             }
         });
         endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);

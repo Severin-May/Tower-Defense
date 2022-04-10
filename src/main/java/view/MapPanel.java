@@ -32,9 +32,6 @@ public class MapPanel extends JPanel implements Runnable {
                 Cell cellToClick = map.getCellFor(x, y);
 
                 if (cellToClick != null) {
-                    System.out.println(x);
-                    System.out.println(y);
-                    System.out.println(map.getMap()[3][3].isInsideThisCell(x,y,cellWidth-5,cellHeight-5));
                     if (me.getButton() == MouseEvent.BUTTON1) {
                         cellToClick.click();
                     } else if (me.getButton() == MouseEvent.BUTTON3) {

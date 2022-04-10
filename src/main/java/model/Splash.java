@@ -1,9 +1,5 @@
 package model;
 
-import utils.GameSettings;
-
-import javax.swing.*;
-
 import java.util.ArrayList;
 
 import static utils.GameSettings.*;
@@ -11,20 +7,20 @@ import static utils.GameSettings.*;
 public class Splash extends Tower {
     public Splash(int i, int j, Player owner) {
         super(i, j, owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right, owner);
-        this.attackRadius = GameSettings.splashTowerRange;
-        this.attackDamage = GameSettings.splashAttackDamage;
-        this.reloadTime = GameSettings.splashReloadTime;
-        this.cost = GameSettings.splashCost;
-        this.shotCount = GameSettings.splashShotCount;
+        this.attackRadius = splashTowerRange;
+        this.attackDamage = splashAttackDamage;
+        this.reloadTime = splashReloadTime;
+        this.cost = splashCost;
+        this.shotCount = splashShotCount;
     }
 
     public Splash(Player owner) {
         super(owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right, owner);
-        this.attackRadius = GameSettings.splashTowerRange;
-        this.attackDamage = GameSettings.splashAttackDamage;
-        this.reloadTime = GameSettings.splashReloadTime;
-        this.cost = GameSettings.splashCost;
-        this.shotCount = GameSettings.splashShotCount;
+        this.attackRadius = splashTowerRange;
+        this.attackDamage = splashAttackDamage;
+        this.reloadTime = splashReloadTime;
+        this.cost = splashCost;
+        this.shotCount = splashShotCount;
     }
 
     @Override
@@ -32,15 +28,15 @@ public class Splash extends Tower {
         long currentTime = System.currentTimeMillis();
         long timeElapsedFromLastShot = currentTime - lastShotTime;
         boolean reloaded = timeElapsedFromLastShot >= reloadTime * 1000L;
-        ArrayList<Troop> allInRange = new ArrayList<>();
-        if (shotCount > 0 && reloaded) {
-            Troop troopToAttack = troopWithinRange();
-            if (troopToAttack != null) {
-                shotCount--;
-                troopToAttack.decreaseHP(attackDamage);
-                lastShotTime = currentTime;
-            }
+        Troop troopToAttack;
+        if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
+            return;//not allowed shooting
         }
+        if (shotSprite == null){
+            shotSprite = createShotSprite(troopToAttack);
+        }
+        shotCount--;
+        lastShotTime = currentTime;
     }
 
     @Override
@@ -57,4 +53,17 @@ public class Splash extends Tower {
         this.width = upgradedTowerWidth;
         this.height = upgradedTowerHeight;
     }
+
+    @Override
+    public void resetShotCount() {
+        this.shotCount = splashShotCount;
+    }
+
+    @Override
+    public ShotSprite createShotSprite(Troop troopToAttack){
+        ShotSprite s = new ShotSprite(getI(), getJ(), splashBallSize, splashBallSize, splashBall);
+        s.destinationTroop = troopToAttack;
+        return s;
+    }
+
 }

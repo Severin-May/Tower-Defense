@@ -3,7 +3,6 @@ package model;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static utils.GameSettings.*;
 import static utils.GameSettings.mapWidthInCells;
@@ -19,25 +18,44 @@ public class Cell extends Sprite {
         troops = new ArrayList<>();
     }
 
-    public void drawCell(Graphics g) {
+    /**
+     * draws the grass and a rectangle (square) around it
+     * @param g Graphics which actually draws on the screen
+     */
+    public void drawGrassAndRectangles(Graphics g) {
         g.drawImage(this.image, x - width/2, y - height/2, width, height, null);
         g.drawRect(x - height/2, y - height/2, width, height); //optional
     }
 
+    /**
+     * draws all the sprites if it should be on this cell (i.e. troop, tower, bullet, etc.)
+     * @param g Graphics which actually draws on the screen
+     */
     public void drawSprites(Graphics g) {
         if (hasBuilding()) {
             g.drawImage(building.image, x - building.width/2, y - building.height/2, building.width, building.height, null);
+            if (building instanceof Tower){
+                Tower t = (Tower) building;
+                Tower.ShotSprite shotSprite = t.shotSprite;
+                if (shotSprite != null){
+                    g.drawImage(shotSprite.getImage(), shotSprite.getX(), shotSprite.getY(), shotSprite.width, shotSprite.height, null);
+                }
+            }
         }
         for (Troop t : troops) {
             g.drawImage(t.image, t.x - t.width/2, t.y - t.height/2, t.width, t.height, null);
         }
     }
 
+    /**
+     * Click handler. This function is triggered when this cell is clicked
+     */
     public void click() {
         //If buy tower is clicked and tower is being placed
         if (game.isPlacingTower()) {
             tryToPutBuilding();
         }
+//        new Troop(getI(),getJ(),TroopType.MAG, Game.getInstance().getCurrentTurn());
 
 
 
@@ -188,15 +206,15 @@ public class Cell extends Sprite {
             System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
             return;
         }
-        if (!isInEnemyBuildingRange()) {
-            System.out.println("Close to the enemy building!");
-            return;
-        }
-        if (!isCloseToOwnBuilding()) {
-            System.out.println("Too far from your own buildings!"); // TODO: Implement error dialogue
-
-            return;
-        }
+//        if (!isInEnemyBuildingRange()) {
+//            System.out.println("Close to the enemy building!");
+//            return;
+//        }
+//        if (!isCloseToOwnBuilding()) {
+//            System.out.println("Too far from your own buildings!"); // TODO: Implement error dialogue
+//
+//            return;
+//        }
 
         Building toBuild = game.getBuildingHover();
         Tower towerToBuild;
@@ -205,6 +223,7 @@ public class Cell extends Sprite {
             towerToBuild = (Tower) toBuild; // Have to convert to get and check the cost
             if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
                 setBuilding(towerToBuild);
+                towerToBuild.getOwner().addTower(towerToBuild);
             }
         } else if (toBuild instanceof GoldMine) {
             goldMineToBuild = (GoldMine) toBuild;
@@ -212,12 +231,24 @@ public class Cell extends Sprite {
         game.setBuildingHover(null); // turn off hover after clicking
     }
 
+    /**
+     * attaches given building on this cell
+     * @param building building to put on this cell
+     */
     public void setBuilding(Building building) {
         building.setX(x);
         building.setY(y);
         this.building = building;
     }
 
+    /**
+     * checks if given rectangle (sprite parameters) fully fits into this cell
+     * @param x x coordinate of the given rectangle
+     * @param y y coordinate of the given rectangle
+     * @param width width of the given rectangle
+     * @param height height of the given rectangle
+     * @return true if fits into this cell
+     */
     public boolean isInsideThisCell (int x, int y, int width, int height){
         int leftSide = x - width/2;
         int rightSide = x + width/2;
@@ -227,7 +258,7 @@ public class Cell extends Sprite {
         int rightSideOfCell = this.x + this.width/2;
         int upSideOfCell = this.y - this.height/2;
         int downSideOfCell = this.y + this.height/2;
-        return leftSide > leftSideOfCell && rightSide < rightSideOfCell && upSide > upSideOfCell && downSide < downSideOfCell;
+        return leftSide >= leftSideOfCell && rightSide <= rightSideOfCell && upSide >= upSideOfCell && downSide <= downSideOfCell;
     }
 
     public boolean hasBuilding() {

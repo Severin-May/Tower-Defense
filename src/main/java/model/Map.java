@@ -27,7 +27,7 @@ public class Map {
     public void drawMap(Graphics g) {
         for (int i = 0; i < mapHeightInCells; i++) {
             for (int j = 0; j < mapWidthInCells; j++) {
-                map[i][j].drawCell(g);
+                map[i][j].drawGrassAndRectangles(g);
             }
         }
         // need to draw twice because we first draw grass and only then sprites on top of it
