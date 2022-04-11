@@ -71,8 +71,8 @@ public class GameSettings {
     public final static int padding = 25;
     public final static int mapHeightInCells = 15;
     public final static int mapWidthInCells = 20;
-    public final static int cellWidth = 50;
-    public final static int cellHeight = 50;
+    public final static int cellWidth = 30;
+    public final static int cellHeight = 25;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2 * padding;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
     public final static int rightPanelWidth = 600;
@@ -84,6 +84,8 @@ public class GameSettings {
     public static int initialGold = 969696;
     public static int towerInitialHP = 50;
     public static int castleInitialHP = 100;
+    public static int minIdistance = 10;
+    public static int minJdistance = 10;
 
 
     // Image sizes in pixels:

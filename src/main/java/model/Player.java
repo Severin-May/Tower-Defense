@@ -176,6 +176,8 @@ public class Player {
      */
     public void resetPlayer() {
         gold = initialGold;
-        troops = null;
+        troops = new ArrayList<>();
+        goldMines = new ArrayList<>();
+        towers = new ArrayList<>();
     }
 }

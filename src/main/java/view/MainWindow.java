@@ -106,8 +106,8 @@ public class MainWindow extends JFrame implements KeyListener {
         Map.initialise();
         p1.setColor("Red");
         p2.setColor("Blue");
-        p1.setCastle(new Castle(0, 0, p1));
-        p2.setCastle(new Castle(mapHeightInCells - 1, mapWidthInCells - 1, p2));
+        Map.getInstance().putRandomCastles();
+        Map.getInstance().putRandomObstacles();
     }
 
     private Box panelToDisplay(JPanel newPanel){

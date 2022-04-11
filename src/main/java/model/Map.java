@@ -41,8 +41,9 @@ public class Map {
     /**
      * generates treasure chests on a game board
      */
-    public void generateTreasure(int counter) {
-
+    public void generateTreasure() {
+        Cell temp = instance.getRandomPos();
+        instance.getMap()[temp.getI()][temp.getJ()].setBuilding(new TreasureChest(temp.getI(), temp.getJ(), null, awardForPickingTreasure));
     }
 
     /**
@@ -67,7 +68,9 @@ public class Map {
                 instance.getMap()[i][j] = new Cell(i, j, grassImage);
             }
         }
-        //todo: generate randomCastles()
+        instance.putRandomCastles();
+        instance.putRandomObstacles();
+        //instance.generateTreasure(); //TODO: enable generating treasure
     }
 
     public Cell[][] getMap() {
@@ -101,7 +104,7 @@ public class Map {
      * @return random Cell in which there is no building and troop
      */
     public Cell getRandomPos() {
-        int i = (int) (Math.random() * mapHeightInPixels);
+        int i = (int) (Math.random() * mapHeightInCells);
         int j = (int) (Math.random() * mapWidthInCells);
 
         if(!map[i][j].isFreeCell()){
@@ -112,20 +115,28 @@ public class Map {
 
     /**
      * todo: check later for proper functionality
-     * @param minIDistance min distance between i indices of two castles
-     * @param minJDistance min distance between j indices of two castles
-     * @return returns two Cell in which there can be built two castles
      */
-    public ArrayList<Cell> getRandomCastlesPoss(int minIDistance, int minJDistance) {
-        Cell c1 = getRandomPos();
-        Cell c2 = getRandomPos();
-        if(Math.abs(c1.getI() - c2.getI() ) < minIDistance && Math.abs(c1.getJ() - c2.getJ() ) < minJDistance) {
-            getRandomCastlesPoss(minIDistance, minJDistance);
+    public void putRandomCastles() {
+        int i1 = (int) (Math.random() * mapHeightInCells);
+        int j1 = (int) (Math.random() * mapWidthInCells);
+        int i2 = (int) (Math.random() * mapHeightInCells);
+        int j2 = (int) (Math.random() * mapWidthInCells);
+        if(Math.abs(i1 - i2 ) < minIdistance && Math.abs(j1 - j2 ) < minJdistance) {
+            putRandomCastles();
         }
-        ArrayList<Cell> castlePositions = new ArrayList<>();
-        castlePositions.add(c1);
-        castlePositions.add(c2);
-        return castlePositions;
+        else {
+            Player p1 = Game.getInstance().getPlayer1();
+            Player p2 = Game.getInstance().getPlayer2();
+            p1.setCastle(new Castle(i1, j1, p1));
+            p2.setCastle(new Castle(i2, j2, p2));
+        }
+    }
+
+    public void putRandomObstacles() {
+       for(int i = 0; i < numberOfObstacles; i++) {
+           Cell temp = instance.getRandomPos();
+           instance.getMap()[temp.getI()][temp.getJ()].setBuilding(new Obstacle(temp.getI(), temp.getJ(), null));
+       }
     }
 
 
