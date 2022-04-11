@@ -23,26 +23,30 @@ public class ShortRange extends Tower {
 
     @Override
     public void upgrade() {
-        this.healthPoints += 5;
-        this.attackRadius += 5;
-        this.reloadTime -= 2;
-        this.shotCount += 5;
+        this.attackRadius = upgradedShortRangeTowerRange;
+        this.reloadTime = upgradedShortRangeReloadTime;
+        this.shotCount = upgradedShortRangeShotCount;
+        this.width = upgradedTowerWidth;
+        this.height = upgradedTowerHeight;
         if (owner.getColor().equals("Red")) {
             this.image = redShortRangeL2Left;
         } else {
             this.image = blueShortRangeL2Right;
         }
-        this.width = upgradedTowerWidth;
-        this.height = upgradedTowerHeight;
+        upgraded = true;
     }
 
     @Override
     public void resetShotCount() {
-        this.shotCount = shortRangeShotCount;
+        if (upgraded) {
+            this.shotCount = upgradedShortRangeShotCount;
+        } else {
+            this.shotCount = shortRangeShotCount;
+        }
     }
 
     @Override
-    public ShotSprite createShotSprite(Troop troopToAttack){
+    public ShotSprite createShotSprite(Troop troopToAttack) {
         ShotSprite s = new ShotSprite(getI(), getJ(), swordBallSize, swordBallSize, swordBall);
         s.destinationTroop = troopToAttack;
         return s;

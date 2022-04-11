@@ -23,27 +23,31 @@ public class LongRange extends Tower {
 
     @Override
     public void upgrade() {
-        this.healthPoints += 5;
-        this.attackRadius += 5;
-        this.reloadTime -= 2;
-        this.shotCount += 5;
+        this.attackRadius = upgradedLongRangeTowerRange;
+        this.reloadTime = upgradedLongRangeReloadTime;
+        this.shotCount = upgradedLongRangeShotCount;
+        this.width = upgradedTowerWidth;
+        this.height = upgradedTowerHeight;
         if (owner.getColor().equals("Red")) {
             this.image = redLongRangeL2Left;
         } else {
             this.image = blueLongRangeL2Right;
         }
-        this.width = upgradedTowerWidth;
-        this.height = upgradedTowerHeight;
+        upgraded = true;
     }
 
     @Override
     public void resetShotCount() {
-        this.shotCount = longRangeShotCount;
+        if (upgraded) {
+            this.shotCount = upgradedLongRangeShotCount;
+        } else {
+            this.shotCount = longRangeShotCount;
+        }
     }
 
 
     @Override
-    public ShotSprite createShotSprite(Troop troopToAttack){
+    public ShotSprite createShotSprite(Troop troopToAttack) {
         ShotSprite s = new ShotSprite(getI(), getJ(), magBallSize, magBallSize, magBall);
         s.destinationTroop = troopToAttack;
         return s;

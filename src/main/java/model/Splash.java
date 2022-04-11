@@ -32,7 +32,7 @@ public class Splash extends Tower {
         if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
             return;//not allowed shooting
         }
-        if (shotSprite == null){
+        if (shotSprite == null) {
             shotSprite = createShotSprite(troopToAttack);
         }
         shotCount--;
@@ -41,26 +41,34 @@ public class Splash extends Tower {
 
     @Override
     public void upgrade() {
-        this.healthPoints += 5;
-        this.attackRadius += 5;
-        this.reloadTime -= 2;
-        this.shotCount += 5;
+        if (upgraded) {
+            System.out.println("Already upgraded");
+            return;
+        }
+        this.attackRadius = upgradedSplashTowerRange;
+        this.reloadTime = upgradedSplashReloadTime;
+        this.shotCount = upgradedSplashShotCount;
+        this.width = upgradedTowerWidth;
+        this.height = upgradedTowerHeight;
         if (owner.getColor().equals("Red")) {
             this.image = redSplashL2Left;
         } else {
             this.image = blueSplashL2Right;
         }
-        this.width = upgradedTowerWidth;
-        this.height = upgradedTowerHeight;
+        upgraded = true;
     }
 
     @Override
     public void resetShotCount() {
-        this.shotCount = splashShotCount;
+        if (upgraded) {
+            this.shotCount = upgradedSplashShotCount;
+        } else {
+            this.shotCount = splashShotCount;
+        }
     }
 
     @Override
-    public ShotSprite createShotSprite(Troop troopToAttack){
+    public ShotSprite createShotSprite(Troop troopToAttack) {
         ShotSprite s = new ShotSprite(getI(), getJ(), splashBallSize, splashBallSize, splashBall);
         s.destinationTroop = troopToAttack;
         return s;

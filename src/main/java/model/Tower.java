@@ -11,6 +11,7 @@ public abstract class Tower extends ActiveBuilding {
     protected int shotCount;
     protected int reloadTime;
     protected long lastShotTime;
+    protected boolean upgraded = false;
 
     /**
      * shotSprite is inner class of towers responsible for the shooting animation

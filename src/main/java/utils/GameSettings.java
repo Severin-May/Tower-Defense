@@ -7,7 +7,7 @@ import java.awt.*;
 public class GameSettings {
     // Initial Towers' stats:
     //long ranged:
-    public final static int longRangeTowerRange = 3;
+    public final static int longRangeTowerRange = 4;
     public final static int longRangeAttackDamage = 10;
     public final static int longRangeCost = 10;
     public final static int longRangeShotCount = 10;
@@ -24,6 +24,25 @@ public class GameSettings {
     public final static int splashCost = 10;
     public final static int splashShotCount = 10;
     public final static int splashReloadTime = 2;
+
+    // Upgraded Towers' stats:
+    public final static int towerUpdateCost = 100;
+
+    //upgraded long ranged:
+    public final static int upgradedLongRangeTowerRange = longRangeTowerRange + 2;
+    public final static int upgradedLongRangeAttackDamage = longRangeAttackDamage + 5;
+    public final static int upgradedLongRangeShotCount = longRangeShotCount + 2;
+    public final static int upgradedLongRangeReloadTime = longRangeReloadTime - 1;
+    //upgraded short ranged:
+    public final static int upgradedShortRangeTowerRange = shortRangeTowerRange + 2;
+    public final static int upgradedShortRangeAttackDamage = shortRangeAttackDamage + 5;
+    public final static int upgradedShortRangeShotCount = shortRangeShotCount + 2;
+    public final static int upgradedShortRangeReloadTime = shortRangeReloadTime - 1;
+    //upgraded splash:
+    public final static int upgradedSplashTowerRange = splashTowerRange + 2;
+    public final static int upgradedSplashAttackDamage = splashAttackDamage + 5;
+    public final static int upgradedSplashShotCount = splashShotCount + 2;
+    public final static int upgradedSplashReloadTime = splashReloadTime - 1;
 
     //Initial Troops' stat:
     //sword man troop:

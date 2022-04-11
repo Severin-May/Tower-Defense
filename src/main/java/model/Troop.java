@@ -15,6 +15,15 @@ public class Troop extends Sprite {
     private TroopType type;
     private ArrayList <Cell> shortestPath;
 
+    /**
+     * By creating Troop instance you actually make it appear on the given map coordinates
+     * Given owner adds created troop instance to himself
+     * Cell on given coordinate adds created troop instance to itself
+     * @param i I coordinate of the map
+     * @param j J coordinate of the map
+     * @param type troop type
+     * @param owner player who this troop belongs to
+     */
     public Troop(int i, int j, TroopType type, Player owner) {
         super(i, j, troopWidth, troopHeight, owner.getColor().equals("Red") ? (type == MAG ? redMagLeftStop : redSwordLeftStop) : (type == MAG ? blueMagRightStop : blueSwordRightStop));
         switch (type) {
@@ -40,10 +49,6 @@ public class Troop extends Sprite {
         this.owner = owner;
         owner.addTroop(this);
         Map.getInstance().getMap()[i][j].getTroops().add(this);
-    }
-
-    public Troop(TroopType type, Player owner) {
-        this(0, 0, type, owner);
     }
 
     /**
