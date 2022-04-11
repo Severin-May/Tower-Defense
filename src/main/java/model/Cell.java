@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.TroopType.SWORD_MAN;
 import static utils.GameSettings.*;
 import static utils.GameSettings.mapWidthInCells;
 
@@ -23,6 +24,7 @@ public class Cell extends Sprite {
      *
      * @param g Graphics which actually draws on the screen
      */
+
     public void drawGrassAndRectangles(Graphics g) {
         g.drawImage(this.image, x - width / 2, y - height / 2, width, height, null);
         g.drawRect(x - height / 2, y - height / 2, width, height); //optional
@@ -138,7 +140,22 @@ public class Cell extends Sprite {
 
         return false;
     }
-
+    public boolean isCastleBlocked(){
+        Cell[][] map = Map.getInstance().getMap();
+        int ic1 = game.getPlayer1().castle.getI();
+        int ic2 = game.getPlayer2().castle.getI();
+        int jc1 = game.getPlayer1().castle.getJ();
+        int jc2 = game.getPlayer2().castle.getJ();
+        Obstacle o = new Obstacle(getI(),getJ(),game.getCurrentTurn());
+        setBuilding(o);
+        System.out.println(Troop.bfs(map[ic2][jc2],map[ic1][jc1],map).size());
+        if (Troop.bfs(map[ic2][jc2],map[ic1][jc1],map).size() == 0){
+            removeBuilding();
+            return true;
+        }
+        removeBuilding();
+        return false;
+    }
     /**
      * Building is allowed only on 2 cells
      * further cells from enemy building
@@ -173,15 +190,18 @@ public class Cell extends Sprite {
                     }
                 } else if (sinRange) {
                     for (int k = 0; k <= e; k++) {
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p) {
+                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner == null){
+                            return true;}
+                        else if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p) {
                             return false;
                         }
                     }
                 } else {
-                    for (int k = s; k <= e; k++) {
-                        if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p) {
-                            return false;
-                        }
+                    for (int k = s; k <= e; k++) { if (map[ti][k].hasBuilding() && map[ti][k].building.owner == null){
+                        return true;}
+                    else if (map[ti][k].hasBuilding() && map[ti][k].building.owner != p) {
+                        return false;
+                    }
                     }
                 }
                 if (ti < i) {
@@ -213,6 +233,11 @@ public class Cell extends Sprite {
         }
         if (!isCloseToOwnBuilding()) {
             System.out.println("Too far from your own buildings!"); // TODO: Implement error dialogue
+
+            return;
+        }
+        if(isCastleBlocked()){
+            System.out.println("Blocks your castle!"); // TODO: Implement error dialogue
 
             return;
         }

@@ -10,6 +10,7 @@ public class Obstacle extends PassiveBuilding {
     }
 
     @Override
+
     public Player getOwner() {
         return null;
     }

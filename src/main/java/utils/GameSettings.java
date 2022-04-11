@@ -8,19 +8,19 @@ public class GameSettings {
     // Initial Towers' stats:
     //long ranged:
     public final static int longRangeTowerRange = 4;
-    public final static int longRangeAttackDamage = 10;
+    public final static int longRangeAttackDamage = 2;
     public final static int longRangeShotCount = 10;
-    public final static int longRangeReloadTime = 2;
+    public final static int longRangeReloadTime = 3;
     //short ranged:
     public final static int shortRangeTowerRange = 2;
-    public final static int shortRangeAttackDamage = 10;
+    public final static int shortRangeAttackDamage = 2;
     public final static int shortRangeShotCount = 10;
-    public final static int shortRangeReloadTime = 2;
+    public final static int shortRangeReloadTime = 1;
     //splash:
     public final static int splashTowerRange = 3;
-    public final static int splashAttackDamage = 10;
+    public final static int splashAttackDamage = 1;
     public final static int splashShotCount = 10;
-    public final static int splashReloadTime = 2;
+    public final static int splashReloadTime = 5;
 
     // Upgraded Towers' stats:
     //upgraded long ranged:
@@ -43,36 +43,36 @@ public class GameSettings {
     public final static int longRangeCost = 10;
     public final static int shortRangeCost = 10;
     public final static int splashCost = 10;
-    public final static int magTroopCost = 10;
-    public final static int swordManTroopCost = 10;
+    public final static int magTroopCost = 2;
+    public final static int swordManTroopCost = 2;
     public final static int towerUpdateCost = 10;
-    public final static int goldMineCost = 10;
-    public final static int goldMineIncomePerRound = 10;
-    public final static int awardForKillingTroop = 10;
-    public final static int awardForPickingTreasure = 10;
+    public final static int goldMineCost = 25;
+    public final static int goldMineIncomePerRound = 5;
+    public final static int awardForKillingTroop = 2;
+    public final static int awardForPickingTreasure = 15;
 
 
     //Initial Troops' stat:
     //sword man troop:
-    public final static int swordManHp = 100;
+    public final static int swordManHp = 10;
     public final static int swordManSpeed = 2;
     public final static int swordManAttackDamage = 10;
-    public final static int swordManCost = 10;
-    public final static int swordManMovementPoints = 5;
+    public final static int swordManCost = 2;
+    public final static int swordManMovementPoints = 4;
     //mag troop
-    public final static int magHp = 50;
-    public final static int magSpeed = 4;
+    public final static int magHp = 7;
+    public final static int magSpeed = 3;
     public final static int magAttackDamage = 10;
-    public final static int magCost = 10;
-    public final static int magMovementPoints = 3;
+    public final static int magCost = 2;
+    public final static int magMovementPoints = 6;
 
     //Map settings:
-    public final static int numberOfObstacles = 3;
+    public final static int numberOfObstacles = 6;
     public final static int padding = 25;
     public final static int mapHeightInCells = 15;
     public final static int mapWidthInCells = 20;
     public final static int cellWidth = 30;
-    public final static int cellHeight = 25;
+    public final static int cellHeight = 30;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2 * padding;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
     public final static int rightPanelWidth = 600;
@@ -81,7 +81,7 @@ public class GameSettings {
 
 
     //Other initial states:
-    public static int initialGold = 969696;
+    public static int initialGold = 150;
     public static int towerInitialHP = 50;
     public static int castleInitialHP = 100;
     public static int minIdistance = 10;
@@ -116,12 +116,12 @@ public class GameSettings {
     public final static Image[] obstacles = {bush,rock,stump};
     //Grass
     public final static Image grass0 = new ImageIcon("src/main/resources/images/Area/Grass0.png").getImage();
-    public final static Image grass1 = new ImageIcon("src/main/resources/images/Area/Grass1.png").getImage();
+    public final static Image grass1 = new ImageIcon("src/main/resources/images/Area/Grass3.png").getImage();
     public final static Image grass2 = new ImageIcon("src/main/resources/images/Area/Grass2.png").getImage();
     public final static Image grass3 = new ImageIcon("src/main/resources/images/Area/Grass3.png").getImage();
     public final static Image grass4 = new ImageIcon("src/main/resources/images/Area/Grass4.png").getImage();
     public final static Image grass5 = new ImageIcon("src/main/resources/images/Area/Grass5.png").getImage();
-    public final static Image grass6 = new ImageIcon("src/main/resources/images/Area/Grass6.png").getImage();
+    public final static Image grass6 = new ImageIcon("src/main/resources/images/Area/Grass0.png").getImage();
     public final static Image grass7 = new ImageIcon("src/main/resources/images/Area/Grass7.png").getImage();
     public final static Image[] grass = {grass0,grass1,grass2,grass3,grass4,grass5,grass6,grass7};
 
