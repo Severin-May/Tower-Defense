@@ -28,7 +28,7 @@ public abstract class Tower extends ActiveBuilding {
          * @return checks if the ball reached the destination troop. If yes, then damages it
          */
         public boolean hasReachedDestination (){
-            return Math.abs(x - destinationTroop.x) <= 5 && Math.abs(y - destinationTroop.y) <= 5;
+            return Math.abs(x - destinationTroop.x) <= 10 && Math.abs(y - destinationTroop.y) <= 10;
         }
     }
     protected ShotSprite shotSprite;
@@ -56,14 +56,18 @@ public abstract class Tower extends ActiveBuilding {
         long timeElapsedFromLastShot = currentTime - lastShotTime;
         boolean reloaded = timeElapsedFromLastShot >= reloadTime * 1000L;
         Troop troopToAttack;
+        if (shotCount <= 0){
+            System.out.println("Cant shoot");
+        }
         if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
             return;//not allowed shooting
         }
         if (shotSprite == null){
             shotSprite = createShotSprite(troopToAttack);
+            shotCount--;
+            System.out.println("I just shot. Shots left: " + shotCount);
+            lastShotTime = currentTime;
         }
-        shotCount--;
-        lastShotTime = currentTime;
     }
 
     /**

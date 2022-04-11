@@ -34,9 +34,9 @@ public class Splash extends Tower {
         }
         if (shotSprite == null) {
             shotSprite = createShotSprite(troopToAttack);
+            shotCount--;
+            lastShotTime = currentTime;
         }
-        shotCount--;
-        lastShotTime = currentTime;
     }
 
     @Override

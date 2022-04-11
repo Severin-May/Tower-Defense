@@ -14,6 +14,7 @@ public class Troop extends Sprite {
     private final Player owner;
     private TroopType type;
     private ArrayList <Cell> shortestPath;
+    private Cell destinationCell;
 
     /**
      * By creating Troop instance you actually make it appear on the given map coordinates
@@ -48,16 +49,10 @@ public class Troop extends Sprite {
         }
         this.owner = owner;
         owner.addTroop(this);
-        Map.getInstance().getMap()[i][j].getTroops().add(this);
-    }
-
-    /**
-     * is used to move the troop from one Cell to another
-     * @param x coordinate on the grid
-     * @param y coordinate on the grid
-     */
-    public void moveTo(int x, int y) {
-        //from this.x and this.y to x and y
+        Cell[][] map = Map.getInstance().getMap();
+        map[i][j].getTroops().add(this);
+        // enemy castle cell is destination cell by default
+        destinationCell = map[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()];
     }
 
     public enum Direction {
@@ -72,13 +67,7 @@ public class Troop extends Sprite {
     }
     public void buildShortestPath(){
         Cell[][] map = Map.getInstance().getMap();
-        //center of the map
-//        int destinationI = (map.length-1)/2;
-//        int destinationJ = (map[0].length-1)/2;
-        //enemy castle
-        int destinationI = getEnemyPlayer().castle.getI();
-        int destinationJ = getEnemyPlayer().castle.getJ();
-        shortestPath = bfs(map[getI()][getJ()], map[destinationI][destinationJ], map);
+        shortestPath = bfs(map[getI()][getJ()], map[destinationCell.getI()][destinationCell.getJ()], map);
     }
 
     /**
@@ -94,7 +83,13 @@ public class Troop extends Sprite {
         if (i == shortestPath.size()-1){
 //            System.out.println("Reached destination!");
             if (currentCell.hasBuilding() && currentCell.getBuilding() == getEnemyPlayer().getCastle()){
+                //if destination was enemy castle then attack it
                 attack(getEnemyPlayer().getCastle());
+            }else if (currentCell.hasBuilding() && currentCell.getBuilding() instanceof TreasureChest){
+                //if destination was treasure chest then increase gold of owner and make it disappear, then proceed to the enemy castle
+                getOwner().increaseGold(awardForPickingTreasure);
+                currentCell.removeBuilding();
+                changeDestinationCell(Map.getInstance().getMap()[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()]);
             }
             return;
         }
@@ -235,8 +230,8 @@ public class Troop extends Sprite {
     {
         return (i >= 0 && j >= 0 && i < mapHeightInCells
                 && j < mapWidthInCells && !visited[i][j]
-                && (!grid[i][j].hasBuilding() || (grid[i][j].hasBuilding() && (grid[i][j].getBuilding() instanceof Castle))));
-                //if it does not have building OR has building and that's Castle then valid => Castle is exception and not counted as obstacle
+                && (!grid[i][j].hasBuilding() || (grid[i][j].hasBuilding() && (grid[i][j].getBuilding() instanceof Castle || grid[i][j].getBuilding() instanceof TreasureChest))));
+                //if it does not have building OR has building and that's Castle OR Treasure chest then valid => Castle and TreasureChest are exceptions and not counted as an obstacle
     }
 
     /**
@@ -342,4 +337,12 @@ public class Troop extends Sprite {
         }
     }
 
+    /**
+     * use this method to give a destination cell to the troop
+     * @param destinationCell cell where this troop will try to go
+     */
+    public void changeDestinationCell(Cell destinationCell) {
+        this.destinationCell = destinationCell;
+        buildShortestPath();
+    }
 }

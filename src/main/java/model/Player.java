@@ -12,6 +12,7 @@ public class Player {
     protected String color;
     protected ArrayList<Troop> troops;
     protected ArrayList<Tower> towers;
+    protected ArrayList<GoldMine> goldMines;
 
 
     public Player(String name) {
@@ -24,23 +25,19 @@ public class Player {
     /**
      * when a player decides to buy a troop, then createTroop() method of Castle class will be invoked
      *
-     * @param t troop to be created
+     * @param troopType troop type to be created
      * @return if troop can be created with the createTroop() method, it creates the troop and return true, otherwise false
      */
-    public boolean buyTroop(Troop t) {
+    public boolean buyTroop(TroopType troopType) {
+        int troopCost = troopType == TroopType.MAG ? magCost : swordManCost;
+        if (getGold() >= troopCost){
+            decreaseGold(troopCost);
+            castle.createTroop(troopType);
+            return true;
+        }
         return false;
     }
-
-    /**
-     * when a player decides to build a building, then buildAt() method of Building class is invoked
-     *
-     * @param b building to be built
-     * @return builts the building and returns true if building can be built, otherwise false
-     */
-    public boolean buildBuilding(Building b) {
-        return false;
-    }
-
+    
     /**
      * when a player decides to upgrade her/his towers, this method calls the upgrade method of the building
      *
@@ -62,6 +59,16 @@ public class Player {
     }
 
     /**
+     * when player purchases towers, goldmines or troops, then
+     * this method decreases the gold of the player by the given cost
+     *
+     * @param cost money to be taken from the gold of a player
+     */
+    public void decreaseGold(int cost) {
+        this.gold -= cost;
+    }
+
+    /**
      * Adds given troop to the player. Only troops belonging to this player can be added
      *
      * @param t troop that belongs to this player
@@ -80,6 +87,17 @@ public class Player {
     public void addTower(Tower t) {
         if (t.getOwner() == this) {
             towers.add(t);
+        }
+    }
+
+    /**
+     * Adds given goldmine to the player. Only goldmine belonging to this player can be added
+     *
+     * @param g goldmine that belongs to this player
+     */
+    public void addGoldMine(GoldMine g) {
+        if (g.getOwner() == this) {
+            goldMines.add(g);
         }
     }
 

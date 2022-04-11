@@ -9,11 +9,13 @@ public class TowerTest {
     @Test
     public void testTower() {
         Player pl1 = new Player("pl1");
-        pl1.setColor("Red");
         Player pl2 = new Player("pl2");
-        pl2.setColor("Blue");
         Game.initialise(pl1, pl2);
         Map.initialise();
+        pl1.setColor("Red");
+        pl2.setColor("Blue");
+        pl1.setCastle(new Castle(0,0, pl1));
+        pl2.setCastle(new Castle(5,5, pl2));
         Cell[][] map = Map.getInstance().getMap();
         Tower tower = new ShortRange(pl1);
         Tower tower2 = new LongRange(pl1);

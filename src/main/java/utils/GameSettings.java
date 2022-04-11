@@ -9,25 +9,20 @@ public class GameSettings {
     //long ranged:
     public final static int longRangeTowerRange = 4;
     public final static int longRangeAttackDamage = 10;
-    public final static int longRangeCost = 10;
     public final static int longRangeShotCount = 10;
     public final static int longRangeReloadTime = 2;
     //short ranged:
     public final static int shortRangeTowerRange = 2;
     public final static int shortRangeAttackDamage = 10;
-    public final static int shortRangeCost = 10;
     public final static int shortRangeShotCount = 10;
     public final static int shortRangeReloadTime = 2;
     //splash:
     public final static int splashTowerRange = 3;
     public final static int splashAttackDamage = 10;
-    public final static int splashCost = 10;
     public final static int splashShotCount = 10;
     public final static int splashReloadTime = 2;
 
     // Upgraded Towers' stats:
-    public final static int towerUpdateCost = 100;
-
     //upgraded long ranged:
     public final static int upgradedLongRangeTowerRange = longRangeTowerRange + 2;
     public final static int upgradedLongRangeAttackDamage = longRangeAttackDamage + 5;
@@ -43,6 +38,19 @@ public class GameSettings {
     public final static int upgradedSplashAttackDamage = splashAttackDamage + 5;
     public final static int upgradedSplashShotCount = splashShotCount + 2;
     public final static int upgradedSplashReloadTime = splashReloadTime - 1;
+
+    // earning/spending
+    public final static int longRangeCost = 10;
+    public final static int shortRangeCost = 10;
+    public final static int splashCost = 10;
+    public final static int magTroopCost = 10;
+    public final static int swordManTroopCost = 10;
+    public final static int towerUpdateCost = 10;
+    public final static int goldMineCost = 10;
+    public final static int goldMineIncomePerRound = 10;
+    public final static int awardForKillingTroop = 10;
+    public final static int awardForPickingTreasure = 10;
+
 
     //Initial Troops' stat:
     //sword man troop:

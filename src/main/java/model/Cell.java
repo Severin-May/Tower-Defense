@@ -20,30 +20,32 @@ public class Cell extends Sprite {
 
     /**
      * draws the grass and a rectangle (square) around it
+     *
      * @param g Graphics which actually draws on the screen
      */
     public void drawGrassAndRectangles(Graphics g) {
-        g.drawImage(this.image, x - width/2, y - height/2, width, height, null);
-        g.drawRect(x - height/2, y - height/2, width, height); //optional
+        g.drawImage(this.image, x - width / 2, y - height / 2, width, height, null);
+        g.drawRect(x - height / 2, y - height / 2, width, height); //optional
     }
 
     /**
      * draws all the sprites if it should be on this cell (i.e. troop, tower, bullet, etc.)
+     *
      * @param g Graphics which actually draws on the screen
      */
     public void drawSprites(Graphics g) {
         if (hasBuilding()) {
-            g.drawImage(building.image, x - building.width/2, y - building.height/2, building.width, building.height, null);
-            if (building instanceof Tower){
+            g.drawImage(building.image, x - building.width / 2, y - building.height / 2, building.width, building.height, null);
+            if (building instanceof Tower) {
                 Tower t = (Tower) building;
                 Tower.ShotSprite shotSprite = t.shotSprite;
-                if (shotSprite != null){
+                if (shotSprite != null) {
                     g.drawImage(shotSprite.getImage(), shotSprite.getX(), shotSprite.getY(), shotSprite.width, shotSprite.height, null);
                 }
             }
         }
         for (Troop t : troops) {
-            g.drawImage(t.image, t.x - t.width/2, t.y - t.height/2, t.width, t.height, null);
+            g.drawImage(t.image, t.x - t.width / 2, t.y - t.height / 2, t.width, t.height, null);
         }
     }
 
@@ -56,7 +58,6 @@ public class Cell extends Sprite {
             tryToPutBuilding();
         }
 //        new Troop(getI(),getJ(),TroopType.MAG, Game.getInstance().getCurrentTurn());
-
 
 
 //        // TODO: upgradeCost and level attributes should be added to Tower
@@ -224,15 +225,26 @@ public class Cell extends Sprite {
             if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
                 setBuilding(towerToBuild);
                 towerToBuild.getOwner().addTower(towerToBuild);
+                towerToBuild.getOwner().decreaseGold(towerToBuild.getCost());
+            } else {
+                System.out.println("Not enough gold to build this tower!");
             }
         } else if (toBuild instanceof GoldMine) {
             goldMineToBuild = (GoldMine) toBuild;
+            if (goldMineToBuild.getOwner().getGold() >= goldMineToBuild.getCost()) {
+                setBuilding(goldMineToBuild);
+                goldMineToBuild.getOwner().addGoldMine(goldMineToBuild);
+                goldMineToBuild.getOwner().decreaseGold(goldMineToBuild.getCost());
+            } else {
+                System.out.println("Not enough gold to build this goldmine!");
+            }
         }
         game.setBuildingHover(null); // turn off hover after clicking
     }
 
     /**
      * attaches given building on this cell
+     *
      * @param building building to put on this cell
      */
     public void setBuilding(Building building) {
@@ -242,22 +254,30 @@ public class Cell extends Sprite {
     }
 
     /**
+     * removes the building from the cell
+     */
+    public void removeBuilding() {
+        this.building = null;
+    }
+
+    /**
      * checks if given rectangle (sprite parameters) fully fits into this cell
-     * @param x x coordinate of the given rectangle
-     * @param y y coordinate of the given rectangle
-     * @param width width of the given rectangle
+     *
+     * @param x      x coordinate of the given rectangle
+     * @param y      y coordinate of the given rectangle
+     * @param width  width of the given rectangle
      * @param height height of the given rectangle
      * @return true if fits into this cell
      */
-    public boolean isInsideThisCell (int x, int y, int width, int height){
-        int leftSide = x - width/2;
-        int rightSide = x + width/2;
-        int upSide = y - height/2;
-        int downSide = y + height/2;
-        int leftSideOfCell = this.x - this.width/2;
-        int rightSideOfCell = this.x + this.width/2;
-        int upSideOfCell = this.y - this.height/2;
-        int downSideOfCell = this.y + this.height/2;
+    public boolean isInsideThisCell(int x, int y, int width, int height) {
+        int leftSide = x - width / 2;
+        int rightSide = x + width / 2;
+        int upSide = y - height / 2;
+        int downSide = y + height / 2;
+        int leftSideOfCell = this.x - this.width / 2;
+        int rightSideOfCell = this.x + this.width / 2;
+        int upSideOfCell = this.y - this.height / 2;
+        int downSideOfCell = this.y + this.height / 2;
         return leftSide >= leftSideOfCell && rightSide <= rightSideOfCell && upSide >= upSideOfCell && downSide <= downSideOfCell;
     }
 

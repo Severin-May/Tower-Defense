@@ -15,10 +15,14 @@ public class GoldMine extends PassiveBuilding {
     }
 
     /**
-     * increases the money of the owner by the given amount of input
-     * @param amount money recceived from TreasureChest or GoldMine
+     * increases the money of the owner by the certain amount
+     * should be called after each round ends
      */
-    public void increaseMoney(int amount) {
-        getOwner().increaseGold(amount);
+    public void increaseMoney() {
+        getOwner().increaseGold(goldMineIncomePerRound);
+    }
+
+    public int getCost(){
+        return goldMineCost;
     }
 }

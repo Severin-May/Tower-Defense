@@ -5,13 +5,16 @@ import model.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import static utils.GameSettings.*;
 import static utils.GameSettings.getSwordLeftStop;
 
-public class RightSidePanel extends JPanel {
+public class RightSidePanel extends JPanel implements ActionListener {
+    Timer timer;
     Game game;
     //whose turn is it:
     JLabel playerName;
@@ -49,6 +52,8 @@ public class RightSidePanel extends JPanel {
         add(new StatusPanel(gold, magsTrained, swordTrained, goldMines, towers, castleHp), BorderLayout.CENTER);
         createButtons();
         add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, endTurn, startFightingStage), BorderLayout.SOUTH);
+        timer = new Timer(500,this);
+        timer.start();
     }
 
 
@@ -59,16 +64,14 @@ public class RightSidePanel extends JPanel {
         goldMines = new JLabel();
         towers = new JLabel();
         castleHp = new JLabel();
-        setLabelText();
+        updateStatusLabels();
     }
 
-    private void setLabelText() {
+    private void updateStatusLabels() {
         playerName.setText("Current Player: " + game.getCurrentTurn().getName());
         gold.setText("GOLD: " + game.getCurrentTurn().getGold());
-        swordTrained.setText("Melee units trained: " + "0");
-        magsTrained.setText("Wizards trained: " + "0");
-        goldMines.setText("Gold mines count: " + "0");
-        towers.setText("Towers: " + "0");
+        swordTrained.setText("Units on the field: " + game.getCurrentTurn().getTroops().size());
+        towers.setText("Towers built: " + game.getCurrentTurn().getTowers().size());
         castleHp.setText("Your Castle HP: " + game.getCurrentTurn().getCastle().getHealthPoints());
         if (colorId == 2){
             setColorId(3);
@@ -105,18 +108,18 @@ public class RightSidePanel extends JPanel {
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Player currentPlayer = game.getCurrentTurn();
-                new Troop(currentPlayer.getCastle().getI(), currentPlayer.getCastle().getJ(), TroopType.SWORD_MAN, currentPlayer);
-                System.out.println("Melee unit was clicked");
+                if (!game.getCurrentTurn().buyTroop(TroopType.SWORD_MAN)){
+                    System.out.println("Not enough money to purchase the sword man!");
+                }
             }
         });
         trainMag = new CustomButton(buttonWidth, buttonHeight*3/2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Mag was clicked");
-                Player currentPlayer = game.getCurrentTurn();
-                new Troop(currentPlayer.getCastle().getI(), currentPlayer.getCastle().getJ(), TroopType.MAG, currentPlayer);
+                if (!game.getCurrentTurn().buyTroop(TroopType.MAG)){
+                    System.out.println("Not enough money to purchase the mag!");
+                }
             }
         });
         endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);
@@ -126,7 +129,7 @@ public class RightSidePanel extends JPanel {
                 game.changeTurn();
                 endTurn.setVisible(false);
                 startFightingStage.setVisible(true);
-                setLabelText();
+                updateStatusLabels();
                 changeButtons();
                 System.out.println("Changed to " + game.getCurrentTurn().getColor());
             }
@@ -186,4 +189,9 @@ public class RightSidePanel extends JPanel {
         Image resizedImage = img.getScaledInstance(30, 35, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
+    @Override
+    public void actionPerformed (ActionEvent e){
+         updateStatusLabels();
+    }
+
 }
