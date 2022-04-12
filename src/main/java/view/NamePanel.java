@@ -14,6 +14,7 @@ public class NamePanel extends JPanel {
         name.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         name.setHorizontalAlignment(JTextField.CENTER);
 
+        setBackground(null);
         setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 5));
         add(label);
         add(name);

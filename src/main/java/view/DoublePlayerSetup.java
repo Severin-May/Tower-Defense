@@ -8,8 +8,8 @@ public class DoublePlayerSetup extends SetupPanel{
     public DoublePlayerSetup(ActionListener action) {
         super(action);
         JPanel namePanels = new JPanel();
-        namePanels.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0));
-        namePanels.setPreferredSize(new Dimension(800, 70));
+        namePanels.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        namePanels.setBackground(null);
 
         NamePanel namePanelOne = new NamePanel("Player-1 Name:");
         NamePanel namePanelTwo = new NamePanel("Player-2 Name:");
@@ -24,7 +24,8 @@ public class DoublePlayerSetup extends SetupPanel{
         add(namePanels);
         add(submit);
 
-        setPreferredSize(new Dimension(800, 0));
+        setPreferredSize(new Dimension(800, 237));
+        setSize(new Dimension(800, 237));
 
         setPlayerOneName(namePanelOne.getNameField());
         setPlayerTwoName(namePanelTwo.getNameField());

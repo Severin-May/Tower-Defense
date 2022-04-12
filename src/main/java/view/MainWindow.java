@@ -13,6 +13,10 @@ import static view.RightSidePanel.resizeIcon;
 
 public class MainWindow extends JFrame{
 
+    private final JPanel framePanel;
+
+    private final JPanel menusPanel;
+
     private final MainPanel mainPanel;
     private final PlayerPanel playerPanel;
     private SetupPanel playerSetup;
@@ -28,16 +32,24 @@ public class MainWindow extends JFrame{
 
         setIconImage(blueSplashL1Right);
 
+        framePanel = new JPanel();
+        framePanel.setSize(new Dimension(800, 800));
+        framePanel.setBackground(Color.cyan);
+
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        menusPanel = new JPanel();
+        menusPanel.setBackground(null);
 
         mainPanel = new MainPanel(action);
         setBackground(Color.black);
 
         playerPanel = new PlayerPanel(action);
 
-        add(panelToDisplay(mainPanel));
+        panelToDisplay(mainPanel);
 
+        add(framePanel);
         setResizable(false);
         setFocusable(true);
         addKeyListener(back);
@@ -89,8 +101,9 @@ public class MainWindow extends JFrame{
     public void start() {
         currentScreen = 1;
         help = new JLabel("Press 'ESC' to go back");
-        add(help, BorderLayout.NORTH);
-        add(changePanel(playerPanel, mainPanel));
+        help.setAlignmentY(JComponent.LEFT_ALIGNMENT);
+        framePanel.add(help, BorderLayout.NORTH);
+        changePanel(playerPanel, mainPanel);
     }
 
     /**
@@ -105,6 +118,78 @@ public class MainWindow extends JFrame{
         Object[] options = {"Next", "Enough of rules", "Go back"};
         return JOptionPane.showOptionDialog(frame, message, title,JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,resizeIcon(icon,100,100),options,options[0]);
     }
+
+    public void playerMode(int n) {
+        if (n == 1) {
+            playerSetup = new SinglePlayerSetup(action);
+            singleplayer = true;
+        } else if (n == 2) {
+            playerSetup = new DoublePlayerSetup(action);
+        }
+        System.out.println(n);
+        currentScreen = 2;
+        changePanel(playerSetup, playerPanel);
+    }
+
+    public void launchGame() {
+        if (singleplayer) {
+            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
+        } else {
+            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
+        }
+        new GameWindow();
+        dispose();
+    }
+
+    private void loadGameAndMap(Player p1, Player p2) {
+        Game.initialise(p1, p2);
+        Map.initialise();
+        p1.setColor("Red");
+        p2.setColor("Blue");
+        Map.getInstance().putRandomCastles();
+        Map.getInstance().putRandomObstacles();
+    }
+
+    private void panelToDisplay(JPanel newPanel){
+
+        newPanel.setVisible(true);
+        menusPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, (getHeight() - newPanel.getHeight())/2));
+        menusPanel.add(newPanel);
+        newPanel.setBackground(null);
+        //menusPanel.setBackground(Color.cyan);
+
+        framePanel.add(menusPanel);
+
+        System.out.println(newPanel.getSize());
+    }
+
+    private void changePanel(JPanel newPanel, JPanel oldPanel) {
+        oldPanel.setVisible(false);
+        panelToDisplay(newPanel);
+    }
+
+    /**
+     * allows switching between menu screens
+     *
+     * @param screen the screen to be displayed
+     */
+    public void display(int screen) {
+        switch (screen) {
+            case 0:
+                mainPanel.setVisible(true);
+                playerPanel.setVisible(false);
+                help.setVisible(false);
+                break;
+            case 1:
+                help.setVisible(true);
+                playerPanel.setVisible(true);
+                playerSetup.setVisible(false);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + screen);
+        }
+    }
+
     /**
      * Displays the rules
      * @param frame frame where this rule should be displayed
@@ -120,7 +205,7 @@ public class MainWindow extends JFrame{
                     if (n == 0) {
                         page++;
                     } else if (n == 2) {
-                       page--;
+                        page--;
                     }
                     break;
                 }
@@ -293,74 +378,6 @@ public class MainWindow extends JFrame{
                     break;
                 }
             }
-        }
-    }
-
-    public void playerMode(int n) {
-        if (n == 1) {
-            playerSetup = new SinglePlayerSetup(action);
-            singleplayer = true;
-        } else if (n == 2) {
-            playerSetup = new DoublePlayerSetup(action);
-        }
-        currentScreen = 2;
-        add(changePanel(playerSetup, playerPanel));
-    }
-
-    public void launchGame() {
-        if (singleplayer) {
-            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
-        } else {
-            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
-        }
-        new GameWindow();
-        dispose();
-    }
-
-
-    private void loadGameAndMap(Player p1, Player p2) {
-        Game.initialise(p1, p2);
-        Map.initialise();
-        p1.setColor("Red");
-        p2.setColor("Blue");
-        Map.getInstance().putRandomCastles();
-        Map.getInstance().putRandomObstacles();
-    }
-
-    private Box panelToDisplay(JPanel newPanel){
-        Box box = new Box(BoxLayout.Y_AXIS);
-        box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        box.add(Box.createVerticalGlue());
-        box.add(newPanel);
-        box.add(Box.createVerticalGlue());
-        return box;
-    }
-
-    private Box changePanel(JPanel newPanel, JPanel oldPanel) {
-        newPanel.setVisible(true);
-        oldPanel.setVisible(false);
-        return panelToDisplay(newPanel);
-    }
-
-    /**
-     * allows switching between menu screens
-     *
-     * @param screen the screen to be displayed
-     */
-    public void display(int screen) {
-        switch (screen) {
-            case 0:
-                mainPanel.setVisible(true);
-                playerPanel.setVisible(false);
-                help.setVisible(false);
-                break;
-            case 1:
-                help.setVisible(true);
-                playerPanel.setVisible(true);
-                playerSetup.setVisible(false);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + screen);
         }
     }
 }
