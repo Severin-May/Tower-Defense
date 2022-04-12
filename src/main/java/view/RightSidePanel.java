@@ -33,13 +33,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
     CustomButton trainMag;
     CustomButton endTurn;
     CustomButton startFightingStage;
-
-    private int colorId = 3;
-
-    private final Color RED = new Color(255, 105, 105);
-    private final Color BLUE = new Color(111, 196, 255);
-
-
     public RightSidePanel() {
         game = Game.getInstance();
         setLayout(new BorderLayout());
@@ -52,7 +45,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         add(new StatusPanel(gold, magsTrained, swordTrained, goldMines, towers, castleHp), BorderLayout.CENTER);
         createButtons();
         add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, endTurn, startFightingStage), BorderLayout.SOUTH);
-        timer = new Timer(500,this);
+        timer = new Timer(500,this);// status panel update timer
         timer.start();
     }
 
@@ -74,42 +67,33 @@ public class RightSidePanel extends JPanel implements ActionListener {
         towers.setText("Towers built: " + game.getCurrentTurn().getTowers().size());
         castleHp.setText(game.getPlayer1().getColor() + "'s Castle HP: " + game.getPlayer1().getCastle().getHealthPoints());
         castleHp.setText(game.getPlayer2().getColor() + "'s Castle HP: " + game.getPlayer2().getCastle().getHealthPoints());
-        if (colorId == 2){
-            setColorId(3);
-        } else {
-            setColorId(2);
-        }
     }
 
     private void createButtons() {
         int buttonWidth = 180;
         int buttonHeight = 80;
-        buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
+        buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), 3);
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new ShortRange(game.getCurrentTurn()));
-//                Building toBuild = new ShortRange(game.getCurrentTurn());
-//                toBuild.withinAllyBuildingRange(int i, int j);
-//                toBuild.outsideOfEnemyBuildingRange(int i, int j);
-//                toBuild.isInFreeCell(int i, int j);
             }
         });
-        buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range", resizeIcon(new ImageIcon(getLongRangeL1Left())), colorId);
+        buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range", resizeIcon(new ImageIcon(getLongRangeL1Left())), 3);
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new LongRange(game.getCurrentTurn()));
             }
         });
-        buySplashTower = new CustomButton(buttonWidth, buttonHeight, "Splash", resizeIcon(new ImageIcon(getSplashL1Left())), colorId);
+        buySplashTower = new CustomButton(buttonWidth, buttonHeight, "Splash", resizeIcon(new ImageIcon(getSplashL1Left())), 3);
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new Splash(game.getCurrentTurn()));
             }
         });
-        trainSword = new CustomButton(buttonWidth, buttonHeight*3/2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
+        trainSword = new CustomButton(buttonWidth, buttonHeight*3/2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), 3);
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -118,7 +102,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 }
             }
         });
-        trainMag = new CustomButton(buttonWidth, buttonHeight*3/2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainMag = new CustomButton(buttonWidth, buttonHeight*3/2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), 3);
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -134,7 +118,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 game.changeTurn();
                 endTurn.setVisible(false);
                 startFightingStage.setVisible(true);
-                updateStatusLabels();
                 changeButtons();
                 System.out.println("Changed to " + game.getCurrentTurn().getColor());
             }
@@ -154,7 +137,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
     }
 
     private void changeButtons() {
-        buttonColors(colorId);
+        String currentPlayerColor = Game.getInstance().getCurrentTurn().getColor();
+        buttonColors(currentPlayerColor.equals("Red") ? 2 : 3);
         buyShortRangeTower.setIcon(resizeIcon(new ImageIcon(getShortRangeL1Left())));
         buyLongRangeTower.setIcon(resizeIcon(new ImageIcon(getLongRangeL1Left())));
         buySplashTower.setIcon(resizeIcon(new ImageIcon(getSplashL1Left())));
@@ -163,6 +147,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
     }
 
     private void buttonColors(int n){
+        Color RED = new Color(255, 105, 105);
+        Color BLUE = new Color(111, 196, 255);
         if (n == 2){
             buyShortRangeTower.setBackground(RED);
             buyLongRangeTower.setBackground(RED);
@@ -177,10 +163,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
             trainSword.setBackground(BLUE);
             trainMag.setBackground(BLUE);
         }
-    }
-
-    private void setColorId(int n){
-        this.colorId = n;
     }
 
     /**
