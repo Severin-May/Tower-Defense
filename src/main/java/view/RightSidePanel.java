@@ -35,10 +35,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
 
     private int colorId = -2;
 
-    private final Color RED = new Color(255, 105, 105);
-    private final Color BLUE = new Color(111, 196, 255);
-
-
     public RightSidePanel() {
         game = Game.getInstance();
         setLayout(new BorderLayout());
@@ -77,28 +73,28 @@ public class RightSidePanel extends JPanel implements ActionListener {
     private void createButtons() {
         int buttonWidth = 180;
         int buttonHeight = 80;
-        buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), 3);
+        buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new ShortRange(game.getCurrentTurn()));
             }
         });
-        buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range", resizeIcon(new ImageIcon(getLongRangeL1Left())), 3);
+        buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range", resizeIcon(new ImageIcon(getLongRangeL1Left())), colorId);
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new LongRange(game.getCurrentTurn()));
             }
         });
-        buySplashTower = new CustomButton(buttonWidth, buttonHeight, "Splash", resizeIcon(new ImageIcon(getSplashL1Left())), 3);
+        buySplashTower = new CustomButton(buttonWidth, buttonHeight, "Splash", resizeIcon(new ImageIcon(getSplashL1Left())), colorId);
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new Splash(game.getCurrentTurn()));
             }
         });
-        trainSword = new CustomButton(buttonWidth, buttonHeight*3/2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), 3);
+        trainSword = new CustomButton(buttonWidth, buttonHeight*3/2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -107,7 +103,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 }
             }
         });
-        trainMag = new CustomButton(buttonWidth, buttonHeight*3/2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), 3);
+        trainMag = new CustomButton(buttonWidth, buttonHeight*3/2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -179,6 +175,15 @@ public class RightSidePanel extends JPanel implements ActionListener {
     private Icon resizeIcon(ImageIcon icon) {
         return resizeIcon(icon,30,35);
     }
+    public static Icon resizeIcon(ImageIcon icon, int desiredWidth, int desiredHeight){
+        if (icon != null){
+            Image img = icon.getImage();
+            Image resizedImage = img.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        }
+        return null;
+    }
+
 
     public void setButtonsEnabled(boolean b){
         buyShortRangeTower.setEnabled(b);
@@ -192,11 +197,13 @@ public class RightSidePanel extends JPanel implements ActionListener {
     public void enableRightSidePanel(boolean b){
         setButtonsEnabled(!b);
     }
+    private void setColorId (int n){
+        this.colorId = n;
+    }
 
     @Override
     public void actionPerformed (ActionEvent e){
-         updateStatusLabels();
-         enableRightSidePanel(game.isFightingStage());
+        updateStatusLabels();
+        enableRightSidePanel(game.isFightingStage());
     }
-
 }
