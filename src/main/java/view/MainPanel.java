@@ -16,6 +16,7 @@ public class MainPanel extends JPanel {
             add(btn);
         }
 
-        setPreferredSize(new Dimension(800, 40));
+        setPreferredSize(new Dimension(800, 280));
+        setSize(new Dimension(800, 280));
     }
 }
