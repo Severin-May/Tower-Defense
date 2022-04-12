@@ -17,14 +17,13 @@ public class RightSidePanel extends JPanel implements ActionListener {
     Timer timer;
     Game game;
     //whose turn is it:
-    JLabel playerName;
+    CustomLabel playerName;
     //Status panel depends on:
-    JLabel gold;
-    JLabel magsTrained;
-    JLabel swordTrained;
-    JLabel goldMines;
-    JLabel towers;
-    JLabel castleHp;
+    CustomLabel gold;
+    CustomLabel troopsTrained;
+    CustomLabel goldMines;
+    CustomLabel towers;
+    CustomLabel castleHp;
     //Shop panel depends on:
     CustomButton buyShortRangeTower;
     CustomButton buyLongRangeTower;
@@ -33,16 +32,23 @@ public class RightSidePanel extends JPanel implements ActionListener {
     CustomButton trainMag;
     CustomButton endTurn;
     CustomButton startFightingStage;
+
+    private int colorId = -2;
+
+    private final Color RED = new Color(255, 105, 105);
+    private final Color BLUE = new Color(111, 196, 255);
+
+
     public RightSidePanel() {
         game = Game.getInstance();
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(0, padding, 0, 0));
         setPreferredSize(new Dimension(rightPanelWidth, mapHeightInCells + 30));
-        playerName = new JLabel();
+        playerName = new CustomLabel();
         playerName.setPreferredSize(new Dimension(200, 30));
         add(playerName, BorderLayout.NORTH);
         createLabels();
-        add(new StatusPanel(gold, magsTrained, swordTrained, goldMines, towers, castleHp), BorderLayout.CENTER);
+        add(new StatusPanel(gold, troopsTrained, goldMines, towers, castleHp), BorderLayout.CENTER);
         createButtons();
         add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, endTurn, startFightingStage), BorderLayout.SOUTH);
         timer = new Timer(500,this);// status panel update timer
@@ -51,22 +57,21 @@ public class RightSidePanel extends JPanel implements ActionListener {
 
 
     private void createLabels() {
-        gold = new JLabel();
-        swordTrained = new JLabel();
-        magsTrained = new JLabel();
-        goldMines = new JLabel();
-        towers = new JLabel();
-        castleHp = new JLabel();
+        gold = new CustomLabel();
+        troopsTrained = new CustomLabel();
+        goldMines = new CustomLabel();
+        towers = new CustomLabel();
+        castleHp = new CustomLabel();
         updateStatusLabels();
     }
 
     private void updateStatusLabels() {
         playerName.setText("Current Player: " + game.getCurrentTurn().getName());
         gold.setText("GOLD: " + game.getCurrentTurn().getGold());
-        swordTrained.setText("Units on the field: " + game.getCurrentTurn().getTroops().size());
+        troopsTrained.setText("Units on the field: " + game.getCurrentTurn().getTroops().size());
+        goldMines.setText("Gold mines built: " + game.getCurrentTurn().getGoldMines().size());
         towers.setText("Towers built: " + game.getCurrentTurn().getTowers().size());
-        castleHp.setText(game.getPlayer1().getColor() + "'s Castle HP: " + game.getPlayer1().getCastle().getHealthPoints());
-        castleHp.setText(game.getPlayer2().getColor() + "'s Castle HP: " + game.getPlayer2().getCastle().getHealthPoints());
+        castleHp.setText("Your Castle HP: " + game.getCurrentTurn().getCastle().getHealthPoints());
     }
 
     private void createButtons() {
@@ -137,8 +142,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
     }
 
     private void changeButtons() {
-        String currentPlayerColor = Game.getInstance().getCurrentTurn().getColor();
-        buttonColors(currentPlayerColor.equals("Red") ? 2 : 3);
+        setColorId(colorId*(-1));
+        buttonColors(colorId);
         buyShortRangeTower.setIcon(resizeIcon(new ImageIcon(getShortRangeL1Left())));
         buyLongRangeTower.setIcon(resizeIcon(new ImageIcon(getLongRangeL1Left())));
         buySplashTower.setIcon(resizeIcon(new ImageIcon(getSplashL1Left())));
@@ -156,7 +161,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             trainSword.setBackground(RED);
             trainMag.setBackground(RED);
         }
-        if (n == 3){
+        if (n == -2){
             buyShortRangeTower.setBackground(BLUE);
             buyLongRangeTower.setBackground(BLUE);
             buySplashTower.setBackground(BLUE);
@@ -175,18 +180,23 @@ public class RightSidePanel extends JPanel implements ActionListener {
         return resizeIcon(icon,30,35);
     }
 
-    public static Icon resizeIcon(ImageIcon icon, int desiredWidth, int desiredHeight){
-        if (icon != null){
-            Image img = icon.getImage();
-            Image resizedImage = img.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
-            return new ImageIcon(resizedImage);
-        }
-        return null;
+    public void setButtonsEnabled(boolean b){
+        buyShortRangeTower.setEnabled(b);
+        buyLongRangeTower.setEnabled(b);
+        buySplashTower.setEnabled(b);
+        trainSword.setEnabled(b);
+        trainMag.setEnabled(b);
+        endTurn.setEnabled(b);
+    }
+
+    public void enableRightSidePanel(boolean b){
+        setButtonsEnabled(!b);
     }
 
     @Override
     public void actionPerformed (ActionEvent e){
          updateStatusLabels();
+         enableRightSidePanel(game.isFightingStage());
     }
 
 }

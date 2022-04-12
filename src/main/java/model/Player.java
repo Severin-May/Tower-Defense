@@ -20,6 +20,7 @@ public class Player {
         this.gold = initialGold;
         this.troops = new ArrayList<>();
         this.towers = new ArrayList<>();
+        this.goldMines = new ArrayList<>();
     }
 
     /**
@@ -168,6 +169,8 @@ public class Player {
     public ArrayList<Tower> getTowers() {
         return this.towers;
     }
+
+    public ArrayList<GoldMine> getGoldMines() {return this.goldMines; }
 
     /**
      * when players want to restart the game, their current state will be lost

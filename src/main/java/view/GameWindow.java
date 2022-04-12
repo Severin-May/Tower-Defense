@@ -58,4 +58,12 @@ public class GameWindow extends JFrame {
         menu.add(menuGameExit);
     }
 
+    public void showRules() {
+        JOptionPane.showMessageDialog(this, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
+    }
+
+    public void restartGame(Game g) {
+        g.getPlayer1().resetPlayer();
+        g.getPlayer2().resetPlayer();
+    }
 }

@@ -4,16 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StatusPanel extends JPanel {
-    public StatusPanel(JLabel gold, JLabel magsTrained, JLabel swordTrained, JLabel goldMines, JLabel towers, JLabel castleHp) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        gold.setMaximumSize(new Dimension(200, 30));
-        magsTrained.setMaximumSize(new Dimension(200, 30));
-        goldMines.setMaximumSize(new Dimension(200, 30));
-        towers.setMaximumSize(new Dimension(200, 30));
-        castleHp.setMaximumSize(new Dimension(200, 30));
+    public StatusPanel(CustomLabel gold, CustomLabel troopsTrained, CustomLabel goldMines, CustomLabel towers, CustomLabel castleHp) {
+        setLayout(new FlowLayout(FlowLayout.CENTER, 1000, 10));
         add(gold);
-        add(swordTrained);
-        add(magsTrained);
+        add(troopsTrained);
         add(goldMines);
         add(towers);
         add(castleHp);

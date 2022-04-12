@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 import static utils.GameSettings.*;
 import static view.RightSidePanel.resizeIcon;
 
-public class MainWindow extends JFrame implements KeyListener {
+public class MainWindow extends JFrame{
 
     private final MainPanel mainPanel;
     private final PlayerPanel playerPanel;
@@ -40,10 +40,27 @@ public class MainWindow extends JFrame implements KeyListener {
 
         setResizable(false);
         setFocusable(true);
-        addKeyListener(this);
+        addKeyListener(back);
         setVisible(true);
         setLocationRelativeTo(null);
     }
+
+    private final KeyListener back = new KeyListener() {
+        public void keyPressed(KeyEvent ke) {
+            if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                if (currentScreen > 0) {
+                    currentScreen--;
+                }
+                display(currentScreen);
+            }
+        }
+
+        public void keyReleased(KeyEvent ke) {
+        }
+
+        public void keyTyped(KeyEvent ke) {
+        }
+    };
 
     private final ActionListener action = e -> {
         JButton btn = (JButton) (e.getSource());
@@ -310,8 +327,7 @@ public class MainWindow extends JFrame implements KeyListener {
         Map.getInstance().putRandomObstacles();
     }
 
-    private Box panelToDisplay(JPanel newPanel) {
-
+    private Box panelToDisplay(JPanel newPanel){
         Box box = new Box(BoxLayout.Y_AXIS);
         box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         box.add(Box.createVerticalGlue());
@@ -346,23 +362,5 @@ public class MainWindow extends JFrame implements KeyListener {
             default:
                 throw new IllegalStateException("Unexpected value: " + screen);
         }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            if (currentScreen > 0) {
-                currentScreen--;
-            }
-            display(currentScreen);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-    }
-
-    @Override
-    public void keyTyped(KeyEvent ke) {
     }
 }
