@@ -56,22 +56,18 @@ public class Cell extends Sprite {
      */
     public void click() {
         //If buy tower is clicked and tower is being placed
-        if (game.isPlacingTower()) {
+        if (game.isPlacingBuilding()) {
             tryToPutBuilding();
         }
-//        new Troop(getI(),getJ(),TroopType.MAG, Game.getInstance().getCurrentTurn());
-
-
-//        // TODO: upgradeCost and level attributes should be added to Tower
-//        if(this.hasBuilding() && this.building instanceof Tower) {
-//            this.building.upgrade();
-//        }
-        //... Other conditions like clicking on cell to upgrade tower, or on troops etc.
+        //TODO : if cell where troops exist is clicked and treasure chest exists then one troop of current turn player should change his destination to the chest
     }
 
+    /**
+     * Right-click handler. This function is triggered when this cell is right-clicked
+     */
     public void rightClick() {
         // TODO: upgradeCost and level attributes should be added to Tower
-        if (this.hasBuilding() && this.building instanceof Tower) {
+        if (hasBuilding() && building instanceof Tower && building.getOwner().getGold() >= towerUpgradeCost) {
             ((Tower) this.building).upgrade();
         }
     }
@@ -148,7 +144,6 @@ public class Cell extends Sprite {
         int jc2 = game.getPlayer2().castle.getJ();
         Obstacle o = new Obstacle(getI(),getJ(),game.getCurrentTurn());
         setBuilding(o);
-        System.out.println(Troop.bfs(map[ic2][jc2],map[ic1][jc1],map).size());
         if (Troop.bfs(map[ic2][jc2],map[ic1][jc1],map).size() == 0){
             removeBuilding();
             return true;
@@ -221,19 +216,18 @@ public class Cell extends Sprite {
 
         return true;
     }
-
+    /**
+     * Puts the chosen building on this cell if it is allowed by the rules and if the player has enough gold
+     */
     private void tryToPutBuilding() {
+        //NOTE that real validation with error messages is done in MapPanel class. So these validations are just for safety
         if (hasBuilding()) {
-            System.out.println("This place is already occupied!"); // TODO: Implement error dialogue
             return;
         }
         if (!isInEnemyBuildingRange()) {
-            System.out.println("Close to the enemy building!");
             return;
         }
         if (!isCloseToOwnBuilding()) {
-            System.out.println("Too far from your own buildings!"); // TODO: Implement error dialogue
-
             return;
         }
         if(isCastleBlocked()){
@@ -241,10 +235,11 @@ public class Cell extends Sprite {
 
             return;
         }
-
+        //take the building from the mouse pointer
         Building toBuild = game.getBuildingHover();
         Tower towerToBuild;
         GoldMine goldMineToBuild;
+        //if it is the tower or gold mine place it and add it to the owner's belongings list if he has enough money
         if (toBuild instanceof Tower) {
             towerToBuild = (Tower) toBuild; // Have to convert to get and check the cost
             if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
@@ -264,7 +259,8 @@ public class Cell extends Sprite {
                 System.out.println("Not enough gold to build this goldmine!");
             }
         }
-        game.setBuildingHover(null); // turn off hover after clicking
+        // turn off hover after clicking => remove the building from the mouse pointer
+        game.setBuildingHover(null);
     }
 
     /**

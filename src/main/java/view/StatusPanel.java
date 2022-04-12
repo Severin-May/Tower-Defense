@@ -1,11 +1,7 @@
 package view;
 
-import model.Game;
-
 import javax.swing.*;
 import java.awt.*;
-
-import static utils.GameSettings.rightPanelWidth;
 
 public class StatusPanel extends JPanel {
     public StatusPanel(CustomLabel gold, CustomLabel troopsTrained, CustomLabel goldMines, CustomLabel towers, CustomLabel castleHp) {

@@ -45,6 +45,7 @@ public class Splash extends Tower {
             System.out.println("Already upgraded");
             return;
         }
+        getOwner().decreaseGold(towerUpgradeCost);
         this.attackRadius = upgradedSplashTowerRange;
         this.reloadTime = upgradedSplashReloadTime;
         this.shotCount = upgradedSplashShotCount;

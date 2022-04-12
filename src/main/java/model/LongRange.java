@@ -23,6 +23,11 @@ public class LongRange extends Tower {
 
     @Override
     public void upgrade() {
+        if (upgraded) {
+            System.out.println("Already upgraded");
+            return;
+        }
+        getOwner().decreaseGold(towerUpgradeCost);
         this.attackRadius = upgradedLongRangeTowerRange;
         this.reloadTime = upgradedLongRangeReloadTime;
         this.shotCount = upgradedLongRangeShotCount;

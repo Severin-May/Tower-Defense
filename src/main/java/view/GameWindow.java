@@ -38,16 +38,13 @@ public class GameWindow extends JFrame {
         JMenuItem menuGameStart = new JMenuItem(new AbstractAction("Restart") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //restartGame();
-                Game.getInstance().getPlayer1().resetPlayer();
-                Game.getInstance().getPlayer2().resetPlayer();
-                Map.resetMap(); //todo
+                Game.getInstance().resetGame();
             }
         });
         JMenuItem menuGameRules = new JMenuItem(new AbstractAction("Rules") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showRules();
+                MainWindow.showRules(getParent());
             }
         });
         JMenuItem menuGameExit = new JMenuItem(new AbstractAction("Exit") {

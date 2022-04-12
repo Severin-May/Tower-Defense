@@ -142,7 +142,7 @@ public class Game {
     /**
      * checks if a tower is clicked and is being hovered on the screen
      */
-    public boolean isPlacingTower() {
+    public boolean isPlacingBuilding() {
         return this.buildingHover != null;
     }
 
@@ -181,5 +181,12 @@ public class Game {
             t.shotSprite = null;
         }
     }
+
+    public void resetGame() {
+        Game.getInstance().getPlayer1().resetPlayer();
+        Game.getInstance().getPlayer2().resetPlayer();
+        Map.resetMap();
+    }
+
 
 }

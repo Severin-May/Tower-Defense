@@ -23,6 +23,11 @@ public class ShortRange extends Tower {
 
     @Override
     public void upgrade() {
+        if (upgraded) {
+            System.out.println("Already upgraded");
+            return;
+        }
+        getOwner().decreaseGold(towerUpgradeCost);
         this.attackRadius = upgradedShortRangeTowerRange;
         this.reloadTime = upgradedShortRangeReloadTime;
         this.shotCount = upgradedShortRangeShotCount;
