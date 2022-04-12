@@ -27,7 +27,8 @@ public class Cell extends Sprite {
 
     public void drawGrassAndRectangles(Graphics g) {
         g.drawImage(this.image, x - width / 2, y - height / 2, width, height, null);
-        g.drawRect(x - height / 2, y - height / 2, width, height); //optional
+        g.setColor(new Color(23, 163, 0));
+        g.drawRect(x - height / 2, y - height / 2, width, height);
     }
 
     /**
