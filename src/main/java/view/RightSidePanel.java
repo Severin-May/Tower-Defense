@@ -34,7 +34,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
     CustomButton endTurn;
     CustomButton startFightingStage;
 
-    private int colorId = 3;
+    private int colorId = 2;
 
     private final Color RED = new Color(255, 105, 105);
     private final Color BLUE = new Color(111, 196, 255);
@@ -73,11 +73,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
         swordTrained.setText("Units on the field: " + game.getCurrentTurn().getTroops().size());
         towers.setText("Towers built: " + game.getCurrentTurn().getTowers().size());
         castleHp.setText("Your Castle HP: " + game.getCurrentTurn().getCastle().getHealthPoints());
-        if (colorId == 2){
-            setColorId(3);
-        } else {
-            setColorId(2);
-        }
     }
 
     private void createButtons() {
@@ -129,6 +124,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 game.changeTurn();
                 endTurn.setVisible(false);
                 startFightingStage.setVisible(true);
+                setColorId(colorId*(-1));
                 updateStatusLabels();
                 changeButtons();
                 System.out.println("Changed to " + game.getCurrentTurn().getColor());
@@ -165,7 +161,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             trainSword.setBackground(RED);
             trainMag.setBackground(RED);
         }
-        if (n == 3){
+        if (n == -2){
             buyShortRangeTower.setBackground(BLUE);
             buyLongRangeTower.setBackground(BLUE);
             buySplashTower.setBackground(BLUE);

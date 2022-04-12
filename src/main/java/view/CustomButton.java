@@ -14,7 +14,7 @@ public class CustomButton extends JButton {
             this.setFont(new Font(Font.MONOSPACED, Font.BOLD, 40));
             this.setBackground(new Color(255, 185, 94));
         }
-        else if (id > 1){
+        else if (id == 2 || id == -2){
             this.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         }
         if (id == 4){

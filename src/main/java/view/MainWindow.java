@@ -86,7 +86,7 @@ public class MainWindow extends JFrame implements KeyListener {
         } else if (n == 2) {
             playerSetup = new DoublePlayerSetup(action);
         }
-        currentScreen=2;
+         currentScreen=2;
         add(changePanel(playerSetup, playerPanel));
     }
 
