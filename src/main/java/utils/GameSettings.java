@@ -266,64 +266,64 @@ public class GameSettings {
     //Rules
     public static ImageIcon allow_to_build_radius = new ImageIcon("src/main/resources/images/allowed_to_build_radius.jpg");
     public final static String welcomeMessage =         "Welcome to the game of tower defense!" +
-                                                        "\nYou can read game rules by clicking \"next\" or just close this thing for noobs and go straightly play";
+            "\nYou can read game rules by clicking \"next\" or just close this thing for noobs and go straightly play";
     public final static String aboutGameGoal =          "Initially you and your opponent have a castle each. The goal of the game is to destroy the enemy castle before your opponent destroys yours!" +
-                                                        "\n The game loops between \"Preparation stage\" and \"Fighting stage\"";
+            "\n The game loops between \"Preparation stage\" and \"Fighting stage\"";
     public final static String preparationStage =       "First you start with preparation stage where you and your opponent take turns to prepare for the battle. " +
-                                                        "\nWhen it is your turn, you can purchase either different troops or different towers or the gold mine";
+            "\nWhen it is your turn, you can purchase either different troops or different towers or the gold mine";
     public final static String aboutTroops =            "Goal of the trained troop is to move towards the enemy castle finding shortest path to it. " +
-                                                        "\nIf reached the enemy castle without dying then deals its damage and disappears";
+            "\nIf reached the enemy castle without dying then deals its damage and disappears";
     public final static String aboutTroopsAttributes =  "A troop has these attributes:" +
-                                                        "\nHP => Health Points" +
-                                                        "\nCost => How much gold needed to purchase" +
-                                                        "\nMovement speed => How fast troop moves" +
-                                                        "\nMovement points => Number of cells the troop can move in one fighting stage" +
-                                                        "\nAttack Damage => How much damage it deals to Castle when reaching it";
+            "\nHP => Health Points" +
+            "\nCost => How much gold needed to purchase" +
+            "\nMovement speed => How fast troop moves" +
+            "\nMovement points => Number of cells the troop can move in one fighting stage" +
+            "\nAttack Damage => How much damage it deals to Castle when reaching it";
     public final static String aboutSwordManTroop =     "\nHealth Points: " + swordManHp +
-                                                        "\nCost: " + swordManCost +
-                                                        "\nMovement Speed: " + swordManSpeed +
-                                                        "\nMovement Points: " + swordManMovementPoints +
-                                                        "\nAttack Damage: " + swordManAttackDamage;
+            "\nCost: " + swordManCost +
+            "\nMovement Speed: " + swordManSpeed +
+            "\nMovement Points: " + swordManMovementPoints +
+            "\nAttack Damage: " + swordManAttackDamage;
     public final static String aboutMagTroop =          "\nHealth Points: " + magHp +
-                                                        "\nCost: " + magCost +
-                                                        "\nMovement Speed: " + magSpeed +
-                                                        "\nMovement Points: " + magMovementPoints +
-                                                        "\nAttack Damage: " + magAttackDamage;
+            "\nCost: " + magCost +
+            "\nMovement Speed: " + magSpeed +
+            "\nMovement Points: " + magMovementPoints +
+            "\nAttack Damage: " + magAttackDamage;
     public final static String aboutTowers =            "If troops are needed to attack, towers are there for defending" +
-                                                        "\nGoal of the tower is to shoot enemy troops if they are within the tower's \"range\". " +
-                                                        "\nIt kills the troop if after the hit, the hp of the troop drops to zero";
+            "\nGoal of the tower is to shoot enemy troops if they are within the tower's \"range\". " +
+            "\nIt kills the troop if after the hit, the hp of the troop drops to zero";
     public final static String aboutTowerAttributes =   "A tower has these attributes:" +
-                                                        "\nAttack Radius => in what radius the tower is allowed to shoot(read next page for more detail)" +
-                                                        "\nCost => How much gold needed to purchase" +
-                                                        "\nShot count => Number of shots the tower can do in one fighting stage" +
-                                                        "\nReload time => How many seconds tower is not allowed to shoot after the last shot" +
-                                                        "\nAttack Damage => How much damage one shot deals to the enemy troop when shooting";
+            "\nAttack Radius => in what radius the tower is allowed to shoot(read next page for more detail)" +
+            "\nCost => How much gold needed to purchase" +
+            "\nShot count => Number of shots the tower can do in one fighting stage" +
+            "\nReload time => How many seconds tower is not allowed to shoot after the last shot" +
+            "\nAttack Damage => How much damage one shot deals to the enemy troop when shooting";
     public final static String aboutTowerRadius =       "Whole concept of the radius in the game is considered to be stairs-like shape" +
-                                                        "\nSee example on the left. If we consider that tower radius is 2, then tower will shoot enemy troops only in indicated range";
+            "\nSee example on the left. If we consider that tower radius is 2, then tower will shoot enemy troops only in indicated range";
     public final static String aboutShortRangeTower =   "\nAttack Radius : " + shortRangeTowerRange +
-                                                        "\nCost: " + shortRangeCost +
-                                                        "\nShot count: " + shortRangeShotCount +
-                                                        "\nReload time: " + shortRangeReloadTime +
-                                                        "\nAttack Damage: " + shortRangeAttackDamage;
+            "\nCost: " + shortRangeCost +
+            "\nShot count: " + shortRangeShotCount +
+            "\nReload time: " + shortRangeReloadTime +
+            "\nAttack Damage: " + shortRangeAttackDamage;
     public final static String aboutLongRangeTower =    "\nAttack Radius : " + longRangeTowerRange +
-                                                        "\nCost: " + longRangeCost +
-                                                        "\nShot count: " + longRangeShotCount +
-                                                        "\nReload time: " + longRangeReloadTime +
-                                                        "\nAttack Damage: " + longRangeAttackDamage;
+            "\nCost: " + longRangeCost +
+            "\nShot count: " + longRangeShotCount +
+            "\nReload time: " + longRangeReloadTime +
+            "\nAttack Damage: " + longRangeAttackDamage;
     public final static String aboutSplashTower =       "\nAttack Radius : " + splashTowerRange +
-                                                        "\nCost: " + splashCost +
-                                                        "\nShot count: " + splashShotCount +
-                                                        "\nReload time: " + splashReloadTime +
-                                                        "\nAttack Damage: " + splashAttackDamage;
+            "\nCost: " + splashCost +
+            "\nShot count: " + splashShotCount +
+            "\nReload time: " + splashReloadTime +
+            "\nAttack Damage: " + splashAttackDamage;
     public final static String aboutBuildingWithinAllyBuildingRange =   "You are not allowed to build too far away from your own buildings." +
-                                                                        "\nYou can build maximum in 2 cells away radius from your own building (Remember about stairs-like radius)";
+            "\nYou can build maximum in 2 cells away radius from your own building (Remember about stairs-like radius)";
     public final static String aboutBuildingWithinEnemyBuildingRange =  "You are not allowed to build too near to the enemy building" +
-                                                                        "\nYou should build at least in 3 cells radius away from your enemy's building (Remember about stairs-like radius)";
+            "\nYou should build at least in 3 cells radius away from your enemy's building (Remember about stairs-like radius)";
     public final static String aboutBuildingWithoutBlockingPath =       "Also you are not allowed to build in a way that the building you try to build will block the path from your castle to enemy castle" +
-                                                                        "\nThis means there will always be a path (which makes sense)";
+            "\nThis means there will always be a path (which makes sense)";
     public final static String aboutEarningGold =                       "So far we talked about spending gold to purchase troops and towers. How about earning gold?" +
-                                                                        "\nThere are three ways you can increase your gold: build a goldmine, kill enemy troops, pick up the treasure chest";
+            "\nThere are three ways you can increase your gold: build a goldmine, kill enemy troops, pick up the treasure chest";
     public final static String aboutGoldMines =                         "Besides building towers to defend, you can invest your money into building a goldmine each of which will grant you \n"
-                                                                         + goldMineIncomePerRound + " gold at the beginning of every new preparation stage. \n Building one costs: " + goldMineCost + " golds";
+            + goldMineIncomePerRound + " gold at the beginning of every new preparation stage. \n Building one costs: " + goldMineCost + " golds";
     public final static String aboutEarningMoneyFromTroopKills =        "You earn money when your tower kills an enemy troop. The reward for each killed enemy is: " + awardForKillingTroop + " golds";
 }
