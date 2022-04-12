@@ -65,7 +65,6 @@ public abstract class Tower extends ActiveBuilding {
         if (shotSprite == null){
             shotSprite = createShotSprite(troopToAttack);
             shotCount--;
-            System.out.println("I just shot. Shots left: " + shotCount);
             lastShotTime = currentTime;
         }
     }

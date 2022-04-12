@@ -72,7 +72,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
         gold.setText("GOLD: " + game.getCurrentTurn().getGold());
         swordTrained.setText("Units on the field: " + game.getCurrentTurn().getTroops().size());
         towers.setText("Towers built: " + game.getCurrentTurn().getTowers().size());
-        castleHp.setText("Your Castle HP: " + game.getCurrentTurn().getCastle().getHealthPoints());
+        castleHp.setText(game.getPlayer1().getColor() + "'s Castle HP: " + game.getPlayer1().getCastle().getHealthPoints());
+        castleHp.setText(game.getPlayer2().getColor() + "'s Castle HP: " + game.getPlayer2().getCastle().getHealthPoints());
         if (colorId == 2){
             setColorId(3);
         } else {
@@ -88,6 +89,10 @@ public class RightSidePanel extends JPanel implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 game.setBuildingHover(new ShortRange(game.getCurrentTurn()));
+//                Building toBuild = new ShortRange(game.getCurrentTurn());
+//                toBuild.withinAllyBuildingRange(int i, int j);
+//                toBuild.outsideOfEnemyBuildingRange(int i, int j);
+//                toBuild.isInFreeCell(int i, int j);
             }
         });
         buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range", resizeIcon(new ImageIcon(getLongRangeL1Left())), colorId);
@@ -109,7 +114,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!game.getCurrentTurn().buyTroop(TroopType.SWORD_MAN)){
-                    System.out.println("Not enough money to purchase the sword man!");
+                    JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more sword men");
                 }
             }
         });
@@ -118,7 +123,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!game.getCurrentTurn().buyTroop(TroopType.MAG)){
-                    System.out.println("Not enough money to purchase the mag!");
+                    JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more magicians");
                 }
             }
         });
@@ -185,10 +190,18 @@ public class RightSidePanel extends JPanel implements ActionListener {
      * @return resized Icon
      */
     private Icon resizeIcon(ImageIcon icon) {
-        Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(30, 35, Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImage);
+        return resizeIcon(icon,30,35);
     }
+
+    public static Icon resizeIcon(ImageIcon icon, int desiredWidth, int desiredHeight){
+        if (icon != null){
+            Image img = icon.getImage();
+            Image resizedImage = img.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        }
+        return null;
+    }
+
     @Override
     public void actionPerformed (ActionEvent e){
          updateStatusLabels();

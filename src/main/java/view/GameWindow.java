@@ -38,16 +38,13 @@ public class GameWindow extends JFrame {
         JMenuItem menuGameStart = new JMenuItem(new AbstractAction("Restart") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //restartGame();
-                Game.getInstance().getPlayer1().resetPlayer();
-                Game.getInstance().getPlayer2().resetPlayer();
-                Map.resetMap(); //todo
+                Game.getInstance().resetGame();
             }
         });
         JMenuItem menuGameRules = new JMenuItem(new AbstractAction("Rules") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showRules();
+                MainWindow.showRules(getParent());
             }
         });
         JMenuItem menuGameExit = new JMenuItem(new AbstractAction("Exit") {
@@ -60,15 +57,5 @@ public class GameWindow extends JFrame {
         menu.add(menuGameRules);
         menu.add(menuGameExit);
     }
-
-    public void showRules() {
-        JOptionPane.showMessageDialog(this, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
-    }
-
-    public void restartGame(Game g) {
-        g.getPlayer1().resetPlayer();
-        g.getPlayer2().resetPlayer();
-    }
-
 
 }
