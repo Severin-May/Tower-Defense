@@ -1,6 +1,8 @@
 package model;
 
 
+import view.GameWindow;
+
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -102,6 +104,7 @@ public class Game {
                     troop.decreaseMovementPoint();
                 }
             }
+
             try {
                 Thread.sleep(100L); // handle speed of the game by holding the loop
             } catch (InterruptedException e) {

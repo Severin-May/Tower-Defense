@@ -69,6 +69,4 @@ public class GameWindow extends JFrame {
         g.getPlayer1().resetPlayer();
         g.getPlayer2().resetPlayer();
     }
-
-
 }
