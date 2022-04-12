@@ -1,6 +1,7 @@
 import model.*;
 
 import static org.junit.Assert.*;
+import static utils.GameSettings.swordManHp;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class TroopTest {
     @Test
     public void troopIsKilledTest(){
         Troop troop = new Troop(0, 0, TroopType.SWORD_MAN, pl1);
-        assertEquals(100,troop.getHealthPoints());
+        assertEquals(swordManHp,troop.getHealthPoints());
         assertFalse(troop.isKilled());
         troop.decreaseHP(111);
         assertTrue(troop.isKilled());
