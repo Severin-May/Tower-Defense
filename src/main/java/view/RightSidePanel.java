@@ -184,7 +184,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
         return null;
     }
 
-
     public void setButtonsEnabled(boolean b){
         buyShortRangeTower.setEnabled(b);
         buyLongRangeTower.setEnabled(b);
