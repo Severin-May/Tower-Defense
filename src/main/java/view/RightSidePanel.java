@@ -77,6 +77,14 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (game.getCurrentTurn().getGold() < shortRangeCost){
+                    JOptionPane.showMessageDialog(getParent(),
+                                                "Oops. Looks like you are too poor to purchase short ranged tower. It costs " + shortRangeCost + " golds",
+                                                "Not enough gold",
+                                                    JOptionPane.INFORMATION_MESSAGE,
+                                                    resizeIcon(new ImageIcon(getShortRangeL1Left())));
+                    return;
+                }
                 game.setBuildingHover(new ShortRange(game.getCurrentTurn()));
             }
         });
@@ -84,6 +92,14 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (game.getCurrentTurn().getGold() < longRangeCost){
+                    JOptionPane.showMessageDialog(getParent(),
+                                                "Oops. Looks like you are too poor to purchase long ranged tower. It costs " + longRangeCost + " golds",
+                                                "Not enough gold",
+                                                JOptionPane.INFORMATION_MESSAGE,
+                                                resizeIcon(new ImageIcon(getLongRangeL1Left())));
+                    return;
+                }
                 game.setBuildingHover(new LongRange(game.getCurrentTurn()));
             }
         });
@@ -91,6 +107,14 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (game.getCurrentTurn().getGold() < splashCost){
+                    JOptionPane.showMessageDialog(getParent(),
+                                                "Oops. Looks like you are too poor to purchase splash tower. It costs " + splashCost + " golds",
+                                                "Not enough gold",
+                                                JOptionPane.INFORMATION_MESSAGE,
+                                                resizeIcon(new ImageIcon(getSplashL1Left())));
+                    return;
+                }
                 game.setBuildingHover(new Splash(game.getCurrentTurn()));
             }
         });
@@ -110,6 +134,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 if (!game.getCurrentTurn().buyTroop(TroopType.MAG)){
                     JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more magicians");
                 }
+                printTroops();
             }
         });
         endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);
@@ -120,7 +145,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 endTurn.setVisible(false);
                 startFightingStage.setVisible(true);
                 changeButtons();
-                System.out.println("Changed to " + game.getCurrentTurn().getColor());
             }
         });
         startFightingStage = new CustomButton(buttonWidth, buttonHeight, "Attack", null, 4);
@@ -205,4 +229,15 @@ public class RightSidePanel extends JPanel implements ActionListener {
         updateStatusLabels();
         enableRightSidePanel(game.isFightingStage());
     }
+
+    private void printTroops (){
+        Cell[][] map = Map.getInstance().getMap();
+        for (Cell[] cells : map){
+            for (Cell cell : cells){
+                System.out.printf("%d ", cell.getTroops().size());
+            }
+            System.out.println();
+        }
+    }
+
 }

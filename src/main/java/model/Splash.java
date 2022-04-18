@@ -42,7 +42,6 @@ public class Splash extends Tower {
     @Override
     public void upgrade() {
         if (upgraded) {
-            System.out.println("Already upgraded");
             return;
         }
         getOwner().decreaseGold(towerUpgradeCost);
@@ -70,9 +69,7 @@ public class Splash extends Tower {
 
     @Override
     public ShotSprite createShotSprite(Troop troopToAttack) {
-        ShotSprite s = new ShotSprite(getI(), getJ(), splashBallSize, splashBallSize, splashBall);
-        s.destinationTroop = troopToAttack;
-        return s;
+        return new ShotSprite(getI(), getJ(), splashBallSize, splashBallSize, splashBall, troopToAttack);
     }
 
 }

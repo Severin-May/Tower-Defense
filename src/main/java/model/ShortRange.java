@@ -24,7 +24,6 @@ public class ShortRange extends Tower {
     @Override
     public void upgrade() {
         if (upgraded) {
-            System.out.println("Already upgraded");
             return;
         }
         getOwner().decreaseGold(towerUpgradeCost);
@@ -52,8 +51,6 @@ public class ShortRange extends Tower {
 
     @Override
     public ShotSprite createShotSprite(Troop troopToAttack) {
-        ShotSprite s = new ShotSprite(getI(), getJ(), swordBallSize, swordBallSize, swordBall);
-        s.destinationTroop = troopToAttack;
-        return s;
+        return new ShotSprite(getI(), getJ(), swordBallSize, swordBallSize, swordBall, troopToAttack);
     }
 }

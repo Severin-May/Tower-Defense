@@ -12,6 +12,7 @@ public abstract class Tower extends ActiveBuilding {
     protected int reloadTime;
     protected long lastShotTime;
     protected boolean upgraded = false;
+    protected ShotSprite shotSprite;
 
     /**
      * shotSprite is inner class of towers responsible for the shooting animation
@@ -19,19 +20,33 @@ public abstract class Tower extends ActiveBuilding {
      */
     protected static class ShotSprite extends Sprite {
         public Troop destinationTroop;
-        public ShotSprite(int i, int j, int width, int height, Image image) {
-            super(i, j, width, height, image);
+        int destinationX;
+        int destinationY;
+        public ShotSprite(int i, int j, int width, int height, Image image, Troop destinationTroop) {
+            super(i,j,width,height,image);
+            this.destinationTroop = destinationTroop;
+            destinationX = destinationTroop.getX();
+            destinationY = destinationTroop.getY();
         }
 
+        /**
+         * sets the destinationX and destinationY to the target's current location
+         * so that the bullet instance chases the target. If target is dead then bullet chases last saved place when it was alive
+         */
+        public void refreshDestination(){
+            if (!destinationTroop.isKilled()){
+                destinationX = destinationTroop.getX();
+                destinationY = destinationTroop.getY();
+            }
+        }
         /**
          *
          * @return checks if the ball reached the destination troop. If yes, then damages it
          */
         public boolean hasReachedDestination (){
-            return Math.abs(x - destinationTroop.x) <= 10 && Math.abs(y - destinationTroop.y) <= 10;
+            return Math.abs(x - destinationX) <= 10 && Math.abs(y - destinationY) <= 10;
         }
     }
-    protected ShotSprite shotSprite;
 
 
     public Tower(int i, int j, Image image, Player owner) {
@@ -56,13 +71,10 @@ public abstract class Tower extends ActiveBuilding {
         long timeElapsedFromLastShot = currentTime - lastShotTime;
         boolean reloaded = timeElapsedFromLastShot >= reloadTime * 1000L;
         Troop troopToAttack;
-        if (shotCount <= 0){
-            System.out.println("Cant shoot");
-        }
         if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
             return;//not allowed shooting
         }
-        if (shotSprite == null){
+        if (shotSprite == null){//cannot shoot while another instance of a shot sprite does not hit the target troop
             shotSprite = createShotSprite(troopToAttack);
             shotCount--;
             lastShotTime = currentTime;
@@ -178,23 +190,26 @@ public abstract class Tower extends ActiveBuilding {
      */
     public void shotAnimation(){
         if (shotSprite != null){
-            //if targeted troop already does not exist when the bullet is already shot then bullet disappears midair
-            if (shotSprite.destinationTroop == null){
-                shotSprite = null;
-                return;
-            }
-            double toPlayerX = shotSprite.destinationTroop.x - shotSprite.x;
-            double toPlayerY = shotSprite.destinationTroop.y - shotSprite.y;
+            shotSprite.refreshDestination();
+            double toPlayerX = shotSprite.destinationX - shotSprite.x;
+            double toPlayerY = shotSprite.destinationY - shotSprite.y;
             // Normalize
             double toPlayerLength = Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY);
             toPlayerX = toPlayerX / toPlayerLength;
             toPlayerY = toPlayerY / toPlayerLength;
             this.shotSprite.x += toPlayerX * 13;
             this.shotSprite.y += toPlayerY * 13;
-            //if bullet reached then, it deals damage and disappears
+            //if bullet reached target troop then
             if (shotSprite.hasReachedDestination()){
-                System.out.println("Hit!");
-                shotSprite.destinationTroop.decreaseHP(attackDamage);
+                //if another shot has not yet killed the target
+                if (!shotSprite.destinationTroop.isKilled()){
+                    shotSprite.destinationTroop.decreaseHP(attackDamage);
+                    //destroy the troop if it is dead after dealing damage
+                    if (shotSprite.destinationTroop.isKilled()){
+                        shotSprite.destinationTroop.selfDestruct();
+                    }
+                }
+                //delete the shot sprite
                 shotSprite = null;
             }
         }
@@ -206,4 +221,8 @@ public abstract class Tower extends ActiveBuilding {
      * @return created instance
      */
     public abstract ShotSprite createShotSprite(Troop troopToAttack);
+
+    public boolean isUpgraded() {
+        return upgraded;
+    }
 }

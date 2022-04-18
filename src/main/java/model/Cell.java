@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static model.TroopType.SWORD_MAN;
 import static utils.GameSettings.*;
 import static utils.GameSettings.mapWidthInCells;
 
@@ -49,27 +48,6 @@ public class Cell extends Sprite {
         }
         for (Troop t : troops) {
             g.drawImage(t.image, t.x - t.width / 2, t.y - t.height / 2, t.width, t.height, null);
-        }
-    }
-
-    /**
-     * Click handler. This function is triggered when this cell is clicked
-     */
-    public void click() {
-        //If buy tower is clicked and tower is being placed
-        if (game.isPlacingBuilding()) {
-            tryToPutBuilding();
-        }
-        //TODO : if cell where troops exist is clicked and treasure chest exists then one troop of current turn player should change his destination to the chest
-    }
-
-    /**
-     * Right-click handler. This function is triggered when this cell is right-clicked
-     */
-    public void rightClick() {
-        // TODO: upgradeCost and level attributes should be added to Tower
-        if (hasBuilding() && building instanceof Tower && building.getOwner().getGold() >= towerUpgradeCost) {
-            ((Tower) this.building).upgrade();
         }
     }
 
@@ -216,52 +194,6 @@ public class Cell extends Sprite {
         }
 
         return true;
-    }
-    /**
-     * Puts the chosen building on this cell if it is allowed by the rules and if the player has enough gold
-     */
-    private void tryToPutBuilding() {
-        //NOTE that real validation with error messages is done in MapPanel class. So these validations are just for safety
-        if (hasBuilding()) {
-            return;
-        }
-        if (!isInEnemyBuildingRange()) {
-            return;
-        }
-        if (!isCloseToOwnBuilding()) {
-            return;
-        }
-        if(isCastleBlocked()){
-            System.out.println("Blocks your castle!"); // TODO: Implement error dialogue
-
-            return;
-        }
-        //take the building from the mouse pointer
-        Building toBuild = game.getBuildingHover();
-        Tower towerToBuild;
-        GoldMine goldMineToBuild;
-        //if it is the tower or gold mine place it and add it to the owner's belongings list if he has enough money
-        if (toBuild instanceof Tower) {
-            towerToBuild = (Tower) toBuild; // Have to convert to get and check the cost
-            if (towerToBuild.getOwner().getGold() >= towerToBuild.getCost()) {
-                setBuilding(towerToBuild);
-                towerToBuild.getOwner().addTower(towerToBuild);
-                towerToBuild.getOwner().decreaseGold(towerToBuild.getCost());
-            } else {
-                System.out.println("Not enough gold to build this tower!");
-            }
-        } else if (toBuild instanceof GoldMine) {
-            goldMineToBuild = (GoldMine) toBuild;
-            if (goldMineToBuild.getOwner().getGold() >= goldMineToBuild.getCost()) {
-                setBuilding(goldMineToBuild);
-                goldMineToBuild.getOwner().addGoldMine(goldMineToBuild);
-                goldMineToBuild.getOwner().decreaseGold(goldMineToBuild.getCost());
-            } else {
-                System.out.println("Not enough gold to build this goldmine!");
-            }
-        }
-        // turn off hover after clicking => remove the building from the mouse pointer
-        game.setBuildingHover(null);
     }
 
     /**

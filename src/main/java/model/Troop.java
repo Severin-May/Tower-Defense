@@ -75,7 +75,7 @@ public class Troop extends Sprite {
      * then makes the troop move to the direction of the destination by movement point of the troop
      */
     public void moveIfPossible() {
-        if (movementPoints <= 0){
+        if (movementPoints <= 0 || isKilled()){
             return;
         }
         Cell currentCell = Map.getInstance().getMap()[getI()][getJ()];
@@ -153,9 +153,6 @@ public class Troop extends Sprite {
      */
     public void decreaseHP(int amount) {
         this.healthPoints -= amount;
-        if (isKilled()){
-            selfDestruct();
-        }
     }
 
     /**
@@ -163,13 +160,10 @@ public class Troop extends Sprite {
      */
     public void selfDestruct() {
         Cell[][] map = Map.getInstance().getMap();
-        for (Cell[] cells : map) {
-            for (Cell cell : cells) {
-                cell.removeTroop(this);
-            }
-        }
+        map[getI()][getJ()].removeTroop(this);
         Game.getInstance().getPlayer1().removeTroop(this);
         Game.getInstance().getPlayer2().removeTroop(this);
+        System.out.println("I died");
     }
 
     /**
