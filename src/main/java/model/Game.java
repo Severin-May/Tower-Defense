@@ -12,6 +12,7 @@ public class Game {
     private Player currentTurn;
     private static Game instance = null;
     private Building buildingHover;
+    private Cell selectedCell;
     private final AtomicBoolean fightingStage = new AtomicBoolean(false);
     public static final AtomicBoolean everyThingReady = new AtomicBoolean(false);
     public static final AtomicBoolean gameOver = new AtomicBoolean(false);
@@ -100,7 +101,7 @@ public class Game {
                 //if troop is in new cell then move from old to new
                 if (currentCell != newCell) {
                     currentCell.removeTroop(troop);
-                    newCell.getTroops().add(troop);
+                    newCell.addTroop(troop);
                     troop.decreaseMovementPoint();
                 }
             }
@@ -188,5 +189,11 @@ public class Game {
         Map.resetMap();
     }
 
+    public void setSelectedCell(Cell selectedCell) {
+        this.selectedCell = selectedCell;
+    }
 
+    public Cell getSelectedCell() {
+        return selectedCell;
+    }
 }

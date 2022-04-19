@@ -36,7 +36,10 @@ public class MapPanel extends JPanel implements Runnable {
                             putBuilding(clickedCell, game.getBuildingHover());
                             // turn off hover after clicking => remove the building from the mouse pointer
                             game.setBuildingHover(null);
+                            return;
                         }
+                        //set the selected cell to clicked cell if the click is not building hover click
+                        Game.getInstance().setSelectedCell(clickedCell);
                     } else if (me.getButton() == MouseEvent.BUTTON3) { // if right-click on the cell
                         if (!(clickedCell.getBuilding() instanceof Tower)){
                             //do nothing on right-click if it is not a tower. (null instanceof Tower also returns false => works for empty cells)
@@ -47,7 +50,12 @@ public class MapPanel extends JPanel implements Runnable {
                             towerToUpgrade.upgrade();
                         }
                     }
-                } // else, not the playground was clicked. Most probably padding part was
+                } else {
+                    // else (if the padding part was clicked), remove cell selection, remove building from pointer
+                    Game.getInstance().setSelectedCell(null);
+                    Game.getInstance().setBuildingHover(null);
+                }
+
             }
         });
         addMouseMotionListener(new MouseAdapter() { // map listens and records where the mouse is pointing to
@@ -110,6 +118,32 @@ public class MapPanel extends JPanel implements Runnable {
         g.drawImage(b.getImage(), x - b.getWidth() / 2, y - b.getHeight() / 2, b.getWidth(), b.getHeight(), null);
     }
 
+    private void drawSelectedCellInfo(Graphics g, Cell selectedCell) {
+        if (selectedCell == null){
+            return;
+        }
+        int [] player1TroopsCount = selectedCell.getPlayer1TroopsCount();
+        int [] player2TroopsCount = selectedCell.getPlayer2TroopsCount();
+        char[] player1SwordCount= String.valueOf(player1TroopsCount[0]).toCharArray();
+        char[] player2SwordCount= String.valueOf(player2TroopsCount[0]).toCharArray();
+        char[] player1MagCount= String.valueOf(player1TroopsCount[1]).toCharArray();
+        char[] player2MagCount= String.valueOf(player2TroopsCount[1]).toCharArray();
+        int desiredWidth = 30;
+        int desiredHeight = 45;
+        //red's troop info:
+        g.setColor(Color.red);
+        g.drawImage(resizeIcon(new ImageIcon(redSwordLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2, mapHeightInPixels,null);
+        g.drawChars(player1SwordCount, 0, player1SwordCount.length, mapWidthInPixels/2 + desiredWidth, mapHeightInPixels + desiredHeight - desiredHeight/2);
+        g.drawImage(resizeIcon(new ImageIcon(redMagLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 , mapHeightInPixels + desiredHeight,null);
+        g.drawChars(player1MagCount, 0, player1MagCount.length, mapWidthInPixels/2 + desiredWidth, mapHeightInPixels + 2*desiredHeight-desiredHeight/2);
+        //blue's troop info:
+        g.setColor(Color.blue);
+        g.drawImage(resizeIcon(new ImageIcon(blueSwordLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 - desiredWidth*2, mapHeightInPixels,null);
+        g.drawChars(player2SwordCount, 0, player2SwordCount.length, mapWidthInPixels/2 - desiredWidth, mapHeightInPixels + desiredHeight - desiredHeight/2);
+        g.drawImage(resizeIcon(new ImageIcon(blueMagLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 - desiredWidth*2 , mapHeightInPixels + desiredHeight,null);
+        g.drawChars(player2MagCount, 0, player2MagCount.length, mapWidthInPixels/2 - desiredWidth, mapHeightInPixels + 2*desiredHeight-desiredHeight/2);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         g.clearRect(0, 0, getWidth(), getHeight());
@@ -117,6 +151,7 @@ public class MapPanel extends JPanel implements Runnable {
         if (game.isPlacingBuilding()) {
             drawHoverBuilding(g, mousePointX, mousePointY, Game.getInstance().getBuildingHover());
         }
+        drawSelectedCellInfo(g, Game.getInstance().getSelectedCell());
     }
 
     @Override
@@ -136,9 +171,13 @@ public class MapPanel extends JPanel implements Runnable {
      * @param icon takes an icon to be resizes
      * @return resized Icon
      */
-    private Icon resizeIcon(ImageIcon icon) {
+    private ImageIcon resizeIcon(ImageIcon icon) {
+        return resizeIcon(icon, 100, 100);
+    }
+
+    private ImageIcon resizeIcon(ImageIcon icon, int desiredWidth, int desiredHeight) {
         Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        Image resizedImage = img.getScaledInstance(desiredWidth, desiredWidth, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
 

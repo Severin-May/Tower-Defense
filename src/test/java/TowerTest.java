@@ -2,6 +2,8 @@ import model.*;
 import org.junit.Test;
 import utils.GameSettings;
 
+import java.awt.*;
+
 import static org.junit.Assert.*;
 import static utils.GameSettings.*;
 
@@ -12,8 +14,8 @@ public class TowerTest {
         Player pl2 = new Player("pl2");
         Game.initialise(pl1, pl2);
         Map.initialise();
-        pl1.setColor("Red");
-        pl2.setColor("Blue");
+        pl1.setColor(Color.red);
+        pl2.setColor(Color.blue);
         pl1.setCastle(new Castle(0,0, pl1));
         pl2.setCastle(new Castle(5,5, pl2));
         Cell[][] map = Map.getInstance().getMap();
@@ -40,9 +42,9 @@ public class TowerTest {
     @Test
     public void testTowerUpgrade(){
         Player player_a = new Player("p1");
-        player_a.setColor("Red");
+        player_a.setColor(Color.red);
         Player player_b = new Player("p2");
-        player_b.setColor("Blue");
+        player_b.setColor(Color.blue);
         Game.initialise(player_a, player_b);
         Map.initialise();
         Tower tower = new ShortRange(player_a);

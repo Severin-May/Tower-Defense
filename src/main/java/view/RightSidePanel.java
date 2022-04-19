@@ -134,7 +134,6 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 if (!game.getCurrentTurn().buyTroop(TroopType.MAG)){
                     JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more magicians");
                 }
-                printTroops();
             }
         });
         endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);

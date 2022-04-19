@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.*;
 import java.util.*;
 
 import static model.TroopType.MAG;
@@ -26,7 +27,7 @@ public class Troop extends Sprite {
      * @param owner player who this troop belongs to
      */
     public Troop(int i, int j, TroopType type, Player owner) {
-        super(i, j, troopWidth, troopHeight, owner.getColor().equals("Red") ? (type == MAG ? redMagLeftStop : redSwordLeftStop) : (type == MAG ? blueMagRightStop : blueSwordRightStop));
+        super(i, j, troopWidth, troopHeight, owner.getColor().equals(Color.red) ? (type == MAG ? redMagLeftStop : redSwordLeftStop) : (type == MAG ? blueMagRightStop : blueSwordRightStop));
         switch (type) {
             case SWORD_MAN: {
                 this.healthPoints = swordManHp;
@@ -34,7 +35,6 @@ public class Troop extends Sprite {
                 this.movementSpeed = swordManSpeed;
                 this.attackDamage = swordManAttackDamage;
                 this.movementPoints = swordManMovementPoints;
-                this.type = type;
                 break;
             }
             case MAG: {
@@ -43,14 +43,14 @@ public class Troop extends Sprite {
                 this.movementSpeed = magSpeed;
                 this.attackDamage = magAttackDamage;
                 this.movementPoints = magMovementPoints;
-                this.type = type;
                 break;
             }
         }
         this.owner = owner;
+        this.type = type;
         owner.addTroop(this);
         Cell[][] map = Map.getInstance().getMap();
-        map[i][j].getTroops().add(this);
+        map[i][j].addTroop(this);
         // enemy castle cell is destination cell by default
         destinationCell = map[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()];
     }
@@ -163,7 +163,6 @@ public class Troop extends Sprite {
         map[getI()][getJ()].removeTroop(this);
         Game.getInstance().getPlayer1().removeTroop(this);
         Game.getInstance().getPlayer2().removeTroop(this);
-        System.out.println("I died");
     }
 
     /**
@@ -237,7 +236,7 @@ public class Troop extends Sprite {
      */
     public static ArrayList<Cell> bfs (Cell startNode, Cell endNode, Cell[][] grid) {
 
-        if(grid.length == 0 || grid[0].length == 0) { System.out.println("Grid is empty"); return null; }
+        if(grid.length == 0 || grid[0].length == 0) { System.err.println("Grid is empty"); return null; }
 
         HashMap<Cell, Cell> parentNodes = new HashMap<>();
         Queue<Cell> queue = new LinkedList<>();
@@ -304,7 +303,7 @@ public class Troop extends Sprite {
      * makes the sprite turn right and switch legs
      */
     private void faceRight(){
-        if (owner.getColor().equals("Red")){
+        if (owner.getColor().equals(Color.red)){
             this.image = type == MAG ? redMagLeftWalk[walk++%2] : redSwordLeftWalk[walk++%2];
         }else{
             this.image = type == MAG ? blueMagLeftWalk[walk++%2] : blueSwordLeftWalk[walk++%2];
@@ -314,7 +313,7 @@ public class Troop extends Sprite {
      * makes the sprite turn left and switch legs
      */
     private void faceLeft (){
-        if (owner.getColor().equals("Red")){
+        if (owner.getColor().equals(Color.red)){
             this.image = type == MAG ? redMagRightWalk[walk++%2] : redSwordRightWalk[walk++%2];
         }else{
             this.image = type == MAG ? blueMagRightWalk[walk++%2] : blueSwordRightWalk[walk++%2];
@@ -324,7 +323,7 @@ public class Troop extends Sprite {
      * makes the sprite up right and switch legs
      */
     private void faceUp (){
-        if (owner.getColor().equals("Red")){
+        if (owner.getColor().equals(Color.red)){
             this.image = type == MAG ? redMagBackWalk[walk++%2] : redSwordBackWalk[walk++%2];
         }else{
             this.image = type == MAG ? blueMagBackWalk[walk++%2] : blueSwordBackWalk[walk++%2];
@@ -338,5 +337,9 @@ public class Troop extends Sprite {
     public void changeDestinationCell(Cell destinationCell) {
         this.destinationCell = destinationCell;
         buildShortestPath();
+    }
+
+    public TroopType getType() {
+        return type;
     }
 }

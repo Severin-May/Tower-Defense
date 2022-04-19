@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static utils.GameSettings.*;
@@ -9,7 +10,7 @@ public class Player {
     protected final String name;
     protected int gold;
     protected Castle castle;
-    protected String color;
+    protected Color color;
     protected ArrayList<Troop> troops;
     protected ArrayList<Tower> towers;
     protected ArrayList<GoldMine> goldMines;
@@ -150,11 +151,11 @@ public class Player {
         this.castle = castle;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

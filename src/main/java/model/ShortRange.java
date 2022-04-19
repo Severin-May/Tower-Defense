@@ -1,10 +1,12 @@
 package model;
 
+import java.awt.*;
+
 import static utils.GameSettings.*;
 
 public class ShortRange extends Tower {
     public ShortRange(int i, int j, Player owner) {
-        super(i, j, owner.getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Right, owner);
+        super(i, j, owner.getColor().equals(Color.red) ? redShortRangeL1Left : blueShortRangeL1Right, owner);
         this.attackRadius = shortRangeTowerRange;
         this.attackDamage = shortRangeAttackDamage;
         this.reloadTime = shortRangeReloadTime;
@@ -13,7 +15,7 @@ public class ShortRange extends Tower {
     }
 
     public ShortRange(Player owner) {
-        super(owner.getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Right, owner);
+        super(owner.getColor().equals(Color.red) ? redShortRangeL1Left : blueShortRangeL1Right, owner);
         this.attackRadius = shortRangeTowerRange;
         this.attackDamage = shortRangeAttackDamage;
         this.reloadTime = shortRangeReloadTime;
@@ -32,7 +34,7 @@ public class ShortRange extends Tower {
         this.shotCount = upgradedShortRangeShotCount;
         this.width = upgradedTowerWidth;
         this.height = upgradedTowerHeight;
-        if (owner.getColor().equals("Red")) {
+        if (owner.getColor().equals(Color.red)) {
             this.image = redShortRangeL2Left;
         } else {
             this.image = blueShortRangeL2Right;

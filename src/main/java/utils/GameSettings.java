@@ -244,23 +244,23 @@ public class GameSettings {
     public final static Image[] redSwordRightWalk = {redSwordRightW1,redSwordRightW2};
 
     public static Image getShortRangeL1Left() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redShortRangeL1Left : blueShortRangeL1Left;
+        return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redShortRangeL1Left : blueShortRangeL1Left;
     }
 
     public static Image getLongRangeL1Left() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redLongRangeL1Left : blueLongRangeL1Left;
+        return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redLongRangeL1Left : blueLongRangeL1Left;
     }
 
     public static Image getSplashL1Left() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSplashL1Left : blueSplashL1Left;
+        return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redSplashL1Left : blueSplashL1Left;
     }
 
     public static Image getMagLeftStop() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redMagLeftStop : blueMagLeftStop;
+        return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redMagLeftStop : blueMagLeftStop;
     }
 
     public static Image getSwordLeftStop() {
-        return Game.getInstance().getCurrentTurn().getColor().equals("Red") ? redSwordLeftStop : blueSwordLeftStop;
+        return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redSwordLeftStop : blueSwordLeftStop;
     }
 
     //Rules

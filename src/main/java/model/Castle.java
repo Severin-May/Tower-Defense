@@ -1,11 +1,13 @@
 package model;
 
+import java.awt.*;
+
 import static utils.GameSettings.*;
 
 public class Castle extends ActiveBuilding {
 
     public Castle(int i, int j, Player owner) {
-        super(i, j, castleWidth, castleHeight, owner.getColor().equals("Red") ? redCastle : blueCastle, owner);
+        super(i, j, castleWidth, castleHeight, owner.getColor().equals(Color.red) ? redCastle : blueCastle, owner);
         this.healthPoints = castleInitialHP;
     }
 
@@ -21,7 +23,9 @@ public class Castle extends ActiveBuilding {
 
     public void getAttackedBy(Troop t) {
         this.healthPoints -= t.getAttackDamage();
+        t.decreaseHP(t.getHealthPoints());//drop hp to zero
         t.selfDestruct();
         Game.gameOver.set(isDestroyed());
+        System.out.println("player " + this.getOwner().getName() + "'s Castle was hit!");
     }
 }

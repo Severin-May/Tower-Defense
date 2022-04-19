@@ -247,11 +247,53 @@ public class Cell extends Sprite {
         return building;
     }
 
+    /**
+     * @return true if there is no building and not a single troop on this cell. False otherwise.
+     */
     public boolean isFreeCell() {
         return !this.hasBuilding() && this.troops.size() == 0;
     }
 
+    public void addTroop(Troop t) {
+        troops.add(t);
+    }
     public void removeTroop(Troop t) {
         troops.remove(t);
+    }
+
+    /**
+     * counts how many sword men and mag troops are in this cell that belong to player1
+     * @return int array size of 2. First element being sword man count and second mag count
+     */
+    public int[] getPlayer1TroopsCount (){
+        int[] count = {0,0};
+        for (Troop t : troops){
+            if (t.getOwner() == Game.getInstance().getPlayer1()){
+                if (t.getType() == TroopType.SWORD_MAN){
+                    count[0]++;
+                }else{
+                    count[1]++;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * counts how many sword men and mag troops are in this cell that belong to player2
+     * @return int array size of 2. First element being sword man count and second mag count
+     */
+    public int[] getPlayer2TroopsCount (){
+        int[] count = {0,0};
+        for (Troop t : troops){
+            if (t.getOwner() == Game.getInstance().getPlayer2()){
+                if (t.getType() == TroopType.SWORD_MAN){
+                    count[0]++;
+                }else{
+                    count[1]++;
+                }
+            }
+        }
+        return count;
     }
 }

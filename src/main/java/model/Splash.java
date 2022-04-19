@@ -1,12 +1,13 @@
 package model;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static utils.GameSettings.*;
 
 public class Splash extends Tower {
     public Splash(int i, int j, Player owner) {
-        super(i, j, owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right, owner);
+        super(i, j, owner.getColor().equals(Color.red) ? redSplashL1Left : blueSplashL1Right, owner);
         this.attackRadius = splashTowerRange;
         this.attackDamage = splashAttackDamage;
         this.reloadTime = splashReloadTime;
@@ -15,7 +16,7 @@ public class Splash extends Tower {
     }
 
     public Splash(Player owner) {
-        super(owner.getColor().equals("Red") ? redSplashL1Left : blueSplashL1Right, owner);
+        super(owner.getColor().equals(Color.red) ? redSplashL1Left : blueSplashL1Right, owner);
         this.attackRadius = splashTowerRange;
         this.attackDamage = splashAttackDamage;
         this.reloadTime = splashReloadTime;
@@ -50,7 +51,7 @@ public class Splash extends Tower {
         this.shotCount = upgradedSplashShotCount;
         this.width = upgradedTowerWidth;
         this.height = upgradedTowerHeight;
-        if (owner.getColor().equals("Red")) {
+        if (owner.getColor().equals(Color.red)) {
             this.image = redSplashL2Left;
         } else {
             this.image = blueSplashL2Right;

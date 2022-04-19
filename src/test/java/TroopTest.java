@@ -6,6 +6,8 @@ import static utils.GameSettings.swordManHp;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 // Example test
 public class TroopTest {
     Player pl1;
@@ -17,9 +19,9 @@ public class TroopTest {
         pl2 = new Player("pl2");
         Game.initialise(pl1, pl2);
         Map.initialise();
-        pl1.setColor("Red");
+        pl1.setColor(Color.red);
         pl1.setCastle(new Castle(0, 0, pl1));
-        pl2.setColor("Blue");
+        pl2.setColor(Color.blue);
         pl2.setCastle(new Castle(0, 0, pl2));
 
     }

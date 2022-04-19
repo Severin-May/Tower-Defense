@@ -126,7 +126,6 @@ public class MainWindow extends JFrame{
         } else if (n == 2) {
             playerSetup = new DoublePlayerSetup(action);
         }
-        System.out.println(n);
         currentScreen = 2;
         changePanel(playerSetup, playerPanel);
     }
@@ -144,8 +143,8 @@ public class MainWindow extends JFrame{
     private void loadGameAndMap(Player p1, Player p2) {
         Game.initialise(p1, p2);
         Map.initialise();
-        p1.setColor("Red");
-        p2.setColor("Blue");
+        p1.setColor(Color.red);
+        p2.setColor(Color.blue);
         Map.getInstance().putRandomCastles();
         Map.getInstance().putRandomObstacles();
     }
@@ -160,7 +159,6 @@ public class MainWindow extends JFrame{
 
         framePanel.add(menusPanel);
 
-        System.out.println(newPanel.getSize());
     }
 
     private void changePanel(JPanel newPanel, JPanel oldPanel) {
