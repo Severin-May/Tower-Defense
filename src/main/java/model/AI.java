@@ -45,10 +45,6 @@ public class AI extends Player {
                 moneyToSpendInOneRound = (int) (currentGold * 0.3);
                 numberOfTowersToBuild = (int) ((moneyToSpendInOneRound * 0.5) / splashCost);
                 numberOfTroopsToTrain = (int) ((moneyToSpendInOneRound * 0.7) / magCost);
-                //Find valid place on the map and build the towers
-                buyRandomTowers(numberOfTowersToBuild);
-                //Buy troops
-                buyRandomTroops(numberOfTroopsToTrain);
             }
             break;
             case MORE_TROOPS: {
@@ -56,10 +52,6 @@ public class AI extends Player {
                 moneyToSpendInOneRound = (int) (currentGold * 0.3);
                 numberOfTowersToBuild = (int) ((moneyToSpendInOneRound * 0.3) / splashCost);
                 numberOfTroopsToTrain = (int) ((moneyToSpendInOneRound * 0.7) / magCost);
-                //Find valid place on the map and build the towers
-                buyRandomTowers(numberOfTowersToBuild);
-                //Buy troops
-                buyRandomTroops(numberOfTroopsToTrain);
             }
             break;
             case MORE_TOWERS: {
