@@ -13,7 +13,7 @@ public class Main {
             }
         }
         System.out.println("Game is over!");
-        System.out.println("The winner color is: " + (Game.getInstance().getPlayer1().getCastle().isDestroyed() ? Game.getInstance().getPlayer2().getColor() : Game.getInstance().getPlayer1().getColor()));
+        System.out.println("The winner color is: " + (Game.getInstance().getPlayer1().getCastle().isDestroyed() ? Game.getInstance().getPlayer2().getColor().toString() : Game.getInstance().getPlayer1().getColor()));
         System.exit(0);
     }
 }

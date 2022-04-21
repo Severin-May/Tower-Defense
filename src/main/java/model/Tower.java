@@ -197,8 +197,8 @@ public abstract class Tower extends ActiveBuilding {
             double toPlayerLength = Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY);
             toPlayerX = toPlayerX / toPlayerLength;
             toPlayerY = toPlayerY / toPlayerLength;
-            this.shotSprite.x += toPlayerX * 13;
-            this.shotSprite.y += toPlayerY * 13;
+            this.shotSprite.x += toPlayerX * towerShotSpriteSpeed;
+            this.shotSprite.y += toPlayerY * towerShotSpriteSpeed;
             //if bullet reached target troop then
             if (shotSprite.hasReachedDestination()){
                 //if another shot has not yet killed the target

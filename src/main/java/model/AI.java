@@ -39,16 +39,13 @@ public class AI extends Player {
         int moneyToSpendInOneRound;
         int numberOfTowersToBuild = 0;
         int numberOfTroopsToTrain = 0;
+        System.out.println("AI chose this strategy: " + getStrategy());
         switch (getStrategy()) {
             case EVEN: {
                 //when strategy is EVEN budget for one round is 30% and half of that goes to troops and half for towers
                 moneyToSpendInOneRound = (int) (currentGold * 0.3);
                 numberOfTowersToBuild = (int) ((moneyToSpendInOneRound * 0.5) / splashCost);
-                numberOfTroopsToTrain = (int) ((moneyToSpendInOneRound * 0.7) / magCost);
-                //Find valid place on the map and build the towers
-                buyRandomTowers(numberOfTowersToBuild);
-                //Buy troops
-                buyRandomTroops(numberOfTroopsToTrain);
+                numberOfTroopsToTrain = (int) ((moneyToSpendInOneRound * 0.5) / magCost);
             }
             break;
             case MORE_TROOPS: {
@@ -56,10 +53,6 @@ public class AI extends Player {
                 moneyToSpendInOneRound = (int) (currentGold * 0.3);
                 numberOfTowersToBuild = (int) ((moneyToSpendInOneRound * 0.3) / splashCost);
                 numberOfTroopsToTrain = (int) ((moneyToSpendInOneRound * 0.7) / magCost);
-                //Find valid place on the map and build the towers
-                buyRandomTowers(numberOfTowersToBuild);
-                //Buy troops
-                buyRandomTroops(numberOfTroopsToTrain);
             }
             break;
             case MORE_TOWERS: {
@@ -90,10 +83,14 @@ public class AI extends Player {
             }
             break;
         }
+        System.out.println("Current budget: " + currentGold);
         //Find valid place on the map and build the towers
         buyRandomTowers(numberOfTowersToBuild);
         //Buy troops
         buyRandomTroops(numberOfTroopsToTrain);
+        System.out.println("Towers: " + numberOfTowersToBuild);
+        System.out.println("Troops: " + numberOfTroopsToTrain);
+        System.out.println("After purchase: " + getGold());
     }
 
     /**

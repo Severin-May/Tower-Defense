@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 public class GameSettings {
     // Initial Towers' stats:
+    public final static int towerShotSpriteSpeed = 15;
     //long ranged:
     public final static int longRangeTowerRange = 4;
     public final static int longRangeAttackDamage = 2;
