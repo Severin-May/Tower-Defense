@@ -144,6 +144,10 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 endTurn.setVisible(false);
                 startFightingStage.setVisible(true);
                 changeButtons();
+                if (game.isSinglePlayer() && game.getCurrentTurn() == game.getPlayer2()){
+                    AI ai = (AI)game.getPlayer2();
+                    ai.doPreparations();
+                }
             }
         });
         startFightingStage = new CustomButton(buttonWidth, buttonHeight, "Attack", null, 4);

@@ -2,6 +2,7 @@ package model;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static utils.GameSettings.*;
 
@@ -106,17 +107,33 @@ public class Map {
     }
 
     /**
-     *
-     * @return random Cell in which there is no building and troop
+     * @return random Cell in which there is no building and troop. Null if there are not any free cells
      */
     public Cell getRandomPos() {
-        int i = (int) (Math.random() * mapHeightInCells);
-        int j = (int) (Math.random() * mapWidthInCells);
-
-        if(!map[i][j].isFreeCell()){
-            return getRandomPos();
+        ArrayList<Cell> freeCells = getFreeCells();
+        if (freeCells.size() == 0){
+            return null;
         }
-        return map[i][j];
+        int i = (int) (Math.random() * freeCells.size());
+        return freeCells.get(i);
+    }
+
+    /**
+     * Gets all cells where there are no building and no troops
+     * @return list of free cells
+     */
+    private ArrayList<Cell> getFreeCells(){
+        ArrayList<Cell> result = new ArrayList<>();
+        Cell[][] map = Map.getInstance().getMap();
+
+        for (Cell[] cells : map){
+            for (Cell cell : cells){
+                if (cell.isFreeCell()){
+                    result.add(cell);
+                }
+            }
+        }
+        return result;
     }
 
     /**
