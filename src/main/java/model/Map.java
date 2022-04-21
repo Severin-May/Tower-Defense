@@ -2,7 +2,6 @@ package model;
 
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import static utils.GameSettings.*;
 
@@ -29,6 +28,13 @@ public class Map {
             for (int j = 0; j < mapWidthInCells; j++) {
                 map[i][j].drawGrassAndRectangles(g);
             }
+        }
+        /* this if for highlighting the selected cell if a cell is selected */
+        Cell currentSelectedCell = Game.getInstance().getSelectedCell();
+        if (currentSelectedCell != null){
+            g.setColor(Color.yellow);
+            g.drawRect(currentSelectedCell.getX()-currentSelectedCell.getWidth()/2,currentSelectedCell.getY()-currentSelectedCell.getHeight()/2, currentSelectedCell.getWidth(), currentSelectedCell.getHeight());
+            g.setColor(Color.black);
         }
         // need to draw twice because we first draw grass and only then sprites on top of it
         for (int i = 0; i < mapHeightInCells; i++) {

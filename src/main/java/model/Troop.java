@@ -13,9 +13,13 @@ public class Troop extends Sprite {
     private int movementPoints;
     private int attackDamage;
     private final Player owner;
-    private TroopType type;
+    private final TroopType type;
     private ArrayList <Cell> shortestPath;
     private Cell destinationCell;
+    private enum Direction {
+        UP,DOWN,LEFT,RIGHT;
+    }
+    private Direction direction;
 
     /**
      * By creating Troop instance you actually make it appear on the given map coordinates
@@ -55,16 +59,17 @@ public class Troop extends Sprite {
         destinationCell = map[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()];
     }
 
-    public enum Direction {
-        UP,DOWN,LEFT,RIGHT;
-    }
-
-    Direction direction;
-
+    /**
+     * @return enemy of this troop's owner
+     */
     private Player getEnemyPlayer(){
         Game game = Game.getInstance();
         return game.getPlayer1() != getOwner() ? game.getPlayer1() : game.getPlayer2();
     }
+
+    /**
+     * builds the shortest path from current cell to {@link  #destinationCell} and saves it in {@link #shortestPath}
+     */
     public void buildShortestPath(){
         Cell[][] map = Map.getInstance().getMap();
         shortestPath = bfs(map[getI()][getJ()], map[destinationCell.getI()][destinationCell.getJ()], map);
@@ -75,8 +80,11 @@ public class Troop extends Sprite {
      * then makes the troop move to the direction of the destination by movement point of the troop
      */
     public void moveIfPossible() {
-        if (movementPoints <= 0 || isKilled()){
+        if (isKilled()){
             return;
+        }
+        if (movementPoints <= 0){
+            goInsideCurrentCell();
         }
         Cell currentCell = Map.getInstance().getMap()[getI()][getJ()];
         int i = shortestPath.indexOf(currentCell);
@@ -93,8 +101,35 @@ public class Troop extends Sprite {
             }
             return;
         }
-        //force troop go to the same direction if its sprite is not fully inside the cell
-        if (!currentCell.isInsideThisCell(getX(),getY(),getWidth()-10,getHeight()-10) && direction != null) {
+        // if did not fully fit into cell then keep moving in the same direction
+        if (!currentCell.isInsideThisCell(getX(),getY(),getWidth(),getHeight()) && direction != null) {
+            goInsideCurrentCell();
+            return;
+        }
+        if (shortestPath.get(i+1).getI() < getI()){     // go up
+            faceUp();
+            this.y -= movementSpeed;
+            direction = Direction.UP;
+        }else if (shortestPath.get(i+1).getI() > getI()){// go down
+            faceRight();
+            this.y += movementSpeed;
+            direction = Direction.DOWN;
+        }else if (shortestPath.get(i+1).getJ() > getJ()){// go right
+            faceRight();
+            this.x += movementSpeed;
+            direction = Direction.RIGHT;
+        }else { // go left
+            faceLeft();
+            this.x -= movementSpeed;
+            direction = Direction.LEFT;
+        }
+    }
+
+    /**
+     *  force troop go to the same direction if its sprite is not fully inside the cell
+     */
+    private void goInsideCurrentCell() {
+        if (!Map.getInstance().getMap()[getI()][getJ()].isInsideThisCell(getX(),getY(),getWidth(),getHeight()) && direction != null) {
             switch (direction) {
                 case UP: {
                     faceUp();
@@ -118,24 +153,6 @@ public class Troop extends Sprite {
                 }
                 default: break;
             }
-            return;
-        }
-        if (shortestPath.get(i+1).getI() < getI()){     // go up
-            faceUp();
-            this.y -= movementSpeed;
-            direction = Direction.UP;
-        }else if (shortestPath.get(i+1).getI() > getI()){// go down
-            faceRight();
-            this.y += movementSpeed;
-            direction = Direction.DOWN;
-        }else if (shortestPath.get(i+1).getJ() > getJ()){// go right
-            faceRight();
-            this.x += movementSpeed;
-            direction = Direction.RIGHT;
-        }else { // go left
-            faceLeft();
-            this.x -= movementSpeed;
-            direction = Direction.LEFT;
         }
     }
 

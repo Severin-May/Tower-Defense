@@ -92,16 +92,16 @@ public class GameSettings {
     public final static int towerWidth = (int) (cellWidth * 1.0);
     public final static int towerHeight = (int) (cellHeight * 1.2);
     public final static int upgradedTowerWidth = (int) (towerWidth * 1.2);
-    public final static int upgradedTowerHeight = (int) (towerHeight * 1.2);
+    public final static int upgradedTowerHeight = (int) (towerHeight * 1.4);
     public final static int goldMineWidth = cellWidth;
     public final static int goldMineHeight = cellHeight;
     public final static int treasureChestWidth = cellWidth;
     public final static int treasureChestHeight = cellHeight;
     public final static int obstacleWidth = cellWidth;
     public final static int obstacleHeight = cellHeight;
-    // IMPORTANT: Troop size MUST fit into cell otherwise it makes it move in one direction infinitely because it always tries to fit himself into the cell
+    // IMPORTANT: Troop size MUST fit into cell (troopWidth <= cellWidth && troopHeight <= cellHeight) otherwise it makes it move in one direction infinitely because it always tries to fit himself into the cell
     public final static int troopWidth = (int)(cellWidth * 0.9);
-    public final static int troopHeight = (int)(cellWidth * 0.99);
+    public final static int troopHeight = (int)(cellHeight * 0.99);
     // Image paths as strings
     //Passive Buildings
     // Gold Mine
