@@ -111,6 +111,11 @@ public class MapPanel extends JPanel implements Runnable {
                     null, JOptionPane.INFORMATION_MESSAGE, resizeIcon(new ImageIcon("src/main/resources/images/not_allowed_to_build_near_enemy_radius.jpg")));
             return false;
         }
+        if (cell.isCastleBlocked()){
+            JOptionPane.showMessageDialog(getParent(), "You cannot build here because doing so will block the way from castle to castle ",
+                    null, JOptionPane.INFORMATION_MESSAGE, resizeIcon(new ImageIcon("src/main/resources/images/not_allowed_to_block.jpg")));
+            return false;
+        }
         return true;
     }
 
@@ -177,7 +182,7 @@ public class MapPanel extends JPanel implements Runnable {
 
     private ImageIcon resizeIcon(ImageIcon icon, int desiredWidth, int desiredHeight) {
         Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(desiredWidth, desiredWidth, Image.SCALE_SMOOTH);
+        Image resizedImage = img.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
 
@@ -185,7 +190,7 @@ public class MapPanel extends JPanel implements Runnable {
      * Puts the given building on top of given cell
      * If it is a Tower or a GoldMine then adds them to its owner's list
      */
-    private void putBuilding(Cell cellToBuildOn, Building toBuild) {
+    public static void putBuilding(Cell cellToBuildOn, Building toBuild) {
         //place it on the cell
         cellToBuildOn.setBuilding(toBuild);
         //if it is the tower or gold mine add it to the owner's belongings list. Note: Money validation is done on buttons

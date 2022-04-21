@@ -115,6 +115,10 @@ public class Game {
         System.out.println("All troops finished!");
         clearBullets();
         fightingStage.set(false);
+        if (instance.isSinglePlayer() && instance.getCurrentTurn() == instance.getPlayer2()){
+            AI ai = (AI)instance.getPlayer2();
+            ai.doPreparations();
+        }
     }
 
     public void refresh() {
@@ -196,4 +200,9 @@ public class Game {
     public Cell getSelectedCell() {
         return selectedCell;
     }
+
+    public boolean isSinglePlayer (){
+        return player2 instanceof AI;
+    }
+
 }

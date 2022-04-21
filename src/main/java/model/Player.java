@@ -1,5 +1,7 @@
 package model;
 
+import view.MapPanel;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -32,14 +34,35 @@ public class Player {
      */
     public boolean buyTroop(TroopType troopType) {
         int troopCost = troopType == TroopType.MAG ? magCost : swordManCost;
-        if (getGold() >= troopCost){
+        if (getGold() >= troopCost) {
             decreaseGold(troopCost);
             castle.createTroop(troopType);
             return true;
         }
         return false;
     }
-    
+
+    /**
+     * If a player has enough money then he purchases given building. Else nothing is done
+     * @param building Building that is desired to be purchased. Tower or GoldMine expected
+     * @param cell cell where the purchased building needs to be placed on. It is expected that the cell is validated
+     * @return true if enough gold and was built. False otherwise
+     */
+    public boolean buyBuilding(Building building, Cell cell) {
+        int cost = 999999999;
+        if (building instanceof Tower) {
+            cost = ((Tower) building).getCost();
+        } else if (building instanceof GoldMine) {
+            cost = ((GoldMine) building).getCost();
+        }
+        if (getGold() >= cost) {
+            MapPanel.putBuilding(cell, building);
+            return true;
+        }
+        return false;
+    }
+
+
     /**
      * when a player decides to upgrade her/his towers, this method calls the upgrade method of the building
      *
@@ -171,7 +194,9 @@ public class Player {
         return this.towers;
     }
 
-    public ArrayList<GoldMine> getGoldMines() {return this.goldMines; }
+    public ArrayList<GoldMine> getGoldMines() {
+        return this.goldMines;
+    }
 
     /**
      * when players want to restart the game, their current state will be lost

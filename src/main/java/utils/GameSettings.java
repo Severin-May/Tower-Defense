@@ -44,6 +44,8 @@ public class GameSettings {
     public final static int shortRangeCost = 10;
     public final static int splashCost = 10;
     public final static int goldMineCost = 25;
+    public final static int swordManCost = 2;
+    public final static int magCost = 2;
     public final static int goldMineIncomePerRound = 5;
     public final static int awardForKillingTroop = 2;
     public final static int awardForPickingTreasure = 15;
@@ -55,13 +57,11 @@ public class GameSettings {
     public final static int swordManHp = 10;
     public final static int swordManSpeed = 2;
     public final static int swordManAttackDamage = 10;
-    public final static int swordManCost = 2;
     public final static int swordManMovementPoints = 4;
     //mag troop
     public final static int magHp = 7;
     public final static int magSpeed = 3;
     public final static int magAttackDamage = 10;
-    public final static int magCost = 2;
     public final static int magMovementPoints = 6;
 
     //Map settings:
