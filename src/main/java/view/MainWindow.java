@@ -3,6 +3,8 @@ package view;
 import model.*;
 
 import javax.swing.*;
+import javax.swing.JLayeredPane;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,14 +16,13 @@ import static view.RightSidePanel.resizeIcon;
 public class MainWindow extends JFrame{
 
     private final JPanel framePanel;
-
     private final JPanel menusPanel;
 
     private final MainPanel mainPanel;
     private final PlayerPanel playerPanel;
     private SetupPanel playerSetup;
 
-    private JLabel help;
+    private final JLabel help = new JLabel();
 
     private boolean singleplayer = false;
 
@@ -32,9 +33,15 @@ public class MainWindow extends JFrame{
 
         setIconImage(blueSplashL1Right);
 
-        framePanel = new JPanel();
-        framePanel.setSize(new Dimension(800, 800));
-        framePanel.setBackground(Color.cyan);
+        framePanel = new JPanel() {
+            public boolean isOptimizedDrawingEnabled() {
+                return false;
+            }
+        };
+
+        LayoutManager overlay = new OverlayLayout(framePanel);
+        framePanel.setLayout(overlay);
+        framePanel.setBackground(new Color(66, 66, 66));
 
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,18 +50,30 @@ public class MainWindow extends JFrame{
         menusPanel.setBackground(null);
 
         mainPanel = new MainPanel(action);
-        setBackground(Color.black);
 
         playerPanel = new PlayerPanel(action);
 
+        framePanel.add(getBackgroundImage());
         panelToDisplay(mainPanel);
 
-        add(framePanel);
+        add(framePanel, BorderLayout.CENTER);
         setResizable(false);
         setFocusable(true);
         addKeyListener(back);
         setVisible(true);
         setLocationRelativeTo(null);
+    }
+
+    private JLabel getBackgroundImage(){
+        help.setIcon(menuBackground0);
+        help.setLayout(new BorderLayout());
+        help.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        help.setAlignmentY(JComponent.CENTER_ALIGNMENT);
+        return help;
+    }
+
+    private void setBackgroundImage(Icon img){
+        help.setIcon(img);
     }
 
     private final KeyListener back = new KeyListener() {
@@ -100,9 +119,7 @@ public class MainWindow extends JFrame{
 
     public void start() {
         currentScreen = 1;
-        help = new JLabel("Press 'ESC' to go back");
-        help.setAlignmentY(JComponent.LEFT_ALIGNMENT);
-        framePanel.add(help, BorderLayout.NORTH);
+        setBackgroundImage(menuBackground1);
         changePanel(playerPanel, mainPanel);
     }
 
@@ -126,6 +143,7 @@ public class MainWindow extends JFrame{
         } else if (n == 2) {
             playerSetup = new DoublePlayerSetup(action);
         }
+        System.out.println(n);
         currentScreen = 2;
         changePanel(playerSetup, playerPanel);
     }
@@ -143,8 +161,8 @@ public class MainWindow extends JFrame{
     private void loadGameAndMap(Player p1, Player p2) {
         Game.initialise(p1, p2);
         Map.initialise();
-        p1.setColor(Color.red);
-        p2.setColor(Color.blue);
+        p1.setColor(Color.RED);
+        p2.setColor(Color.BLUE);
         Map.getInstance().putRandomCastles();
         Map.getInstance().putRandomObstacles();
     }
@@ -152,13 +170,12 @@ public class MainWindow extends JFrame{
     private void panelToDisplay(JPanel newPanel){
 
         newPanel.setVisible(true);
-        menusPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, (getHeight() - newPanel.getHeight())/2));
-        menusPanel.add(newPanel);
         newPanel.setBackground(null);
-        //menusPanel.setBackground(Color.cyan);
+        menusPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 350));
+        menusPanel.add(newPanel);
+        menusPanel.setBounds(0, 0, 800, 800);
 
         framePanel.add(menusPanel);
-
     }
 
     private void changePanel(JPanel newPanel, JPanel oldPanel) {
@@ -174,14 +191,12 @@ public class MainWindow extends JFrame{
     public void display(int screen) {
         switch (screen) {
             case 0:
-                mainPanel.setVisible(true);
-                playerPanel.setVisible(false);
-                help.setVisible(false);
+                changePanel(mainPanel, playerPanel);
+                setBackgroundImage(menuBackground0);
                 break;
             case 1:
-                help.setVisible(true);
-                playerPanel.setVisible(true);
-                playerSetup.setVisible(false);
+                setBackgroundImage(menuBackground1);
+                changePanel(playerPanel, playerSetup);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + screen);

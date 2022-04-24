@@ -103,6 +103,8 @@ public class GameSettings {
     public final static int troopWidth = (int)(cellWidth * 0.9);
     public final static int troopHeight = (int)(cellHeight * 0.99);
     // Image paths as strings
+    public final static Icon menuBackground0 = new ImageIcon("src/main/resources/images/Title_Image0.png");
+    public final static Icon menuBackground1 = new ImageIcon("src/main/resources/images/Title_Image1.png");
     //Passive Buildings
     // Gold Mine
     public final static Image goldMine = new ImageIcon("src/main/resources/images/GoldMine.png").getImage();
