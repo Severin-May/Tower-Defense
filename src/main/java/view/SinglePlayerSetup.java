@@ -16,6 +16,7 @@ public class SinglePlayerSetup extends SetupPanel{
         add(namePanel);
         add(submit);
 
+        setBackground(null);
         setPreferredSize(new Dimension(800, 237));
         setSize(new Dimension(800, 237));
 

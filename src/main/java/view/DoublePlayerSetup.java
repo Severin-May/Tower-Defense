@@ -24,6 +24,8 @@ public class DoublePlayerSetup extends SetupPanel{
         add(namePanels);
         add(submit);
 
+        setBackground(null);
+
         setPreferredSize(new Dimension(800, 237));
         setSize(new Dimension(800, 237));
 

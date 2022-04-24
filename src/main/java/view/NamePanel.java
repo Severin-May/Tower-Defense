@@ -9,6 +9,7 @@ public class NamePanel extends JPanel {
     public NamePanel (String l){
         JLabel label = new JLabel(l);
         label.setFont(new Font(Font.DIALOG, Font.ITALIC, 25));
+        label.setForeground(Color.WHITE);
 
         name = new JTextField(15);
         name.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));

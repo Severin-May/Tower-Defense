@@ -16,6 +16,7 @@ public class PlayerPanel extends JPanel {
             add(btn);
         }
 
+        setBackground(null);
         setPreferredSize(new Dimension(800, 260));
         setSize(new Dimension(800, 260));
     }
