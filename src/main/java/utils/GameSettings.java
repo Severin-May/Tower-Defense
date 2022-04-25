@@ -265,6 +265,10 @@ public class GameSettings {
         return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redSwordLeftStop : blueSwordLeftStop;
     }
 
+    public static Image getGoldMine(){
+        return goldMine;
+    }
+
     //Rules
     public static ImageIcon allow_to_build_radius = new ImageIcon("src/main/resources/images/allowed_to_build_radius.jpg");
     public final static String welcomeMessage =         "Welcome to the game of tower defense!" +
