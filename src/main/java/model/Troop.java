@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.*;
 
 import static model.TroopType.MAG;
+import static model.TroopType.SWORD_MAN;
 import static utils.GameSettings.*;
 
 public class Troop extends Sprite {
@@ -20,6 +21,8 @@ public class Troop extends Sprite {
         UP,DOWN,LEFT,RIGHT;
     }
     private Direction direction;
+
+    private HealthBar healthBar;
 
     /**
      * By creating Troop instance you actually make it appear on the given map coordinates
@@ -52,12 +55,14 @@ public class Troop extends Sprite {
         }
         this.owner = owner;
         this.type = type;
+        healthBar = new HealthBar(this);
         owner.addTroop(this);
         Cell[][] map = Map.getInstance().getMap();
         map[i][j].addTroop(this);
         // enemy castle cell is destination cell by default
         destinationCell = map[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()];
     }
+
 
     /**
      * @return enemy of this troop's owner
@@ -123,6 +128,7 @@ public class Troop extends Sprite {
             this.x -= movementSpeed;
             direction = Direction.LEFT;
         }
+        healthBar.update();
     }
 
     /**
@@ -130,6 +136,7 @@ public class Troop extends Sprite {
      */
     private void goInsideCurrentCell() {
         if (!Map.getInstance().getMap()[getI()][getJ()].isInsideThisCell(getX(),getY(),getWidth(),getHeight()) && direction != null) {
+            healthBar.update();
             switch (direction) {
                 case UP: {
                     faceUp();
@@ -358,5 +365,18 @@ public class Troop extends Sprite {
 
     public TroopType getType() {
         return type;
+    }
+
+    /**
+     * this method is used for the health bar implementation
+     * @return troop's current hp as a double value
+     */
+    public double getMaxHealth(){
+        if (getType() == MAG){
+            return magHp;
+        } else if (getType() == SWORD_MAN){
+            return swordManHp;
+        }
+        return 0;
     }
 }

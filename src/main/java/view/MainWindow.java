@@ -1,10 +1,11 @@
 package view;
 
-import model.*;
+import model.AI;
+import model.Game;
+import model.Map;
+import model.Player;
 
 import javax.swing.*;
-import javax.swing.JLayeredPane;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
