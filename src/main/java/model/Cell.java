@@ -26,7 +26,7 @@ public class Cell extends Sprite {
 
     public void drawGrassAndRectangles(Graphics g) {
         g.drawImage(this.image, x - width / 2, y - height / 2, width, height, null);
-        g.setColor(Color.black);
+        g.setColor(new Color(22, 153, 0));
         g.drawRect(x - height / 2, y - height / 2, width, height);
     }
 
@@ -47,7 +47,9 @@ public class Cell extends Sprite {
             }
         }
         for (Troop t : troops) {
+            HealthBar hb = new HealthBar(t);
             g.drawImage(t.image, t.x - t.width / 2, t.y - t.height / 2, t.width, t.height, null);
+            hb.paint(g);
         }
     }
 
