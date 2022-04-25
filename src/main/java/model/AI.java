@@ -1,9 +1,12 @@
 package model;
 
-import static utils.GameSettings.splashCost;
-import static utils.GameSettings.magCost;
-import static utils.GameSettings.castleInitialHP;
-import static utils.GameSettings.initialGold;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+import static utils.GameSettings.*;
+import static utils.GameSettings.mapWidthInCells;
 
 public class AI extends Player {
     private enum Strategy {
@@ -88,6 +91,89 @@ public class AI extends Player {
         buyRandomTroops(numberOfTroopsToTrain);
     }
 
+    private Cell getRandomCellInRadius (){
+        Cell[] arrayCells= getAllCellsInRadius().toArray(new Cell[getAllCellsInRadius().size()]);
+        if (arrayCells.length==0) return null;
+        return arrayCells[new Random().nextInt(arrayCells.length)];
+    }
+
+    private HashSet<Cell> getAllCellsInRadius (){
+        Cell[][] map = Map.getInstance().getMap();
+        HashSet<Cell> allCells = new HashSet<>(getCellsAround(map[getCastle().getI()][getCastle().getJ()]));
+
+        for(int i =0; i< getTowers().size();i++){
+            int k = getTowers().get(i).getI();
+            int j = getTowers().get(i).getJ();
+            allCells.addAll(getCellsAround(map[k][j]));
+
+        }
+        for(int i =0; i< getGoldMines().size();i++){
+            int k = getGoldMines().get(i).getI();
+            int j = getGoldMines().get(i).getJ();
+            allCells.addAll(getCellsAround(map[k][j]));
+        }
+        return allCells; // call getCellsAround for every building then put it in set then return it
+    }
+
+    private ArrayList<Cell> getCellsAround (Cell cell){
+        Cell[][] map = Map.getInstance().getMap();
+        int i = cell.getI();
+        int j = cell.getJ();
+        boolean einRange = false;
+        boolean sinRange = false;
+        ArrayList<Cell> cellsAround = new ArrayList<>();
+        int r = 2;
+        int ti = i - r;
+        int s = j;
+        int e = j;
+
+        while (ti < mapHeightInCells && ti <= i + r) {
+            if (ti >= 0) {
+                if (s < 0) {
+                    sinRange = true;
+                }
+                if (e >= mapWidthInCells) {
+                    einRange = true;
+                }
+                if (einRange) {
+                    for (int k = s; k <= (mapWidthInCells - 1); k++) {
+                        if (map[ti][k].isFreeCell()) {
+                            cellsAround.add(map[ti][k]);
+                        }
+                    }
+                } else if (sinRange) {
+                    for (int k = 0; k <= e; k++) {
+
+                        if (map[ti][k].isFreeCell()) {
+                            cellsAround.add(map[ti][k]);
+                        }
+                    }
+                } else {
+                    for (int k = s; k <= e; k++) {
+
+                        if (map[ti][k].isFreeCell() ) {
+                            cellsAround.add(map[ti][k]);
+                        }
+                    }
+                }
+                if (ti < i) {
+                    s = s - 1;
+                    e = e + 1;
+                } else {
+                    s = s + 1;
+                    e = e - 1;
+                }
+            }
+            if (ti < 0) {
+                s = s - 1;
+                e = e + 1;
+            }
+            ti++;
+        }
+
+        return cellsAround; //All cells around given cell
+    }
+
     /**
      * Finds a valid place on the map and builds the towers there
      *
@@ -95,14 +181,10 @@ public class AI extends Player {
      */
     private void buyRandomTowers(int numberOfTowersToBuild) {
         for (int i = 0; i < numberOfTowersToBuild; i++) {
-            Cell randomCell = Map.getInstance().getRandomPos();
+            Cell randomCell = getRandomCellInRadius();
             //if no free cells then do nothing
             if (randomCell == null) {
                 return;
-            }
-            //keep looking for a free cell until you find cell that obeys all rules
-            while (!randomCell.isInEnemyBuildingRange() || !randomCell.isCloseToOwnBuilding() || randomCell.isCastleBlocked()) {
-                randomCell = Map.getInstance().getRandomPos();
             }
             int towerId = (int) (Math.random() * 3);
             Tower towerToBuild;
