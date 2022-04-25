@@ -35,7 +35,6 @@ public class Map {
         if (currentSelectedCell != null){
             g.setColor(Color.yellow);
             g.drawRect(currentSelectedCell.getX()-currentSelectedCell.getWidth()/2,currentSelectedCell.getY()-currentSelectedCell.getHeight()/2, currentSelectedCell.getWidth(), currentSelectedCell.getHeight());
-            g.setColor(Color.black);
         }
         // need to draw twice because we first draw grass and only then sprites on top of it
         for (int i = 0; i < mapHeightInCells; i++) {
@@ -161,6 +160,4 @@ public class Map {
            instance.getMap()[temp.getI()][temp.getJ()].setBuilding(new Obstacle(temp.getI(), temp.getJ(), null));
        }
     }
-
-
 }
