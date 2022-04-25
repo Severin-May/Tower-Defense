@@ -73,7 +73,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
 
     private void createButtons() {
         int buttonWidth = 180;
-        int buttonHeight = 60;
+        int buttonHeight = 55;
         buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
