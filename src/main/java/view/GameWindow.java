@@ -13,20 +13,26 @@ import static utils.GameSettings.*;
 public class GameWindow extends JFrame {
 
     public GameWindow() {
-        setTitle("Game Window title");
-        setSize(mapWidthInPixels + rightPanelWidth, mapHeightInPixels + 200); // I do not know why +30 is needed : Jeenbek
-
-        Image icon = Toolkit.getDefaultToolkit().getImage("src/main/resources/images/Blue/Buildings/Splash/L1/Right.png");
-        setIconImage(icon);
-
+        //title of the window
+        setTitle("Tower Defense");
+        //icon of the window next to title
+        setIconImage(blueSplashL1Right);
+        //size of the window
+        setSize(mapWidthInPixels + rightPanelWidth, mapHeightInPixels + additionalBlankSpaceBelowInPixels);
+        //cannot be resized
         setResizable(false);
+        //window appears in the center
         setLocationRelativeTo(null);
+        //exits on close button
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //divide screen into left and right, and add corresponding panels there
         setLayout(new BorderLayout());
         add(new MapPanel(), BorderLayout.WEST);
         add(new RightSidePanel(), BorderLayout.EAST);
         setVisible(true);
+        //add a menu bar
         setUpMenuBar();
+        //everything is ready so that Main can continue
         Game.everyThingReady.set(true);
     }
 
@@ -56,14 +62,5 @@ public class GameWindow extends JFrame {
         menu.add(menuGameStart);
         menu.add(menuGameRules);
         menu.add(menuGameExit);
-    }
-
-    public void showRules() {
-        JOptionPane.showMessageDialog(this, "RULES OF THE GAME:\nIf you are struggling to beat\nyour opponent, just get better.");
-    }
-
-    public void restartGame(Game g) {
-        g.getPlayer1().resetPlayer();
-        g.getPlayer2().resetPlayer();
     }
 }

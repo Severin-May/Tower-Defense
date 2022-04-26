@@ -12,6 +12,10 @@ public class AI extends Player {
     private enum Strategy {
         EVEN, MORE_TROOPS, MORE_TOWERS, ONLY_TROOPS, ONLY_TOWERS, SAVE_MONEY   //, MORE_GOLD, MORE_UPGRADE
     }
+    // button that is clicked to change the turn
+    private JButton changeTurnButton;
+    // button that is clicked to start fighting stage
+    private JButton attackButton;
 
     public AI(String nameForAI) {
         super(nameForAI);
@@ -95,30 +99,54 @@ public class AI extends Player {
         System.out.println("Troops: " + numberOfTroopsToTrain);
         System.out.println("After purchase: " + getGold());
     }
-    private JButton changeTurnButton;
-    private JButton attackButton;
-    public void setChangeTurnButton(JButton b, JButton b2) {
-        changeTurnButton = b;
-        attackButton = b2;
+
+    /**
+     * Use to set the necessary buttons that are responsible for changing the turn and for starting the fighting stage
+     * @param changeTurn button that is responsible for changing turn
+     * @param startFightingStage button that is responsible for starting the fighting stage
+     */
+    public void setControlButtons(JButton changeTurn, JButton startFightingStage) {
+        changeTurnButton = changeTurn;
+        attackButton = startFightingStage;
     }
+
+    /**
+     * After doing preparations, AI can give the turn to the player by clicking on change turn button
+     */
+    // I tried to simply write changeTurnButton.doClick(); but it did not work, so I simply copied what it is supposed to do
     public void clickOnChangeTurn(){
         Game game = Game.getInstance();
         game.changeTurn();
         changeTurnButton.setVisible(false);
         attackButton.setVisible(true);
-//        changeButtons();
-        if (game.isSinglePlayer() && game.getCurrentTurn() == game.getPlayer2()){
-            AI ai = (AI)game.getPlayer2();
-            ai.doPreparations();
-        }
+    }
+    /**
+     * After player1 did preparations and give turn to AI, it can call this function to
+     * immediately start the fighting stage after doing its own preparations AI can give
+     * the turn to the player by clicking on change turn button
+     */
+    // I tried to simply write attackButton.doClick(); but it did not work, so I simply copied what it is supposed to do
+    public void clickOnAttack(){
+        attackButton.setVisible(false);
+        changeTurnButton.setVisible(true);
+        Game.getInstance().setFightingStage(true);
+        System.out.println("Starting the fighting stage!");
     }
 
+    /**
+     * Searches for the random cell that obeys the rules of the game
+     * @return random cell where AI can build. Null if there is none
+     */
     private Cell getRandomCellInRadius (){
         Cell[] arrayCells= getAllCellsInRadius().toArray(new Cell[getAllCellsInRadius().size()]);
         if (arrayCells.length==0) return null;
         return arrayCells[new Random().nextInt(arrayCells.length)];
     }
 
+    /**
+     * Collects all the available cells that obey the rules into a set and returns it
+     * @return set of cells where AI can build
+     */
     private HashSet<Cell> getAllCellsInRadius (){
         Cell[][] map = Map.getInstance().getMap();
         HashSet<Cell> allCells = new HashSet<>(getCellsAround(map[getCastle().getI()][getCastle().getJ()]));
@@ -134,9 +162,14 @@ public class AI extends Player {
             int j = getGoldMines().get(i).getJ();
             allCells.addAll(getCellsAround(map[k][j]));
         }
-        return allCells; // call getCellsAround for every building then put it in set then return it
+        return allCells;
     }
 
+    /**
+     * Given a cell, it returns all the free places around this cell in radius 2 (not including itself)
+     * @param cell cell around which it should search
+     * @return all cells that are available in the radius
+     */
     private ArrayList<Cell> getCellsAround (Cell cell){
         Cell[][] map = Map.getInstance().getMap();
         int i = cell.getI();

@@ -9,19 +9,28 @@ import java.awt.event.MouseEvent;
 
 import static utils.GameSettings.*;
 
+/**
+ * Map panel is expected to be on the left side of the parent JFrame
+ * It is responsible for all the visuals of the game map
+ * It implements a runnable so that its screen refresher can be done on a separate thread
+ */
 public class MapPanel extends JPanel implements Runnable {
     private final Map map;
     private final Game game;
     private int mousePointX;
     private int mousePointY;
 
+    /**
+     * Map panel is heavily dependent on {@link Map} and on {@link Game} and it expects them to be initialised
+     */
     public MapPanel() {
         game = Game.getInstance();
         map = Map.getInstance();
         setPreferredSize(new Dimension(mapWidthInPixels, mapHeightInPixels));
         Thread thread = new Thread(this);
         thread.start();
-        addMouseListener(new MouseAdapter() { // map listens for click
+        // map listens for clicks
+        addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
                 int x = me.getX();
@@ -58,7 +67,8 @@ public class MapPanel extends JPanel implements Runnable {
 
             }
         });
-        addMouseMotionListener(new MouseAdapter() { // map listens and records where the mouse is pointing to
+        // map listens and records where the mouse is pointing to
+        addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 mousePointX = e.getX();
@@ -119,10 +129,23 @@ public class MapPanel extends JPanel implements Runnable {
         return true;
     }
 
+    /**
+     * Draws the given building sprite on top of the given coordinates.
+     * Important: Building is drawn relatively centered on the given point x and y
+     * @param g graphics which needs to draw
+     * @param x x coordinate where it needs to draw
+     * @param y y coordinate where it needs to draw
+     * @param b building that it needs to draw
+     */
     private void drawHoverBuilding(Graphics g, int x, int y, Building b) {
         g.drawImage(b.getImage(), x - b.getWidth() / 2, y - b.getHeight() / 2, b.getWidth(), b.getHeight(), null);
     }
 
+    /**
+     * Draws the troop information of the indicated cell below the map panel
+     * @param g graphics which needs to draw
+     * @param selectedCell what cell's info needs to be drawn. Draws nothing if null
+     */
     private void drawSelectedCellInfo(Graphics g, Cell selectedCell) {
         if (selectedCell == null){
             return;
@@ -149,6 +172,10 @@ public class MapPanel extends JPanel implements Runnable {
         g.drawChars(player2MagCount, 0, player2MagCount.length, mapWidthInPixels/2 - desiredWidth, mapHeightInPixels + 2*desiredHeight-desiredHeight/2);
     }
 
+    /**
+     * This is where all the drawing on the map comes from
+     * This function is repeated so that it gets redrawn every time
+     */
     @Override
     public void paintComponent(Graphics g) {
         g.clearRect(0, 0, getWidth(), getHeight());
@@ -159,6 +186,10 @@ public class MapPanel extends JPanel implements Runnable {
         drawSelectedCellInfo(g, Game.getInstance().getSelectedCell());
     }
 
+    /**
+     * Screen refresher that runs while the game is not over yet
+     * That being said it decides the fps of the game which cam be configured in {@link utils.GameSettings}
+     */
     @Override
     public void run() {
         while (!Game.gameOver.get()) {

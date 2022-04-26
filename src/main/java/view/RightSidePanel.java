@@ -13,6 +13,10 @@ import java.awt.event.MouseEvent;
 import static utils.GameSettings.*;
 import static utils.GameSettings.getSwordLeftStop;
 
+/**
+ * Right side panel is expected to be on the right of the whole parent JFrame
+ * It wraps currents status,
+ */
 public class RightSidePanel extends JPanel implements ActionListener {
     Timer timer;
     Game game;
@@ -34,8 +38,14 @@ public class RightSidePanel extends JPanel implements ActionListener {
     CustomButton endTurn;
     CustomButton startFightingStage;
 
-    private int colorId = -2;
-
+    /**
+     * This panel uses {@link BorderLayout} and divides the panel into 3 sections.
+     * It puts:
+     * the current player's label {@link #playerName} on BorderLayout.NORTH,
+     * the {@link StatusPanel} on BorderLayout.CENTER,
+     * the {@link ShopPanel} on BorderLayout.SOUTH
+     * It is important to know that it starts a timer that updates everything in this panel according to current state every interval time set by {@link #timer}
+     */
     public RightSidePanel() {
         game = Game.getInstance();
         setLayout(new BorderLayout());
@@ -48,20 +58,26 @@ public class RightSidePanel extends JPanel implements ActionListener {
         add(new StatusPanel(gold, troopsTrained, goldMines, towers, castleHp), BorderLayout.CENTER);
         createButtons();
         add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, goldButton, endTurn, startFightingStage), BorderLayout.SOUTH);
-        timer = new Timer(500,this);// status panel update timer
+        timer = new Timer(500, this);// status panel update timer
         timer.start();
     }
 
 
+    /**
+     * Creates all the necessary current status text labels
+     */
     private void createLabels() {
         gold = new CustomLabel();
         troopsTrained = new CustomLabel();
         goldMines = new CustomLabel();
         towers = new CustomLabel();
         castleHp = new CustomLabel();
-//        updateStatusLabels();
     }
 
+    /**
+     * Updates the text of all the labels according to current state
+     * Can be call only if labels are created first using {@link #createLabels()}
+     */
     private void updateStatusLabels() {
         playerName.setText("Current Player: " + game.getCurrentTurn().getName());
         gold.setText("GOLD: " + game.getCurrentTurn().getGold());
@@ -69,22 +85,25 @@ public class RightSidePanel extends JPanel implements ActionListener {
         goldMines.setText("Gold mines built: " + game.getCurrentTurn().getGoldMines().size());
         towers.setText("Towers built: " + game.getCurrentTurn().getTowers().size());
         castleHp.setText("Your Castle HP: " + game.getCurrentTurn().getCastle().getHealthPoints());
-        changeButtons(); // temporarily
     }
 
+    /**
+     * Creates all the necessary control buttons with the action listeners implemented
+     */
     private void createButtons() {
         int buttonWidth = 180;
         int buttonHeight = 55;
+        int colorId = -2;
         buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (game.getCurrentTurn().getGold() < shortRangeCost){
+                if (game.getCurrentTurn().getGold() < shortRangeCost) {
                     JOptionPane.showMessageDialog(getParent(),
-                                                "Oops. Looks like you are too poor to purchase short ranged tower. It costs " + shortRangeCost + " golds",
-                                                "Not enough gold",
-                                                    JOptionPane.INFORMATION_MESSAGE,
-                                                    resizeIcon(new ImageIcon(getShortRangeL1Left())));
+                            "Oops. Looks like you are too poor to purchase short ranged tower. It costs " + shortRangeCost + " golds",
+                            "Not enough gold",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            resizeIcon(new ImageIcon(getShortRangeL1Left())));
                     return;
                 }
                 game.setBuildingHover(new ShortRange(game.getCurrentTurn()));
@@ -94,12 +113,12 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (game.getCurrentTurn().getGold() < longRangeCost){
+                if (game.getCurrentTurn().getGold() < longRangeCost) {
                     JOptionPane.showMessageDialog(getParent(),
-                                                "Oops. Looks like you are too poor to purchase long ranged tower. It costs " + longRangeCost + " golds",
-                                                "Not enough gold",
-                                                JOptionPane.INFORMATION_MESSAGE,
-                                                resizeIcon(new ImageIcon(getLongRangeL1Left())));
+                            "Oops. Looks like you are too poor to purchase long ranged tower. It costs " + longRangeCost + " golds",
+                            "Not enough gold",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            resizeIcon(new ImageIcon(getLongRangeL1Left())));
                     return;
                 }
                 game.setBuildingHover(new LongRange(game.getCurrentTurn()));
@@ -109,41 +128,41 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (game.getCurrentTurn().getGold() < splashCost){
+                if (game.getCurrentTurn().getGold() < splashCost) {
                     JOptionPane.showMessageDialog(getParent(),
-                                                "Oops. Looks like you are too poor to purchase splash tower. It costs " + splashCost + " golds",
-                                                "Not enough gold",
-                                                JOptionPane.INFORMATION_MESSAGE,
-                                                resizeIcon(new ImageIcon(getSplashL1Left())));
+                            "Oops. Looks like you are too poor to purchase splash tower. It costs " + splashCost + " golds",
+                            "Not enough gold",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            resizeIcon(new ImageIcon(getSplashL1Left())));
                     return;
                 }
                 game.setBuildingHover(new Splash(game.getCurrentTurn()));
             }
         });
-        trainSword = new CustomButton(buttonWidth, buttonHeight*3/2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
+        trainSword = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!game.getCurrentTurn().buyTroop(TroopType.SWORD_MAN)){
+                if (!game.getCurrentTurn().buyTroop(TroopType.SWORD_MAN)) {
                     JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more sword men");
                 }
             }
         });
-        trainMag = new CustomButton(buttonWidth, buttonHeight*3/2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainMag = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!game.getCurrentTurn().buyTroop(TroopType.MAG)){
+                if (!game.getCurrentTurn().buyTroop(TroopType.MAG)) {
                     JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more magicians");
                 }
             }
         });
 
-        goldButton = new CustomButton(buttonWidth, buttonHeight*3/2, "Gold", resizeIcon(new ImageIcon(getGoldMine())), colorId);
+        goldButton = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Gold", resizeIcon(new ImageIcon(getGoldMine())), colorId);
         goldButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (game.getCurrentTurn().getGold() < goldMineCost){
+                if (game.getCurrentTurn().getGold() < goldMineCost) {
                     JOptionPane.showMessageDialog(getParent(),
                             "Oops. Looks like you are too poor to purchase a gold mine. It costs " + goldMineCost + " golds",
                             "Not enough gold",
@@ -158,13 +177,14 @@ public class RightSidePanel extends JPanel implements ActionListener {
         endTurn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                game.changeTurn();
                 endTurn.setVisible(false);
                 startFightingStage.setVisible(true);
-                changeButtons();
-                if (game.isSinglePlayer() && game.getCurrentTurn() == game.getPlayer2()){
-                    AI ai = (AI)game.getPlayer2();
+                game.changeTurn();
+                //if after changing turn it is AI's turn, then do preparations and start immediately
+                if (game.isSinglePlayer() && game.getCurrentTurn() == game.getPlayer2()) {
+                    AI ai = (AI) game.getPlayer2();
                     ai.doPreparations();
+                    ai.clickOnAttack();
                 }
             }
         });
@@ -179,35 +199,34 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 System.out.println("Starting the fighting stage!");
             }
         });
-        if (game.isSinglePlayer()){
-            ((AI)game.getPlayer2()).setChangeTurnButton(endTurn, startFightingStage); // temporarily
+        if (game.isSinglePlayer()) {
+            ((AI) game.getPlayer2()).setControlButtons(endTurn, startFightingStage); // temporarily
         }
-        changeButtons();
     }
 
-    private void changeButtons() {
-        setColorId(colorId*(-1));
-        changeButtonColors(colorId);
+    /**
+     * update buttons' icons and border color according to whose turn it is
+     * Can be called only if buttons are created first using {@link #createButtons()}
+     */
+    private void updateButtons() {
+        // update buttons icons
         buyShortRangeTower.setIcon(resizeIcon(new ImageIcon(getShortRangeL1Left())));
         buyLongRangeTower.setIcon(resizeIcon(new ImageIcon(getLongRangeL1Left())));
         buySplashTower.setIcon(resizeIcon(new ImageIcon(getSplashL1Left())));
         trainSword.setIcon(resizeIcon(new ImageIcon(getSwordLeftStop())));
         trainMag.setIcon(resizeIcon(new ImageIcon(getMagLeftStop())));
         goldButton.setIcon(resizeIcon(new ImageIcon(getGoldMine())));
-    }
-
-    private void changeButtonColors(int n){
         Color RED = new Color(255, 105, 105);
         Color BLUE = new Color(111, 196, 255);
-        //if (n== 2) {
-        if (Game.getInstance().getCurrentTurn() == Game.getInstance().getPlayer1()){
+        // update button borders
+        if (game.getCurrentTurn() == game.getPlayer1()) {
             buyShortRangeTower.setBackground(RED);
             buyLongRangeTower.setBackground(RED);
             buySplashTower.setBackground(RED);
             trainSword.setBackground(RED);
             trainMag.setBackground(RED);
             goldButton.setBackground(RED);
-        }else{
+        } else {
             buyShortRangeTower.setBackground(BLUE);
             buyLongRangeTower.setBackground(BLUE);
             buySplashTower.setBackground(BLUE);
@@ -215,10 +234,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
             trainMag.setBackground(BLUE);
             goldButton.setBackground(BLUE);
         }
-//        if (n == -2){
-//
-//        }
     }
+
 
     /**
      * resizes the icon width to 30 and height to 35 so that it fits the button
@@ -227,10 +244,18 @@ public class RightSidePanel extends JPanel implements ActionListener {
      * @return resized Icon
      */
     private Icon resizeIcon(ImageIcon icon) {
-        return resizeIcon(icon,30,35);
+        return resizeIcon(icon, 30, 35);
     }
-    public static Icon resizeIcon(ImageIcon icon, int desiredWidth, int desiredHeight){
-        if (icon != null){
+
+    /**
+     * resizes the icon width and height as indicated
+     * @param icon an icon to be resized
+     * @param desiredWidth new width
+     * @param desiredHeight new height
+     * @return new resized Icon
+     */
+    public static Icon resizeIcon(ImageIcon icon, int desiredWidth, int desiredHeight) {
+        if (icon != null) {
             Image img = icon.getImage();
             Image resizedImage = img.getScaledInstance(desiredWidth, desiredHeight, Image.SCALE_SMOOTH);
             return new ImageIcon(resizedImage);
@@ -238,7 +263,11 @@ public class RightSidePanel extends JPanel implements ActionListener {
         return null;
     }
 
-    public void setButtonsEnabled(boolean b){
+    /**
+     * enables/disables the buttons
+     * @param b true => enable; false => disable
+     */
+    private void setButtonsEnabled(boolean b) {
         buyShortRangeTower.setEnabled(b);
         buyLongRangeTower.setEnabled(b);
         buySplashTower.setEnabled(b);
@@ -248,27 +277,16 @@ public class RightSidePanel extends JPanel implements ActionListener {
         goldButton.setEnabled(b);
     }
 
-    public void enableRightSidePanel(boolean b){
-        setButtonsEnabled(!b);
-    }
-    private void setColorId (int n){
-        this.colorId = n;
-    }
-
+    /**
+     * this function is triggered by the {@link #timer} after it is set to start
+     * or by any other actions that is performed on this panel
+     * It updates the state of the status labels and buttons according to current state
+     * @param e
+     */
     @Override
-    public void actionPerformed (ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
         updateStatusLabels();
-        enableRightSidePanel(game.isFightingStage());
+        updateButtons();
+        setButtonsEnabled(!game.isFightingStage());
     }
-
-    private void printTroops (){
-        Cell[][] map = Map.getInstance().getMap();
-        for (Cell[] cells : map){
-            for (Cell cell : cells){
-                System.out.printf("%d ", cell.getTroops().size());
-            }
-            System.out.println();
-        }
-    }
-
 }

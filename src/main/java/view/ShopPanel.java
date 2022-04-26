@@ -3,7 +3,23 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Shop panel is a wrapper for all the buttons that are mainly responsible for purchasing.
+ * Additionally, it wraps and is responsible for control buttons that change the turn and start the fighting stage
+ */
 public class ShopPanel extends JPanel {
+    /**
+     * It uses {@link GridLayout} with {@link GridBagConstraints} to locate the buttons, so that it places towers and troops and control buttons in an understandable way
+     * By creating an instance of a shop panel, you have to indicate all the dependent buttons that this class is responsible to wrap
+     * @param buyShortRangeTower button to buy {@link model.ShortRange} tower
+     * @param buyLongRangeTower button to buy {@link model.LongRange} tower
+     * @param buySplashTower button to buy {@link model.Splash} tower
+     * @param trainSword button to buy {@link model.Troop} of type {@link model.TroopType#SWORD_MAN}
+     * @param trainMag button to buy {@link model.Troop} of type {@link model.TroopType#MAG}
+     * @param goldMine button to buy {@link model.GoldMine}
+     * @param endTurn button to change the turn of the game
+     * @param startFightingStage button to start the fighting stage
+     */
     public ShopPanel(JButton buyShortRangeTower, JButton buyLongRangeTower, JButton buySplashTower, JButton trainSword, JButton trainMag,JButton goldMine,  JButton endTurn, JButton startFightingStage) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

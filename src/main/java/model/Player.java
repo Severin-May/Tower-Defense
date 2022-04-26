@@ -9,7 +9,7 @@ import static utils.GameSettings.*;
 
 
 public class Player {
-    protected final String name;
+    protected String name;
     protected int gold;
     protected Castle castle;
     protected Color color;
@@ -173,6 +173,17 @@ public class Player {
         Map.getInstance().getMap()[i][j].setBuilding(castle);
         this.castle = castle;
     }
+//    public void setCastle(Castle castle) {
+//        this.castle = castle;
+//    }
+//
+//    public void placeCastleOnTheMap(){
+//        int i = castle.getI();
+//        int j = castle.getJ();
+//        Cell castleLocation = Map.getInstance().getMap()[i][j];
+//        castleLocation.removeBuilding();
+//        castleLocation.setBuilding(castle);
+//    }
 
     public Color getColor() {
         return color;
@@ -208,5 +219,9 @@ public class Player {
         troops = new ArrayList<>();
         goldMines = new ArrayList<>();
         towers = new ArrayList<>();
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

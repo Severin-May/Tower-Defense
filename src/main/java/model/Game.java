@@ -1,16 +1,20 @@
 package model;
 
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static utils.GameSettings.goldMineIncomePerRound;
 
+/**
+ * Game class is singleton which is responsible for controlling flow of the inner program and its current status
+ */
 public class Game {
-    private final Player player1;
-    private final Player player2;
+    private Player player1;
+    private Player player2;
     private Player currentTurn;
-    private static Game instance = null;
+    private static final Game instance = new Game();
     private Building buildingHover;
     private Cell selectedCell;
     private int roundCount = 1;
@@ -18,22 +22,24 @@ public class Game {
     public static final AtomicBoolean everyThingReady = new AtomicBoolean(false);
     public static final AtomicBoolean gameOver = new AtomicBoolean(false);
 
-    private Game(Player player1, Player player2) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.currentTurn = player1;
+    /**
+     * Game is created with default players
+     */
+    private Game() {
+        player1 = new Player("pl1"); // default name
+        player1.setColor(Color.RED);
+        player2 = new Player("pl2"); // default name
+        player2.setColor(Color.BLUE);
+//        Map.getInstance().putRandomCastles(player1,player2);
+        currentTurn = player1;
     }
 
     /**
-     * initialises game by calling game constructor with two players
-     *
-     * @param player1 player1
-     * @param player2 player2, in case of 1-player mode, player2 is AI
+     * replaces the player2 to a new AI
      */
-    public static void initialise(Player player1, Player player2) {
-        if (instance == null) {
-            instance = new Game(player1, player2);
-        }
+    public void changeToSinglePlayerMode(){
+        player2 = new AI ("AI_THE_DESTROYER");
+        player2.setColor(Color.BLUE);
     }
 
     /**
@@ -86,6 +92,7 @@ public class Game {
      * when the preparation stage is completed, the actual game starts
      */
     public void startGame() {
+        // generate treasure every 3rd round
         if (roundCount % 3 == 0){
             Map.getInstance().generateTreasure();
         }
@@ -131,16 +138,13 @@ public class Game {
             g.getOwner().increaseGold(goldMineIncomePerRound);
         }
         fightingStage.set(false);
+        roundCount++;
+        //if after the fighting stage it is AI's turn, then do preparations and give the turn to player immediately
         if (instance.isSinglePlayer() && instance.getCurrentTurn() == instance.getPlayer2()){
             AI ai = (AI)instance.getPlayer2();
             ai.doPreparations();
             ai.clickOnChangeTurn();
         }
-        roundCount++;
-    }
-
-    public void refresh() {
-
     }
 
     /**
@@ -206,9 +210,12 @@ public class Game {
     }
 
     public void resetGame() {
+        resetPlayers();
+        Map.resetMap();
+    }
+    public void resetPlayers(){
         Game.getInstance().getPlayer1().resetPlayer();
         Game.getInstance().getPlayer2().resetPlayer();
-        Map.resetMap();
     }
 
     public void setSelectedCell(Cell selectedCell) {

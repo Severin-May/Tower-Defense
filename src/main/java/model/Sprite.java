@@ -4,6 +4,9 @@ import java.awt.*;
 
 import static utils.GameSettings.*;
 
+/**
+ * Sprite objects have image, width, height, x coordinate location in pixels and y coordinate location in pixels
+ */
 public abstract class Sprite {
     protected int x; //in pixels
     protected int y;
@@ -11,6 +14,14 @@ public abstract class Sprite {
     protected int height;
     protected Image image;
 
+    /**
+     * By creating a sprite you have to indicate where on the map it should be and in what size and with what image
+     * @param i where this sprite would be in i coordinate in the {@link Map#getMap()} NOTE: This does not actually put it on the map
+     * @param j where this sprite would be in j coordinate in the {@link Map#getMap()} NOTE: This does not actually put it on the map
+     * @param width width of the sprite
+     * @param height height of the sprite
+     * @param image image of the sprite
+     */
     public Sprite(int i, int j, int width, int height, Image image) {
         this.x = j * cellWidth + padding + width/2;
         this.y = i * cellHeight + padding + height/2;

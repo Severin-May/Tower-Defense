@@ -144,28 +144,21 @@ public class MainWindow extends JFrame{
         } else if (n == 2) {
             playerSetup = new DoublePlayerSetup(action);
         }
-        System.out.println(n);
         currentScreen = 2;
         changePanel(playerSetup, playerPanel);
     }
 
     public void launchGame() {
+        Game.getInstance().getPlayer1().setName(playerSetup.getPlayerOneName().getText());
         if (singleplayer) {
-            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new AI("The_Destroyer"));
-        } else {
-            loadGameAndMap(new Player(playerSetup.getPlayerOneName().getText()), new Player(playerSetup.getPlayerTwoName().getText()));
+            Game.getInstance().changeToSinglePlayerMode();
+        } else{
+            Game.getInstance().getPlayer2().setName(playerSetup.getPlayerTwoName().getText());
         }
+        Map.getInstance().putRandomCastles(); // It can be called inside Game private constructor
+        Map.getInstance().putRandomObstacles();
         new GameWindow();
         dispose();
-    }
-
-    private void loadGameAndMap(Player p1, Player p2) {
-        Game.initialise(p1, p2);
-        Map.initialise();
-        p1.setColor(Color.RED);
-        p2.setColor(Color.BLUE);
-        Map.getInstance().putRandomCastles();
-        Map.getInstance().putRandomObstacles();
     }
 
     private void panelToDisplay(JPanel newPanel){

@@ -234,10 +234,6 @@ public class Troop extends Sprite {
         this.movementPoints = type == MAG ? magMovementPoints : swordManMovementPoints;
     }
 
-    public ArrayList<Cell> getShortestPath() {
-        return shortestPath;
-    }
-
     /**
      *
      * @param i coordinate on grid

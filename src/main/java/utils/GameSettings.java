@@ -4,6 +4,11 @@ import model.Game;
 
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * Most important constants of the game are saved here.
+ * This class also keeps images preloaded
+ */
 public class GameSettings {
     // Initial Towers' stats:
     public final static int towerShotSpriteSpeed = 15;
@@ -74,6 +79,7 @@ public class GameSettings {
     public final static int cellHeight = 30;
     public final static int mapWidthInPixels = mapWidthInCells * cellWidth + 2 * padding;
     public final static int mapHeightInPixels = mapHeightInCells * cellHeight + 2 * padding;
+    public final static int additionalBlankSpaceBelowInPixels = 200; // blank space where the cell info is displayed
     public final static int rightPanelWidth = 600;
     //Game Settings
     public final static int fps = 15; //how many times to repaint the map in one second. Animation quality depends on this

@@ -1,6 +1,7 @@
 import model.*;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import utils.GameSettings;
 
 import java.awt.*;
 
@@ -8,16 +9,23 @@ import static org.junit.Assert.*;
 import static utils.GameSettings.*;
 
 public class TowerTest {
+    Player pl1;
+    Player pl2;
+    Player currentTurn;
+    @Before
+    public void setUp(){
+        pl1 = Game.getInstance().getPlayer1();
+        pl2 = Game.getInstance().getPlayer2();
+        currentTurn = Game.getInstance().getCurrentTurn();
+        //NOTE: In every test castles are located in opposite corners!
+        Map.getInstance().putCastles(new Castle(0,0,pl1),new Castle(mapHeightInCells-1,mapWidthInCells-1,pl2));
+    }
+    @After
+    public void reset(){
+        Game.getInstance().resetGame();
+    }
     @Test
-    public void testTower() {
-        Player pl1 = new Player("pl1");
-        Player pl2 = new Player("pl2");
-        Game.initialise(pl1, pl2);
-        Map.initialise();
-        pl1.setColor(Color.red);
-        pl2.setColor(Color.blue);
-        pl1.setCastle(new Castle(0,0, pl1));
-        pl2.setCastle(new Castle(5,5, pl2));
+    public void testTowerTroopWithinRange() {
         Cell[][] map = Map.getInstance().getMap();
         Tower tower = new ShortRange(pl1);
         Tower tower2 = new LongRange(pl1);
@@ -41,29 +49,41 @@ public class TowerTest {
     }
     @Test
     public void testTowerUpgrade(){
-        Player player_a = new Player("p1");
-        player_a.setColor(Color.red);
-        Player player_b = new Player("p2");
-        player_b.setColor(Color.blue);
-        Game.initialise(player_a, player_b);
-        Map.initialise();
-        Tower tower = new ShortRange(player_a);
-        Tower tower2 = new LongRange(player_a);
+        Tower shortRange = new ShortRange(pl1);
+        Tower longRange = new LongRange(pl2);
+        Tower splash = new Splash(pl1);
 
-        tower.upgrade();
         //ShortRange
-        assertEquals(towerInitialHP, tower.getHealthPoints());
-        assertEquals(upgradedShortRangeTowerRange, tower.getAttackRadius());
-        assertEquals(upgradedShortRangeReloadTime, tower.getReloadTime());
-        assertEquals(upgradedShortRangeShotCount, tower.getShotCount());
+        assertEquals(towerInitialHP, shortRange.getHealthPoints());
+        assertEquals(shortRangeTowerRange, shortRange.getAttackRadius());
+        assertEquals(shortRangeReloadTime, shortRange.getReloadTime());
+        assertEquals(shortRangeShotCount, shortRange.getShotCount());
+        shortRange.upgrade();
+        assertEquals(towerInitialHP, shortRange.getHealthPoints());
+        assertEquals(upgradedShortRangeTowerRange, shortRange.getAttackRadius());
+        assertEquals(upgradedShortRangeReloadTime, shortRange.getReloadTime());
+        assertEquals(upgradedShortRangeShotCount, shortRange.getShotCount());
 
 
         //LongRange
-        tower2.upgrade();
-        assertEquals(towerInitialHP, tower2.getHealthPoints());
-        assertEquals(upgradedLongRangeTowerRange, tower2.getAttackRadius());
-        assertEquals(upgradedLongRangeReloadTime, tower2.getReloadTime());
+        assertEquals(towerInitialHP, longRange.getHealthPoints());
+        assertEquals(longRangeTowerRange, longRange.getAttackRadius());
+        assertEquals(longRangeReloadTime, longRange.getReloadTime());
+        longRange.upgrade();
+        assertEquals(towerInitialHP, longRange.getHealthPoints());
+        assertEquals(upgradedLongRangeTowerRange, longRange.getAttackRadius());
+        assertEquals(upgradedLongRangeReloadTime, longRange.getReloadTime());
 
+        //Splash
+        assertEquals(towerInitialHP, splash.getHealthPoints());
+        assertEquals(splashTowerRange, splash.getAttackRadius());
+        assertEquals(splashReloadTime, splash.getReloadTime());
+        assertEquals(splashShotCount, splash.getShotCount());
+        splash.upgrade();
+        assertEquals(towerInitialHP, splash.getHealthPoints());
+        assertEquals(upgradedSplashTowerRange, splash.getAttackRadius());
+        assertEquals(upgradedSplashReloadTime, splash.getReloadTime());
+        assertEquals(upgradedSplashShotCount, splash.getShotCount());
 
     }
 }

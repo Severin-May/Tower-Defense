@@ -22,4 +22,7 @@ public class CustomButton extends JButton {
         }
         setBorder(new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), new EtchedBorder(EtchedBorder.LOWERED)));
     }
+    public CustomButton(int width, int height, String text, Icon icon){
+        this (width,height,text,icon,1);
+    }
 }

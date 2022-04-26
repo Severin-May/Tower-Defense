@@ -6,15 +6,21 @@ import java.util.ArrayList;
 
 import static utils.GameSettings.*;
 
+/**
+ * Map class is singleton which is responsible for the inner representation of the map
+ */
 public class Map {
-    private static Map instance = null;
+    private static final Map instance = new Map();
     private final Cell[][] map;
 
+    /**
+     * Creates empty map with random grass images
+     */
     private Map() {
         map = new Cell[mapHeightInCells][mapWidthInCells];
         for (int i = 0; i < mapHeightInCells; i++) {
             for (int j = 0; j < mapWidthInCells; j++) {
-                Image grassImage = grass[getRandomImageID()];
+                Image grassImage = getRandomGrassImage();
                 map[i][j] = new Cell(i, j, grassImage);
             }
         }
@@ -53,30 +59,26 @@ public class Map {
     }
 
     /**
-     * since Map class is a singleton class, this method is responsible for initializing
-     * an instance of Map class if it was not initialized yet
+     * when players want to restart the game,
+     * the board should gain its initial state
+     * where there are nothing on board.
+     * And then puts random castles and obstacles
      */
-    static public void initialise() {
-        if (instance == null) {
-            instance = new Map();
-        }
+    public static void resetMap() {
+        clearMap();
+        instance.putRandomCastles();
+        instance.putRandomObstacles();
     }
 
     /**
-     * when players want to restart the game,
-     * the board should gain its initial state
-     * where there are nothing on board
+     * {@link #map} deletes its state and creates a new blank map with nothing in it
      */
-    public static void resetMap() {
+    public static void clearMap() {
         for (int i = 0; i < mapHeightInCells; i++) {
             for (int j = 0; j < mapWidthInCells; j++) {
-                Image grassImage = grass[getRandomImageID()];
-                instance.getMap()[i][j] = new Cell(i, j, grassImage);
+                instance.getMap()[i][j] = new Cell(i, j, getRandomGrassImage());
             }
         }
-        instance.putRandomCastles();
-        instance.putRandomObstacles();
-        //instance.generateTreasure(); //TODO: enable generating treasure
     }
 
     public Cell[][] getMap() {
@@ -87,8 +89,11 @@ public class Map {
         return instance;
     }
 
-    private static int getRandomImageID() {
-        return (int) (Math.random() * 8);
+    /**
+     * @return Returns random grass image
+     */
+    private static Image getRandomGrassImage() {
+        return grass[(int) (Math.random() * grass.length)];
     }
 
     /**
@@ -136,7 +141,8 @@ public class Map {
     }
 
     /**
-     * todo: check later for proper functionality
+     * Puts both players' castles in a random position with minimum distance
+     * {@link utils.GameSettings#minIdistance} and {@link utils.GameSettings#minJdistance} apart from each other
      */
     public void putRandomCastles() {
         int i1 = (int) (Math.random() * mapHeightInCells);
@@ -154,6 +160,22 @@ public class Map {
         }
     }
 
+    /**
+     * Puts both players' castles on the map according to I and J coordinates of the map
+     * Note: If any other building exists on that place already then it deletes that building and puts the castle instead of it which may cause bugs.
+     * @param player1Castle castle for player1
+     * @param player2Castle castle for player2
+     */
+    public void putCastles(Castle player1Castle, Castle player2Castle) {
+        Player p1 = Game.getInstance().getPlayer1();
+        Player p2 = Game.getInstance().getPlayer2();
+        p1.setCastle(player1Castle);
+        p2.setCastle(player2Castle);
+    }
+
+    /**
+     * this function creates and places {@link utils.GameSettings#numberOfObstacles} random obstacles on the {@link Map#getMap()}
+     */
     public void putRandomObstacles() {
        for(int i = 0; i < numberOfObstacles; i++) {
            Cell temp = instance.getRandomPos();

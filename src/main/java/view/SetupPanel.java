@@ -14,6 +14,7 @@ public abstract class SetupPanel extends JPanel {
     }
 
     public void setPlayerTwoName(JTextField name){
+        System.out.println("setting to "+ name.getText());
         p2name = name;
     }
 

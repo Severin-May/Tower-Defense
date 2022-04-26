@@ -279,6 +279,8 @@ public class Cell extends Sprite {
             }
         }
         return count;
+
+
     }
 
     /**
