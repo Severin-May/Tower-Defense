@@ -173,6 +173,10 @@ public abstract class Tower extends ActiveBuilding {
         return reloadTime;
     }
 
+    public ShotSprite getShotSprite() {
+        return shotSprite;
+    }
+
     /**
      * upgrades the building
      */
