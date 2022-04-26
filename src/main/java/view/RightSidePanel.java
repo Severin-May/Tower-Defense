@@ -73,7 +73,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
 
     private void createButtons() {
         int buttonWidth = 180;
-        int buttonHeight = 60;
+        int buttonHeight = 55;
         buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
@@ -142,9 +142,15 @@ public class RightSidePanel extends JPanel implements ActionListener {
         goldButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!game.getCurrentTurn().buyTroop(TroopType.MAG)){
-                    JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more magicians");
+                if (game.getCurrentTurn().getGold() < goldMineCost){
+                    JOptionPane.showMessageDialog(getParent(),
+                            "Oops. Looks like you are too poor to purchase a gold mine. It costs " + goldMineCost + " golds",
+                            "Not enough gold",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            resizeIcon(new ImageIcon(getGoldMine())));
+                    return;
                 }
+                game.setBuildingHover(new GoldMine(game.getCurrentTurn()));
             }
         });
         endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);
@@ -183,6 +189,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buySplashTower.setIcon(resizeIcon(new ImageIcon(getSplashL1Left())));
         trainSword.setIcon(resizeIcon(new ImageIcon(getSwordLeftStop())));
         trainMag.setIcon(resizeIcon(new ImageIcon(getMagLeftStop())));
+        goldButton.setIcon(resizeIcon(new ImageIcon(getGoldMine())));
     }
 
     private void buttonColors(int n){
@@ -194,6 +201,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             buySplashTower.setBackground(RED);
             trainSword.setBackground(RED);
             trainMag.setBackground(RED);
+            goldButton.setBackground(RED);
         }
         if (n == -2){
             buyShortRangeTower.setBackground(BLUE);
@@ -201,6 +209,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             buySplashTower.setBackground(BLUE);
             trainSword.setBackground(BLUE);
             trainMag.setBackground(BLUE);
+            goldButton.setBackground(BLUE);
         }
     }
 
