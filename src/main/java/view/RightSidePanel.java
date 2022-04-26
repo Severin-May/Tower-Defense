@@ -34,6 +34,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
     CustomButton buySplashTower;
     CustomButton trainSword;
     CustomButton trainMag;
+    CustomButton trainSpecUnit;
     CustomButton goldButton;
     CustomButton endTurn;
     CustomButton startFightingStage;
@@ -57,7 +58,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         createLabels();
         add(new StatusPanel(gold, troopsTrained, goldMines, towers, castleHp), BorderLayout.CENTER);
         createButtons();
-        add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, goldButton, endTurn, startFightingStage), BorderLayout.SOUTH);
+        add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, trainSpecUnit, goldButton, endTurn, startFightingStage), BorderLayout.SOUTH);
         timer = new Timer(500, this);// status panel update timer
         timer.start();
     }
@@ -158,6 +159,16 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
 
+        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "SpecUnit", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainSpecUnit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) { //todo comeback later
+                if (!game.getCurrentTurn().buyTroop(TroopType.SPECIAL_UNIT)) {
+                    JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more special units");
+                }
+            }
+        });
+
         goldButton = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Gold", resizeIcon(new ImageIcon(getGoldMine())), colorId);
         goldButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -225,6 +236,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             buySplashTower.setBackground(RED);
             trainSword.setBackground(RED);
             trainMag.setBackground(RED);
+            trainSpecUnit.setBackground(RED);
             goldButton.setBackground(RED);
         } else {
             buyShortRangeTower.setBackground(BLUE);
@@ -232,6 +244,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             buySplashTower.setBackground(BLUE);
             trainSword.setBackground(BLUE);
             trainMag.setBackground(BLUE);
+            trainSpecUnit.setBackground(BLUE);
             goldButton.setBackground(BLUE);
         }
     }
@@ -281,7 +294,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
      * this function is triggered by the {@link #timer} after it is set to start
      * or by any other actions that is performed on this panel
      * It updates the state of the status labels and buttons according to current state
-     * @param e
+     * @param e event
      */
     @Override
     public void actionPerformed(ActionEvent e) {

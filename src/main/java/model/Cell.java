@@ -125,7 +125,7 @@ public class Cell extends Sprite {
         int jc2 = game.getPlayer2().castle.getJ();
         Obstacle o = new Obstacle(getI(),getJ(),game.getCurrentTurn());
         setBuilding(o);
-        if (Troop.bfs(map[ic2][jc2],map[ic1][jc1],map).size() == 0){
+        if (Troop.bfs(map[ic2][jc2],map[ic1][jc1],map, false).size() == 0){ //todo nullpointerexception must be handled
             removeBuilding();
             return true;
         }
@@ -268,13 +268,15 @@ public class Cell extends Sprite {
      * @return int array size of 2. First element being sword man count and second mag count
      */
     public int[] getPlayer1TroopsCount (){
-        int[] count = {0,0};
+        int[] count = {0,0,0};
         for (Troop t : troops){
             if (t.getOwner() == Game.getInstance().getPlayer1()){
                 if (t.getType() == TroopType.SWORD_MAN){
                     count[0]++;
-                }else{
+                } else if (t.getType() == TroopType.MAG){
                     count[1]++;
+                } else {
+                    count[2]++;
                 }
             }
         }
@@ -288,13 +290,15 @@ public class Cell extends Sprite {
      * @return int array size of 2. First element being sword man count and second mag count
      */
     public int[] getPlayer2TroopsCount (){
-        int[] count = {0,0};
+        int[] count = {0,0,0};
         for (Troop t : troops){
             if (t.getOwner() == Game.getInstance().getPlayer2()){
                 if (t.getType() == TroopType.SWORD_MAN){
                     count[0]++;
-                }else{
+                }else if (t.getType() == TroopType.MAG){
                     count[1]++;
+                } else {
+                    count[2]++;
                 }
             }
         }

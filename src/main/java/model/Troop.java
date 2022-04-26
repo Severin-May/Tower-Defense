@@ -5,6 +5,7 @@ import java.util.*;
 
 import static model.TroopType.MAG;
 import static model.TroopType.SWORD_MAN;
+import static model.TroopType.SPECIAL_UNIT;
 import static utils.GameSettings.*;
 
 public class Troop extends Sprite {
@@ -18,7 +19,7 @@ public class Troop extends Sprite {
     private ArrayList <Cell> shortestPath;
     private Cell destinationCell;
     private enum Direction {
-        UP,DOWN,LEFT,RIGHT;
+        UP,DOWN,LEFT,RIGHT
     }
     private Direction direction;
 
@@ -52,6 +53,15 @@ public class Troop extends Sprite {
                 this.movementPoints = magMovementPoints;
                 break;
             }
+            case SPECIAL_UNIT: {
+                this.healthPoints = specUnitHp;
+                this.cost = specUnitCost;
+                this.movementSpeed = specUnitSpeed;
+                this.attackDamage = specUnitAttackDamage;
+                this.movementPoints = specUnitMovementPoints;
+                break;
+            }
+
         }
         this.owner = owner;
         this.type = type;
@@ -81,7 +91,7 @@ public class Troop extends Sprite {
         if (!destinationCell.hasBuilding()){
             destinationCell = map[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()];
         }
-        shortestPath = bfs(map[getI()][getJ()], map[destinationCell.getI()][destinationCell.getJ()], map);
+        shortestPath = bfs(map[getI()][getJ()], map[destinationCell.getI()][destinationCell.getJ()], map, type == TroopType.SPECIAL_UNIT);
     }
 
     /**
@@ -243,12 +253,18 @@ public class Troop extends Sprite {
      * @return if the Cell is within the borders of the board and is free (i.e. does not have any buildings)
      * and is not yet visited it returns true, otherwise false
      */
-    private static boolean isValid(int i, int j, Cell[][] grid , boolean[][] visited)
+    private static boolean isValid(int i, int j, Cell[][] grid , boolean[][] visited, boolean ignoreObstacles)
     {
-        return (i >= 0 && j >= 0 && i < mapHeightInCells
-                && j < mapWidthInCells && !visited[i][j]
-                && (!grid[i][j].hasBuilding() || (grid[i][j].hasBuilding() && (grid[i][j].getBuilding() instanceof Castle || grid[i][j].getBuilding() instanceof TreasureChest))));
-                //if it does not have building OR has building and that's Castle OR Treasure chest then valid => Castle and TreasureChest are exceptions and not counted as an obstacle
+        if(ignoreObstacles) {
+            return (i >= 0 && j >= 0 && i < mapHeightInCells
+                    && j < mapWidthInCells && !visited[i][j]);
+        }
+        else {
+            return (i >= 0 && j >= 0 && i < mapHeightInCells
+                    && j < mapWidthInCells && !visited[i][j]
+                    && (!grid[i][j].hasBuilding() || (grid[i][j].hasBuilding() && (grid[i][j].getBuilding() instanceof Castle || grid[i][j].getBuilding() instanceof TreasureChest))));
+            //if it does not have building OR has building and that's Castle OR Treasure chest then valid => Castle and TreasureChest are exceptions and not counted as an obstacle
+        }
     }
 
     /**
@@ -258,7 +274,7 @@ public class Troop extends Sprite {
      * @param grid matrix/grid
      * @return returns the shortest path between the given two points on the grid
      */
-    public static ArrayList<Cell> bfs (Cell startNode, Cell endNode, Cell[][] grid) {
+    public static ArrayList<Cell> bfs (Cell startNode, Cell endNode, Cell[][] grid, boolean ignoreObstacles) {
 
         if(grid.length == 0 || grid[0].length == 0) { System.err.println("Grid is empty"); return null; }
 
@@ -293,25 +309,25 @@ public class Troop extends Sprite {
                 }
             }
 
-            if(isValid(rem.getI()-1, rem.getJ(), grid, visited)) {
+            if(isValid(rem.getI()-1, rem.getJ(), grid, visited, ignoreObstacles)) {
                 Cell neighbor = map[rem.getI()-1][rem.getJ()];
                 parentNodes.put(neighbor, rem);
                 queue.add(neighbor);
                 visited[rem.getI()-1][rem.getJ()] = true;
             }
-            if(isValid(rem.getI()+1, rem.getJ(), grid, visited)) {
+            if(isValid(rem.getI()+1, rem.getJ(), grid, visited, ignoreObstacles)) {
                 Cell neighbor = map[rem.getI()+1][rem.getJ()];
                 parentNodes.put(neighbor, rem);
                 queue.add(neighbor);
                 visited[rem.getI()+1][rem.getJ()] = true;
             }
-            if(isValid(rem.getI(), rem.getJ()-1, grid, visited)) {
+            if(isValid(rem.getI(), rem.getJ()-1, grid, visited, ignoreObstacles)) {
                 Cell neighbor = map[rem.getI()][rem.getJ()-1];
                 parentNodes.put(neighbor, rem);
                 queue.add(neighbor);
                 visited[rem.getI()][rem.getJ()-1] = true;
             }
-            if(isValid(rem.getI(), rem.getJ()+1, grid, visited)) {
+            if(isValid(rem.getI(), rem.getJ()+1, grid, visited, ignoreObstacles)) {
                 Cell neighbor = map[rem.getI()][rem.getJ()+1];
                 parentNodes.put(neighbor, rem);
                 queue.add(neighbor);
@@ -376,7 +392,8 @@ public class Troop extends Sprite {
             return magHp;
         } else if (getType() == SWORD_MAN){
             return swordManHp;
+        } else {
+            return specUnitHp;
         }
-        return 0;
     }
 }

@@ -16,11 +16,12 @@ public class ShopPanel extends JPanel {
      * @param buySplashTower button to buy {@link model.Splash} tower
      * @param trainSword button to buy {@link model.Troop} of type {@link model.TroopType#SWORD_MAN}
      * @param trainMag button to buy {@link model.Troop} of type {@link model.TroopType#MAG}
+     * @param trainSpecUnit button to buy {@link model.Troop} of type {@link model.TroopType#SPECIAL_UNIT}
      * @param goldMine button to buy {@link model.GoldMine}
      * @param endTurn button to change the turn of the game
      * @param startFightingStage button to start the fighting stage
      */
-    public ShopPanel(JButton buyShortRangeTower, JButton buyLongRangeTower, JButton buySplashTower, JButton trainSword, JButton trainMag,JButton goldMine,  JButton endTurn, JButton startFightingStage) {
+    public ShopPanel(JButton buyShortRangeTower, JButton buyLongRangeTower, JButton buySplashTower, JButton trainSword, JButton trainMag, JButton trainSpecUnit, JButton goldMine,  JButton endTurn, JButton startFightingStage) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -47,9 +48,10 @@ public class ShopPanel extends JPanel {
         gbc.gridy = 1;
         add(towersPanel, gbc);
 
-        JPanel unitsPanel = new JPanel(new GridLayout(2, 1));
+        JPanel unitsPanel = new JPanel(new GridLayout(3, 1));
         unitsPanel.add(trainSword);
         unitsPanel.add(trainMag);
+        unitsPanel.add(trainSpecUnit);
         gbc.gridx = 1;
         gbc.gridy = 1;
         add(unitsPanel, gbc);

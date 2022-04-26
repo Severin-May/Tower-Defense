@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import static model.TroopType.MAG;
 import static model.TroopType.SWORD_MAN;
+import static model.TroopType.SPECIAL_UNIT;
 import static org.junit.Assert.*;
 import static utils.GameSettings.mapHeightInCells;
 import static utils.GameSettings.mapWidthInCells;

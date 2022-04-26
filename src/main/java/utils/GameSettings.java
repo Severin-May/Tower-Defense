@@ -52,6 +52,7 @@ public class GameSettings {
     public final static int goldMineCost = 25;
     public final static int swordManCost = 2;
     public final static int magCost = 2;
+    public final static int specUnitCost = 4;
     public final static int goldMineIncomePerRound = 5;
     public final static int awardForKillingTroop = 2;
     public final static int awardForPickingTreasure = 15;
@@ -69,6 +70,11 @@ public class GameSettings {
     public final static int magSpeed = 3;
     public final static int magAttackDamage = 10;
     public final static int magMovementPoints = 6;
+    //special unit //todo set proper stats
+    public final static int specUnitHp = 7;
+    public final static int specUnitSpeed = 3;
+    public final static int specUnitAttackDamage = 10;
+    public final static int specUnitMovementPoints = 6;
 
     //Map settings:
     public final static int numberOfObstacles = 6;
