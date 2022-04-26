@@ -1,9 +1,9 @@
 package model;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 import static utils.GameSettings.*;
 import static utils.GameSettings.mapWidthInCells;
@@ -94,6 +94,23 @@ public class AI extends Player {
         System.out.println("Towers: " + numberOfTowersToBuild);
         System.out.println("Troops: " + numberOfTroopsToTrain);
         System.out.println("After purchase: " + getGold());
+    }
+    private JButton changeTurnButton;
+    private JButton attackButton;
+    public void setChangeTurnButton(JButton b, JButton b2) {
+        changeTurnButton = b;
+        attackButton = b2;
+    }
+    public void clickOnChangeTurn(){
+        Game game = Game.getInstance();
+        game.changeTurn();
+        changeTurnButton.setVisible(false);
+        attackButton.setVisible(true);
+//        changeButtons();
+        if (game.isSinglePlayer() && game.getCurrentTurn() == game.getPlayer2()){
+            AI ai = (AI)game.getPlayer2();
+            ai.doPreparations();
+        }
     }
 
     private Cell getRandomCellInRadius (){

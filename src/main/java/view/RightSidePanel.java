@@ -59,7 +59,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         goldMines = new CustomLabel();
         towers = new CustomLabel();
         castleHp = new CustomLabel();
-        updateStatusLabels();
+//        updateStatusLabels();
     }
 
     private void updateStatusLabels() {
@@ -69,6 +69,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         goldMines.setText("Gold mines built: " + game.getCurrentTurn().getGoldMines().size());
         towers.setText("Towers built: " + game.getCurrentTurn().getTowers().size());
         castleHp.setText("Your Castle HP: " + game.getCurrentTurn().getCastle().getHealthPoints());
+        changeButtons(); // temporarily
     }
 
     private void createButtons() {
@@ -178,12 +179,15 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 System.out.println("Starting the fighting stage!");
             }
         });
+        if (game.isSinglePlayer()){
+            ((AI)game.getPlayer2()).setChangeTurnButton(endTurn, startFightingStage); // temporarily
+        }
         changeButtons();
     }
 
     private void changeButtons() {
         setColorId(colorId*(-1));
-        buttonColors(colorId);
+        changeButtonColors(colorId);
         buyShortRangeTower.setIcon(resizeIcon(new ImageIcon(getShortRangeL1Left())));
         buyLongRangeTower.setIcon(resizeIcon(new ImageIcon(getLongRangeL1Left())));
         buySplashTower.setIcon(resizeIcon(new ImageIcon(getSplashL1Left())));
@@ -192,18 +196,18 @@ public class RightSidePanel extends JPanel implements ActionListener {
         goldButton.setIcon(resizeIcon(new ImageIcon(getGoldMine())));
     }
 
-    private void buttonColors(int n){
+    private void changeButtonColors(int n){
         Color RED = new Color(255, 105, 105);
         Color BLUE = new Color(111, 196, 255);
-        if (n == 2){
+        //if (n== 2) {
+        if (Game.getInstance().getCurrentTurn() == Game.getInstance().getPlayer1()){
             buyShortRangeTower.setBackground(RED);
             buyLongRangeTower.setBackground(RED);
             buySplashTower.setBackground(RED);
             trainSword.setBackground(RED);
             trainMag.setBackground(RED);
             goldButton.setBackground(RED);
-        }
-        if (n == -2){
+        }else{
             buyShortRangeTower.setBackground(BLUE);
             buyLongRangeTower.setBackground(BLUE);
             buySplashTower.setBackground(BLUE);
@@ -211,6 +215,9 @@ public class RightSidePanel extends JPanel implements ActionListener {
             trainMag.setBackground(BLUE);
             goldButton.setBackground(BLUE);
         }
+//        if (n == -2){
+//
+//        }
     }
 
     /**

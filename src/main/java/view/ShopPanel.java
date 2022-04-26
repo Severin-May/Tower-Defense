@@ -34,7 +34,6 @@ public class ShopPanel extends JPanel {
         JPanel unitsPanel = new JPanel(new GridLayout(2, 1));
         unitsPanel.add(trainSword);
         unitsPanel.add(trainMag);
-       // unitsPanel.add(goldMine);
         gbc.gridx = 1;
         gbc.gridy = 1;
         add(unitsPanel, gbc);

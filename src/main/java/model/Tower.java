@@ -204,9 +204,10 @@ public abstract class Tower extends ActiveBuilding {
                 //if another shot has not yet killed the target
                 if (!shotSprite.destinationTroop.isKilled()){
                     shotSprite.destinationTroop.decreaseHP(attackDamage);
-                    //destroy the troop if it is dead after dealing damage
+                    //destroy the troop if it is dead after dealing damage and give reward for it
                     if (shotSprite.destinationTroop.isKilled()){
                         shotSprite.destinationTroop.selfDestruct();
+                        getOwner().increaseGold(awardForKillingTroop);
                     }
                 }
                 //delete the shot sprite

@@ -1,10 +1,10 @@
 package model;
 
 
-import view.GameWindow;
-
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static utils.GameSettings.goldMineIncomePerRound;
 
 public class Game {
     private final Player player1;
@@ -71,6 +71,15 @@ public class Game {
         return list;
     }
 
+    private ArrayList<GoldMine> getAllGoldMines (){
+        ArrayList<GoldMine> list = new ArrayList<>(player1.getGoldMines().size() + player2.getGoldMines().size());
+        list.addAll(player1.getGoldMines());
+        list.addAll(player2.getGoldMines());
+        return list;
+    }
+
+
+
     /**
      * this function is responsible for the start of the game
      * when the preparation stage is completed, the actual game starts
@@ -114,10 +123,14 @@ public class Game {
         }
         System.out.println("All troops finished!");
         clearBullets();
+        for (GoldMine g : getAllGoldMines()){
+            g.getOwner().increaseGold(goldMineIncomePerRound);
+        }
         fightingStage.set(false);
         if (instance.isSinglePlayer() && instance.getCurrentTurn() == instance.getPlayer2()){
             AI ai = (AI)instance.getPlayer2();
             ai.doPreparations();
+            ai.clickOnChangeTurn();
         }
     }
 
