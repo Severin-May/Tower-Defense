@@ -1,0 +1,16 @@
+image: rvancea/maven-chrome-jdk8:latest
+
+stages:
+  - build
+  - test
+build:
+    stage: build
+    script:
+      #- javac Main.java
+       - echo "Compiling the code..."
+       - echo "Compile compelte."
+
+test:
+    stage: test
+    script:
+        - mvn clean install
