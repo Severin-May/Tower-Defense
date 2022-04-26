@@ -77,6 +77,10 @@ public class Troop extends Sprite {
      */
     public void buildShortestPath(){
         Cell[][] map = Map.getInstance().getMap();
+        // if destination was a treasure but then someone else picked up, proceed to enemy castle
+        if (!destinationCell.hasBuilding()){
+            destinationCell = map[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()];
+        }
         shortestPath = bfs(map[getI()][getJ()], map[destinationCell.getI()][destinationCell.getJ()], map);
     }
 

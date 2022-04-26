@@ -18,7 +18,11 @@ public class Castle extends ActiveBuilding {
      * @param troopType troop type on which the player clicked, comes from event. Creates the troop on top of the castle
      */
     public void createTroop(TroopType troopType) {
-        new Troop(getI(),getJ(),troopType,getOwner());
+        Game game = Game.getInstance();
+        Troop t = new Troop(getI(),getJ(),troopType,getOwner());
+        if (game.getSelectedCell() != null && game.getSelectedCell().getBuilding() instanceof TreasureChest){
+            t.changeDestinationCell(game.getSelectedCell());
+        }
     }
 
     public void getAttackedBy(Troop t) {

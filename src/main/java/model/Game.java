@@ -13,6 +13,7 @@ public class Game {
     private static Game instance = null;
     private Building buildingHover;
     private Cell selectedCell;
+    private int roundCount = 1;
     private final AtomicBoolean fightingStage = new AtomicBoolean(false);
     public static final AtomicBoolean everyThingReady = new AtomicBoolean(false);
     public static final AtomicBoolean gameOver = new AtomicBoolean(false);
@@ -85,6 +86,9 @@ public class Game {
      * when the preparation stage is completed, the actual game starts
      */
     public void startGame() {
+        if (roundCount % 3 == 0){
+            Map.getInstance().generateTreasure();
+        }
         ArrayList<Troop> troopsOnTheField = getAllTroops();
         ArrayList<Tower> towersOnTheField = getAllTowers();
         for (Tower t : towersOnTheField) {
@@ -132,6 +136,7 @@ public class Game {
             ai.doPreparations();
             ai.clickOnChangeTurn();
         }
+        roundCount++;
     }
 
     public void refresh() {
