@@ -23,7 +23,33 @@ public class Troop extends Sprite {
     }
     private Direction direction;
 
-    private HealthBar healthBar;
+    private final HealthBar healthBar;
+
+    /**
+     * @param type what type of troop
+     * @param owner who is the owner. Color depends on this
+     * @return troop's image according to given owner and the unit's type
+     */
+    private static Image getTroopImage(TroopType type, Player owner){
+        if (owner.getColor().equals(Color.red)){
+            if (type == MAG){
+                return redMagLeftStop;
+            } else if (type == SWORD_MAN) {
+                return redSwordLeftStop;
+            } else if (type == SPECIAL_UNIT) {
+                return redSpecialLeftStop;
+            }
+        } else{
+            if (type == MAG){
+                return blueMagLeftStop;
+            } else if (type == SWORD_MAN) {
+                return blueSwordLeftStop;
+            } else if (type == SPECIAL_UNIT) {
+                return blueSpecialLeftStop;
+            }
+        }
+        return null;
+    }
 
     /**
      * By creating Troop instance you actually make it appear on the given map coordinates
@@ -35,7 +61,7 @@ public class Troop extends Sprite {
      * @param owner player who this troop belongs to
      */
     public Troop(int i, int j, TroopType type, Player owner) {
-        super(i, j, troopWidth, troopHeight, owner.getColor().equals(Color.red) ? (type == MAG ? redMagLeftStop : redSwordLeftStop) : (type == MAG ? blueMagRightStop : blueSwordRightStop));
+        super(i, j, troopWidth, troopHeight, getTroopImage(type, owner));
         switch (type) {
             case SWORD_MAN: {
                 this.healthPoints = swordManHp;
@@ -241,7 +267,7 @@ public class Troop extends Sprite {
     }
 
     public void resetMovementPoints(){
-        this.movementPoints = type == MAG ? magMovementPoints : swordManMovementPoints;
+        this.movementPoints = type == MAG ? magMovementPoints : type == SWORD_MAN ? swordManMovementPoints : specUnitMovementPoints;
     }
 
     /**
@@ -344,9 +370,9 @@ public class Troop extends Sprite {
      */
     private void faceRight(){
         if (owner.getColor().equals(Color.red)){
-            this.image = type == MAG ? redMagLeftWalk[walk++%2] : redSwordLeftWalk[walk++%2];
+            this.image = type == MAG ? redMagLeftWalk[walk++%2] :  type == SWORD_MAN ? redSwordLeftWalk[walk++%2] : redSpecialLeftWalk[walk++%2];
         }else{
-            this.image = type == MAG ? blueMagLeftWalk[walk++%2] : blueSwordLeftWalk[walk++%2];
+            this.image = type == MAG ? blueMagLeftWalk[walk++%2] : type == SWORD_MAN ? blueSwordLeftWalk[walk++%2] : blueSpecialLeftWalk[walk++%2];
         }
     }
     /**
@@ -354,9 +380,9 @@ public class Troop extends Sprite {
      */
     private void faceLeft (){
         if (owner.getColor().equals(Color.red)){
-            this.image = type == MAG ? redMagRightWalk[walk++%2] : redSwordRightWalk[walk++%2];
+            this.image = type == MAG ? redMagRightWalk[walk++%2] : type == SWORD_MAN ? redSwordRightWalk[walk++%2] : redSpecialRightWalk[walk++%2];
         }else{
-            this.image = type == MAG ? blueMagRightWalk[walk++%2] : blueSwordRightWalk[walk++%2];
+            this.image = type == MAG ? blueMagRightWalk[walk++%2] : type == SWORD_MAN ? blueSwordRightWalk[walk++%2] : blueSpecialRightWalk[walk++%2];
         }
     }
     /**
@@ -364,9 +390,9 @@ public class Troop extends Sprite {
      */
     private void faceUp (){
         if (owner.getColor().equals(Color.red)){
-            this.image = type == MAG ? redMagBackWalk[walk++%2] : redSwordBackWalk[walk++%2];
+            this.image = type == MAG ? redMagBackWalk[walk++%2] : type == SWORD_MAN ? redSwordBackWalk[walk++%2] : redSpecialBackWalk[walk++%2];
         }else{
-            this.image = type == MAG ? blueMagBackWalk[walk++%2] : blueSwordBackWalk[walk++%2];
+            this.image = type == MAG ? blueMagBackWalk[walk++%2] : type == SWORD_MAN ? blueSwordBackWalk[walk++%2] : blueSpecialBackWalk[walk++%2];
         }
     }
 

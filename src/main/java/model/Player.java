@@ -33,7 +33,14 @@ public class Player {
      * @return if troop can be created with the createTroop() method, it creates the troop and return true, otherwise false
      */
     public boolean buyTroop(TroopType troopType) {
-        int troopCost = troopType == TroopType.MAG ? magCost : swordManCost;
+        int troopCost;
+        if (troopType == TroopType.MAG) {
+            troopCost = magCost;
+        } else if (troopType == TroopType.SWORD_MAN) {
+            troopCost = swordManCost;
+        } else {
+            troopCost = specUnitCost;
+        }
         if (getGold() >= troopCost) {
             decreaseGold(troopCost);
             castle.createTroop(troopType);
@@ -44,8 +51,9 @@ public class Player {
 
     /**
      * If a player has enough money then he purchases given building. Else nothing is done
+     *
      * @param building Building that is desired to be purchased. Tower or GoldMine expected
-     * @param cell cell where the purchased building needs to be placed on. It is expected that the cell is validated
+     * @param cell     cell where the purchased building needs to be placed on. It is expected that the cell is validated
      * @return true if enough gold and was built. False otherwise
      */
     public boolean buyBuilding(Building building, Cell cell) {

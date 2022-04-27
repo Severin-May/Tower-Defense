@@ -156,6 +156,9 @@ public class MapPanel extends JPanel implements Runnable {
         char[] player2SwordCount= String.valueOf(player2TroopsCount[0]).toCharArray();
         char[] player1MagCount= String.valueOf(player1TroopsCount[1]).toCharArray();
         char[] player2MagCount= String.valueOf(player2TroopsCount[1]).toCharArray();
+        char[] player1SpecialCount= String.valueOf(player1TroopsCount[2]).toCharArray();
+        char[] player2SpecialCount= String.valueOf(player2TroopsCount[2]).toCharArray();
+
         int desiredWidth = 30;
         int desiredHeight = 45;
         //red's troop info:
@@ -164,12 +167,16 @@ public class MapPanel extends JPanel implements Runnable {
         g.drawChars(player1SwordCount, 0, player1SwordCount.length, mapWidthInPixels/2 + desiredWidth, mapHeightInPixels + desiredHeight - desiredHeight/2);
         g.drawImage(resizeIcon(new ImageIcon(redMagLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 , mapHeightInPixels + desiredHeight,null);
         g.drawChars(player1MagCount, 0, player1MagCount.length, mapWidthInPixels/2 + desiredWidth, mapHeightInPixels + 2*desiredHeight-desiredHeight/2);
+        g.drawImage(resizeIcon(new ImageIcon(redSpecialLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 , mapHeightInPixels + 2*desiredHeight,null);
+        g.drawChars(player1SpecialCount, 0, player1SpecialCount.length, mapWidthInPixels/2 + desiredWidth, mapHeightInPixels + 3*desiredHeight-desiredHeight/2);
         //blue's troop info:
         g.setColor(Color.blue);
         g.drawImage(resizeIcon(new ImageIcon(blueSwordLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 - desiredWidth*2, mapHeightInPixels,null);
         g.drawChars(player2SwordCount, 0, player2SwordCount.length, mapWidthInPixels/2 - desiredWidth, mapHeightInPixels + desiredHeight - desiredHeight/2);
         g.drawImage(resizeIcon(new ImageIcon(blueMagLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 - desiredWidth*2 , mapHeightInPixels + desiredHeight,null);
         g.drawChars(player2MagCount, 0, player2MagCount.length, mapWidthInPixels/2 - desiredWidth, mapHeightInPixels + 2*desiredHeight-desiredHeight/2);
+        g.drawImage(resizeIcon(new ImageIcon(blueSpecialLeftStop), desiredWidth,desiredHeight).getImage(),  mapWidthInPixels/2 - desiredWidth*2 , mapHeightInPixels + 2*desiredHeight,null);
+        g.drawChars(player2SpecialCount, 0, player2SpecialCount.length, mapWidthInPixels/2 - desiredWidth, mapHeightInPixels + 3*desiredHeight-desiredHeight/2);
     }
 
     /**

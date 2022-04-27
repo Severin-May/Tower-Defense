@@ -187,7 +187,7 @@ public class GameSettings {
     public final static Image redSplashL2Right = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Right.png").getImage();
     public final static Image redSplashL2Left = new ImageIcon ("src/main/resources/images/Red/Buildings/Splash/L2/Left.png").getImage();
 
-    //Troop
+    //Troop blue:
     //Mag
     //Back
     public final static Image blueMagBackStop = new ImageIcon ("src/main/resources/images/Blue/Troop/Mag/Back/Stop.png").getImage();
@@ -222,9 +222,25 @@ public class GameSettings {
     public final static Image blueSwordRightW1 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Right/V1.png").getImage();
     public final static Image blueSwordRightW2 = new ImageIcon ("src/main/resources/images/Blue/Troop/Sword/Right/V2.png").getImage();
     public final static Image[] blueSwordRightWalk = {blueSwordRightW1,blueSwordRightW2};
+    //Special unit TODO : give own images
+    //Back
+    public final static Image blueSpecialBackStop = blueMagBackStop;
+    public final static Image blueSpecialBackW1 = blueMagBackW1;
+    public final static Image blueSpecialBackW2 = blueMagBackW2;
+    public final static Image[] blueSpecialBackWalk = {blueSpecialBackW1,blueSpecialBackW2};
+    //Left
+    public final static Image blueSpecialLeftStop = blueMagLeftStop;
+    public final static Image blueSpecialLeftW1 = blueMagLeftW1;
+    public final static Image blueSpecialLeftW2 = blueMagLeftW2;
+    public final static Image[] blueSpecialLeftWalk = {blueSpecialLeftW1,blueSpecialLeftW2};
+    //Right
+    public final static Image blueSpecialRightStop = blueMagRightStop;
+    public final static Image blueSpecialRightW1 = blueMagRightW1;
+    public final static Image blueSpecialRightW2 = blueMagRightW2;
+    public final static Image[] blueSpecialRightWalk = {blueSpecialRightW1,blueSpecialRightW2};
 
 
-    //Troop
+    //Troop red:
     //Mag
     //Back
     public final static Image redMagBackStop = new ImageIcon ("src/main/resources/images/Red/Troop/Mag/Back/Stop.png").getImage();
@@ -257,6 +273,22 @@ public class GameSettings {
     public final static Image redSwordRightW1 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Right/V1.png").getImage();
     public final static Image redSwordRightW2 = new ImageIcon ("src/main/resources/images/Red/Troop/Sword/Right/V2.png").getImage();
     public final static Image[] redSwordRightWalk = {redSwordRightW1,redSwordRightW2};
+    //Special unit TODO : give own images
+    //Back
+    public final static Image redSpecialBackStop = redMagBackStop;
+    public final static Image redSpecialBackW1 = redMagBackW1;
+    public final static Image redSpecialBackW2 = redMagBackW2;
+    public final static Image[] redSpecialBackWalk = {redSpecialBackW1,redSpecialBackW2};
+    //Left
+    public final static Image redSpecialLeftStop = redMagLeftStop;
+    public final static Image redSpecialLeftW1 = redMagLeftW1;
+    public final static Image redSpecialLeftW2 = redMagLeftW2;
+    public final static Image[] redSpecialLeftWalk = {redSpecialLeftW1,redSpecialLeftW2};
+    //Right
+    public final static Image redSpecialRightStop = redMagRightStop;
+    public final static Image redSpecialRightW1 = redMagRightW1;
+    public final static Image redSpecialRightW2 = redMagRightW2;
+    public final static Image[] redSpecialRightWalk = {redSpecialRightW1,redSpecialRightW2};
 
     public static Image getShortRangeL1Left() {
         return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redShortRangeL1Left : blueShortRangeL1Left;
@@ -276,6 +308,10 @@ public class GameSettings {
 
     public static Image getSwordLeftStop() {
         return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redSwordLeftStop : blueSwordLeftStop;
+    }
+
+    public static Image getSpecialLeftStop() {
+        return Game.getInstance().getCurrentTurn().getColor().equals(Color.red) ? redSpecialLeftStop : blueSpecialLeftStop;
     }
 
     public static Image getGoldMine(){

@@ -125,11 +125,17 @@ public class Cell extends Sprite {
         int jc2 = game.getPlayer2().castle.getJ();
         Obstacle o = new Obstacle(getI(),getJ(),game.getCurrentTurn());
         setBuilding(o);
-        if (Troop.bfs(map[ic2][jc2],map[ic1][jc1],map, false).size() == 0){ //todo nullpointerexception must be handled
-            removeBuilding();
-            return true;
+        try{
+            if (Troop.bfs(map[ic2][jc2],map[ic1][jc1],map, false).size() == 0){
+                removeBuilding();
+                return true;
+            }
         }
-        removeBuilding();
+        catch (NullPointerException e){
+            //just go to finally
+        }finally {
+            removeBuilding();
+        }
         return false;
     }
     /**
@@ -264,8 +270,8 @@ public class Cell extends Sprite {
     }
 
     /**
-     * counts how many sword men and mag troops are in this cell that belong to player1
-     * @return int array size of 2. First element being sword man count and second mag count
+     * counts how many sword men, mag, and special troops are in this cell that belong to player1
+     * @return int array size of 3, first element being sword man count, second - mag count, and third - the special unit
      */
     public int[] getPlayer1TroopsCount (){
         int[] count = {0,0,0};
@@ -281,13 +287,11 @@ public class Cell extends Sprite {
             }
         }
         return count;
-
-
     }
 
     /**
-     * counts how many sword men and mag troops are in this cell that belong to player2
-     * @return int array size of 2. First element being sword man count and second mag count
+     * counts how many sword men, mag, and special troops are in this cell that belong to player2
+     * @return int array size of 3, first element being sword man count, second - mag count, and third - the special unit
      */
     public int[] getPlayer2TroopsCount (){
         int[] count = {0,0,0};

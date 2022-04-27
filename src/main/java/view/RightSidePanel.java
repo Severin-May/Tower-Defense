@@ -11,7 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import static utils.GameSettings.*;
-import static utils.GameSettings.getSwordLeftStop;
 
 /**
  * Right side panel is expected to be on the right of the whole parent JFrame
@@ -159,7 +158,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
 
-        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "SpecUnit", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "SpecUnit", resizeIcon(new ImageIcon(getSpecialLeftStop())), colorId);
         trainSpecUnit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) { //todo comeback later
@@ -227,6 +226,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         trainSword.setIcon(resizeIcon(new ImageIcon(getSwordLeftStop())));
         trainMag.setIcon(resizeIcon(new ImageIcon(getMagLeftStop())));
         goldButton.setIcon(resizeIcon(new ImageIcon(getGoldMine())));
+        trainSpecUnit.setIcon(resizeIcon(new ImageIcon(getSpecialLeftStop())));
         Color RED = new Color(255, 105, 105);
         Color BLUE = new Color(111, 196, 255);
         // update button borders
@@ -286,6 +286,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buySplashTower.setEnabled(b);
         trainSword.setEnabled(b);
         trainMag.setEnabled(b);
+        trainSpecUnit.setEnabled(b);
         endTurn.setEnabled(b);
         goldButton.setEnabled(b);
     }
