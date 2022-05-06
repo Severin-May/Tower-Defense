@@ -69,12 +69,12 @@ public class CellTest {
         Troop troop2 = new Troop(2, 5, SWORD_MAN, pl1);
         Troop troop3 = new Troop(2, 5, SWORD_MAN, pl1);
         Troop troop4 = new Troop(2, 5, MAG, pl1);
-        Troop troop5 = new Troop(3,7, SWORD_MAN,pl2);
+        Troop troop5 = new Troop(3, 7, SWORD_MAN,pl1);
 
         assertEquals(3,map[2][5].getPlayer1TroopsCount()[0]);
         assertEquals(1,map[2][5].getPlayer1TroopsCount()[1]);
-        assertEquals(0,map[3][7].getPlayer2TroopsCount()[1]);
-        assertEquals(1,map[3][7].getPlayer2TroopsCount()[0]);
+        assertEquals(0,map[3][7].getPlayer1TroopsCount()[1]);
+        assertEquals(1,map[3][7].getPlayer1TroopsCount()[0]);
     }
     @Test
     public void TestisPlayer2TroopsCount(){
@@ -84,10 +84,14 @@ public class CellTest {
         Troop troop3 = new Troop(4, 5, SWORD_MAN, pl2);
         Troop troop4 = new Troop(4, 5, MAG, pl2);
         Troop troop5 = new Troop(3,7, SWORD_MAN,pl2);
+        Troop troop6 = new Troop(3,7, SPECIAL_UNIT,pl2);
+        Troop troop7 = new Troop(3,7, SPECIAL_UNIT,pl2);
         assertEquals(3,map[4][5].getPlayer2TroopsCount()[0]);
         assertEquals(1,map[4][5].getPlayer2TroopsCount()[1]);
         assertEquals(0,map[3][7].getPlayer2TroopsCount()[1]);
         assertEquals(1,map[3][7].getPlayer2TroopsCount()[0]);
+        assertEquals(2,map[3][7].getPlayer2TroopsCount()[2]);
+        assertEquals(0,map[4][5].getPlayer2TroopsCount()[2]);
     }
     @Test
     public void TestisInsideThisCell(){
