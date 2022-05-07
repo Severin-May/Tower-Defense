@@ -168,7 +168,6 @@ public class Troop extends Sprite {
             this.x -= movementSpeed;
             direction = Direction.LEFT;
         }
-        healthBar.update();
     }
 
     /**
@@ -176,7 +175,6 @@ public class Troop extends Sprite {
      */
     private void goInsideCurrentCell() {
         if (!Map.getInstance().getMap()[getI()][getJ()].isInsideThisCell(getX(),getY(),getWidth(),getHeight()) && direction != null) {
-            healthBar.update();
             switch (direction) {
                 case UP: {
                     faceUp();
@@ -252,7 +250,8 @@ public class Troop extends Sprite {
     }
 
     public int getAttackDamage() {
-        return attackDamage;
+        //if this.getType() == MAG ? return (int) (attackDamage*this.getHealthPoints())
+        return (int) (attackDamage*this.getHealthPoints()*0.1);
     }
 
     public Player getOwner() {

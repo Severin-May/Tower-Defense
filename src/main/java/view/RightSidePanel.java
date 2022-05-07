@@ -148,7 +148,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 }
             }
         });
-        trainMag = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainMag = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Magician", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -158,12 +158,12 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
 
-        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "SpecUnit", resizeIcon(new ImageIcon(getSpecialFront())), colorId);
+        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Wizard", resizeIcon(new ImageIcon(getSpecialLeftStop())), colorId);
         trainSpecUnit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) { //todo comeback later
                 if (!game.getCurrentTurn().buyTroop(TroopType.SPECIAL_UNIT)) {
-                    JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more special units");
+                    JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more wizards");
                 }
             }
         });

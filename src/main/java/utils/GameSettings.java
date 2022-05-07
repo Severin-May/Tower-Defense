@@ -46,27 +46,28 @@ public class GameSettings {
     public final static int upgradedSplashReloadTime = splashReloadTime - 1;
 
     // earning/spending
-    public final static int longRangeCost = 10;
-    public final static int shortRangeCost = 10;
-    public final static int splashCost = 10;
-    public final static int goldMineCost = 25;
-    public final static int swordManCost = 2;
-    public final static int magCost = 2;
+    public final static int longRangeCost = 100;
+    public final static int shortRangeCost = 75;
+    public final static int splashCost = 185;
+    public final static int goldMineCost = 400;
+    public final static int swordManCost = 35;
+    public final static int magCost = 55;
     public final static int specUnitCost = 4;
-    public final static int goldMineIncomePerRound = 5;
+    public final static int goldMineIncomePerRound = 65;
+    public final static int awardForKillingSword = 7;
+    public final static int awardForKillingMag = 12;
     public final static int awardForKillingTroop = 2;
     public final static int awardForPickingTreasure = 15;
-    public final static int towerUpgradeCost = 10;
-
+    public final static int towerUpgradeCost = 10; //split into separate tower upgrade costs
 
     //Initial Troops' stat:
     //sword man troop:
-    public final static int swordManHp = 10;
+    public final static int swordManHp = 140;
     public final static int swordManSpeed = 2;
     public final static int swordManAttackDamage = 10;
     public final static int swordManMovementPoints = 4;
     //mag troop
-    public final static int magHp = 7;
+    public final static int magHp = 85;
     public final static int magSpeed = 3;
     public final static int magAttackDamage = 10;
     public final static int magMovementPoints = 6;
@@ -77,7 +78,7 @@ public class GameSettings {
     public final static int specUnitMovementPoints = 6;
 
     //Map settings:
-    public final static int numberOfObstacles = 6;
+    public final static int numberOfObstacles = (int) ((Math.random() * (10)) + 5);
     public final static int padding = 25;
     public final static int mapHeightInCells = 15;
     public final static int mapWidthInCells = 20;
@@ -88,13 +89,12 @@ public class GameSettings {
     public final static int additionalBlankSpaceBelowInPixels = 200; // blank space where the cell info is displayed
     public final static int rightPanelWidth = 600;
     //Game Settings
-    public final static int fps = 15; //how many times to repaint the map in one second. Animation quality depends on this
-
+    public final static int fps = 30; //how many times to repaint the map in one second. Animation quality depends on this
 
     //Other initial states:
-    public static int initialGold = 150;
+    public static int initialGold = 1650;
     public static int towerInitialHP = 50;
-    public static int castleInitialHP = 100;
+    public static int castleInitialHP = 2500;
     public static int minIdistance = 10;
     public static int minJdistance = 10;
 
@@ -398,5 +398,6 @@ public class GameSettings {
                                                                         "\nThere are three ways you can increase your gold: build a goldmine, kill enemy troops, pick up the treasure chest";
     public final static String aboutGoldMines =                         "Besides building towers to defend, you can invest your money into building a goldmine each of which will grant you \n"
                                                                         + goldMineIncomePerRound + " gold at the beginning of every new preparation stage. \n Building one costs: " + goldMineCost + " golds";
-    public final static String aboutEarningMoneyFromTroopKills =        "You earn money when your tower kills an enemy troop. The reward for each killed enemy is: " + awardForKillingTroop + " golds";
+    public final static String aboutEarningMoneyFromTroopKills =        "You earn money when your tower kills an enemy troop. The reward for each killed enemy is: " + awardForKillingSword + " gold and "
+                                                                        + awardForKillingMag + " gold for killing a Melee Unit and a Wizard respectively.";
 }

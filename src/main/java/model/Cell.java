@@ -38,6 +38,10 @@ public class Cell extends Sprite {
     public void drawSprites(Graphics g) {
         if (hasBuilding()) {
             g.drawImage(building.image, x - building.width / 2, y - building.height / 2, building.width, building.height, null);
+            if (building instanceof Castle){
+                HealthBar hb = new HealthBar((Castle) building);
+                hb.paint(g);
+            }
             if (building instanceof Tower) {
                 Tower t = (Tower) building;
                 Tower.ShotSprite shotSprite = t.shotSprite;
@@ -46,7 +50,8 @@ public class Cell extends Sprite {
                 }
             }
         }
-        for (Troop t : troops) {
+        for (int i = troops.size() - 1; i >= 0; i--) {
+            Troop t = troops.get(i);
             HealthBar hb = new HealthBar(t);
             g.drawImage(t.image, t.x - t.width / 2, t.y - t.height / 2, t.width, t.height, null);
             hb.paint(g);
