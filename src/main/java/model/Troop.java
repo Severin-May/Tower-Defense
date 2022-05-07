@@ -33,11 +33,11 @@ public class Troop extends Sprite {
     private static Image getTroopImage(TroopType type, Player owner){
         if (owner.getColor().equals(Color.red)){
             if (type == MAG){
-                return redMagLeftStop;
+                return redMagRightStop;
             } else if (type == SWORD_MAN) {
-                return redSwordLeftStop;
+                return redSwordRightStop;
             } else if (type == SPECIAL_UNIT) {
-                return redSpecialLeftStop;
+                return redSpecialFront;
             }
         } else{
             if (type == MAG){
@@ -45,7 +45,7 @@ public class Troop extends Sprite {
             } else if (type == SWORD_MAN) {
                 return blueSwordLeftStop;
             } else if (type == SPECIAL_UNIT) {
-                return blueSpecialLeftStop;
+                return blueSpecialFront;
             }
         }
         return null;
@@ -184,7 +184,8 @@ public class Troop extends Sprite {
                     break;
                 }
                 case DOWN: {
-                    faceRight();
+
+                    faceDown();
                     this.y += movementSpeed;
                     break;
                 }
@@ -396,6 +397,13 @@ public class Troop extends Sprite {
         }
     }
 
+    private void faceDown(){
+        if (owner.getColor().equals(Color.red)){
+            this.image = type == MAG ? redMagLeftWalk[walk++%2] :  type == SWORD_MAN ? redSwordLeftWalk[walk++%2] : redSpecialFrontWalk[walk++%2];
+        }else{
+            this.image = type == MAG ? blueMagLeftWalk[walk++%2] : type == SWORD_MAN ? blueSwordLeftWalk[walk++%2] : blueSpecialFrontWalk[walk++%2];
+        }
+    }
     /**
      * use this method to give a destination cell to the troop
      * @param destinationCell cell where this troop will try to go

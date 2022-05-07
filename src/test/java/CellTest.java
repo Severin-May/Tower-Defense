@@ -100,4 +100,30 @@ public class CellTest {
        assertTrue(map[4][5].isInsideThisCell(map[4][5].getX(), map[4][5].getY(),map[4][5].getWidth(),map[4][5].getHeight()));
        assertFalse(map[2][9].isInsideThisCell(map[4][5].getX(), map[4][5].getY(),map[4][5].getWidth(),map[4][5].getHeight()));
     }
+
+    @Test
+    public void TestisCastleBlocked() {
+        Cell[][] map = Map.getInstance().getMap();
+        Tower tower1 = new ShortRange(pl1);
+        Tower tower2 = new LongRange(pl2);
+
+
+       // map[0][1].setBuilding(tower1);
+        map[1][0].setBuilding(tower1);
+        map[mapHeightInCells-2][mapWidthInCells-1].setBuilding(tower2);
+
+        assertTrue(map[0][1].isCastleBlocked());
+        assertFalse(map[1][1].isCastleBlocked());
+
+        assertTrue(map[mapHeightInCells-1][mapWidthInCells-2].isCastleBlocked());
+        assertFalse(map[mapHeightInCells-1][mapWidthInCells-3].isCastleBlocked());
+
+
+
+
+
+
+
+
+    }
 }
