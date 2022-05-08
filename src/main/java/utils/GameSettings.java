@@ -56,7 +56,7 @@ public class GameSettings {
     public final static int goldMineIncomePerRound = 65;
     public final static int awardForKillingSword = 7;
     public final static int awardForKillingMag = 12;
-    public final static int awardForKillingTroop = 2;
+    public final static int awardForKillingWiz = 22;
     public final static int awardForPickingTreasure = 15;
     public final static int towerUpgradeCost = 10; //split into separate tower upgrade costs
 
@@ -72,10 +72,10 @@ public class GameSettings {
     public final static int magAttackDamage = 10;
     public final static int magMovementPoints = 6;
     //special unit //todo set proper stats
-    public final static int specUnitHp = 7;
+    public final static int specUnitHp = 110;
     public final static int specUnitSpeed = 3;
-    public final static int specUnitAttackDamage = 10;
-    public final static int specUnitMovementPoints = 6;
+    public final static int specUnitAttackDamage = 250;
+    public final static int specUnitMovementPoints = 8;
 
     //Map settings:
     public final static int numberOfObstacles = (int) ((Math.random() * (10)) + 5);
@@ -398,6 +398,6 @@ public class GameSettings {
                                                                         "\nThere are three ways you can increase your gold: build a goldmine, kill enemy troops, pick up the treasure chest";
     public final static String aboutGoldMines =                         "Besides building towers to defend, you can invest your money into building a goldmine each of which will grant you \n"
                                                                         + goldMineIncomePerRound + " gold at the beginning of every new preparation stage. \n Building one costs: " + goldMineCost + " golds";
-    public final static String aboutEarningMoneyFromTroopKills =        "You earn money when your tower kills an enemy troop. The reward for each killed enemy is: " + awardForKillingSword + " gold and "
-                                                                        + awardForKillingMag + " gold for killing a Melee Unit and a Wizard respectively.";
+    public final static String aboutEarningMoneyFromTroopKills =        "You earn money when your tower kills an enemy troop. The reward for each killed enemy is: " + awardForKillingSword + " gold, "
+                                                                        + awardForKillingMag + " gold and " + awardForKillingWiz + " gold for killing a Melee Unit, a Magician, and a Wizard respectively.";
 }

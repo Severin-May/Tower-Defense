@@ -34,7 +34,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
     CustomButton trainSword;
     CustomButton trainMag;
     CustomButton trainSpecUnit;
-    CustomButton goldButton;
+    CustomButton buyGoldMine;
     CustomButton endTurn;
     CustomButton startFightingStage;
 
@@ -57,7 +57,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         createLabels();
         add(new StatusPanel(gold, troopsTrained, goldMines, towers, castleHp), BorderLayout.CENTER);
         createButtons();
-        add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, trainSpecUnit, goldButton, endTurn, startFightingStage), BorderLayout.SOUTH);
+        add(new ShopPanel(buyShortRangeTower, buyLongRangeTower, buySplashTower, trainSword, trainMag, trainSpecUnit, buyGoldMine, endTurn, startFightingStage), BorderLayout.SOUTH);
         timer = new Timer(500, this);// status panel update timer
         timer.start();
     }
@@ -168,8 +168,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
 
-        goldButton = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Gold", resizeIcon(new ImageIcon(getGoldMine())), colorId);
-        goldButton.addMouseListener(new MouseAdapter() {
+        buyGoldMine = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Gold", resizeIcon(new ImageIcon(getGoldMine())), colorId);
+        buyGoldMine.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (game.getCurrentTurn().getGold() < goldMineCost) {
@@ -204,6 +204,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 startFightingStage.setVisible(false);
+                disableAllButtons();
                 endTurn.setVisible(true);
                 game.setFightingStage(true);
                 System.out.println("Starting the fighting stage!");
@@ -212,6 +213,19 @@ public class RightSidePanel extends JPanel implements ActionListener {
         if (game.isSinglePlayer()) {
             ((AI) game.getPlayer2()).setControlButtons(endTurn, startFightingStage); // temporarily
         }
+    }
+    
+    private void disableAllButtons(){
+        buyShortRangeTower.setEnabled(false);
+        buySplashTower.setEnabled(false);
+        buyLongRangeTower.setEnabled(false);
+        buyGoldMine.setEnabled(false);
+        
+        trainMag.setEnabled(false);
+        trainSpecUnit.setEnabled(false);
+        trainSword.setEnabled(false);
+        
+        endTurn.setEnabled(false);
     }
 
     /**
@@ -225,7 +239,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         buySplashTower.setIcon(resizeIcon(new ImageIcon(getSplashL1Left())));
         trainSword.setIcon(resizeIcon(new ImageIcon(getSwordLeftStop())));
         trainMag.setIcon(resizeIcon(new ImageIcon(getMagLeftStop())));
-        goldButton.setIcon(resizeIcon(new ImageIcon(getGoldMine())));
+        buyGoldMine.setIcon(resizeIcon(new ImageIcon(getGoldMine())));
         trainSpecUnit.setIcon(resizeIcon(new ImageIcon(getSpecialFront())));
         Color RED = new Color(255, 105, 105);
         Color BLUE = new Color(111, 196, 255);
@@ -237,7 +251,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             trainSword.setBackground(RED);
             trainMag.setBackground(RED);
             trainSpecUnit.setBackground(RED);
-            goldButton.setBackground(RED);
+            buyGoldMine.setBackground(RED);
         } else {
             buyShortRangeTower.setBackground(BLUE);
             buyLongRangeTower.setBackground(BLUE);
@@ -245,7 +259,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             trainSword.setBackground(BLUE);
             trainMag.setBackground(BLUE);
             trainSpecUnit.setBackground(BLUE);
-            goldButton.setBackground(BLUE);
+            buyGoldMine.setBackground(BLUE);
         }
     }
 
@@ -288,7 +302,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
         trainMag.setEnabled(b);
         trainSpecUnit.setEnabled(b);
         endTurn.setEnabled(b);
-        goldButton.setEnabled(b);
+        buyGoldMine.setEnabled(b);
     }
 
     /**

@@ -212,8 +212,10 @@ public abstract class Tower extends ActiveBuilding {
                     if (shotSprite.destinationTroop.isKilled()){
                         if (shotSprite.destinationTroop.getType() == TroopType.MAG) {
                             getOwner().increaseGold(awardForKillingMag);
-                        } else {
+                        } else if (shotSprite.destinationTroop.getType() == TroopType.SWORD_MAN){
                             getOwner().increaseGold(awardForKillingSword);
+                        } else {
+                            getOwner().increaseGold(awardForKillingWiz);
                         }
                         shotSprite.destinationTroop.selfDestruct();
                     }
