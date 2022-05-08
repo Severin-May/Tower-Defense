@@ -18,6 +18,7 @@ public class CustomButton extends JButton {
             setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         }
         if (id == 4){
+            setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
             setBackground(new Color(106, 255, 103));
         }
         setBorder(new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), new EtchedBorder(EtchedBorder.LOWERED)));

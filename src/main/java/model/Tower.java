@@ -69,7 +69,7 @@ public abstract class Tower extends ActiveBuilding {
     public void launchAttackIfPossible() {
         long currentTime = System.currentTimeMillis();
         long timeElapsedFromLastShot = currentTime - lastShotTime;
-        boolean reloaded = timeElapsedFromLastShot >= reloadTime * 1000L;
+        boolean reloaded = timeElapsedFromLastShot >= reloadTime * 100L;
         Troop troopToAttack;
         if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
             return;//not allowed shooting
@@ -210,8 +210,14 @@ public abstract class Tower extends ActiveBuilding {
                     shotSprite.destinationTroop.decreaseHP(attackDamage);
                     //destroy the troop if it is dead after dealing damage and give reward for it
                     if (shotSprite.destinationTroop.isKilled()){
+                        if (shotSprite.destinationTroop.getType() == TroopType.MAG) {
+                            getOwner().increaseGold(awardForKillingMag);
+                        } else if (shotSprite.destinationTroop.getType() == TroopType.SWORD_MAN){
+                            getOwner().increaseGold(awardForKillingSword);
+                        } else {
+                            getOwner().increaseGold(awardForKillingWiz);
+                        }
                         shotSprite.destinationTroop.selfDestruct();
-                        getOwner().increaseGold(awardForKillingTroop);
                     }
                 }
                 //delete the shot sprite
