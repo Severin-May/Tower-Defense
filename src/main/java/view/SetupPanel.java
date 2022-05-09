@@ -13,6 +13,7 @@ public abstract class SetupPanel extends JPanel {
         p1name = name;
     }
 
+
     public void setPlayerTwoName(JTextField name){
         System.out.println("setting to "+ name.getText());
         p2name = name;
