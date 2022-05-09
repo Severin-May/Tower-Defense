@@ -32,6 +32,18 @@ public class Player {
     }
 
     @Test
+    public void testNoTroops() {
+        Troop t0 = new Troop(0, 0, TroopType.SWORD_MAN, pl1);
+        pl1.addTroop(t0);
+        Troop t1 = new Troop(0, 0, TroopType.SPECIAL_UNIT, pl1);
+        assertEquals(pl1.getTroops().size(), 2);
+        pl1.addTroop(t1);
+        pl1.removeTroop(t0);
+        pl1.removeTroop(t1);
+        assertEquals(pl1.getTroops().size(), 0);
+    }
+
+    @Test
     public void testResetPlayer() {
         Troop t = new Troop(0, 0, TroopType.SWORD_MAN, pl1);
         Building building = new LongRange(0, 0, pl1);
