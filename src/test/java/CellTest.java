@@ -60,7 +60,7 @@ public class CellTest {
     }
 
     @Test
-    public void TestgetPlayer1TroopsCount() {
+    public void TestGetPlayer1TroopsCount() {
         Cell [][] map = Map.getInstance().getMap();
         Troop troop1 = new Troop(2, 5, SWORD_MAN, pl1);
         Troop troop2 = new Troop(2, 5, SWORD_MAN, pl1);
@@ -74,7 +74,7 @@ public class CellTest {
         assertEquals(1,map[3][7].getPlayer1TroopsCount()[0]);
     }
     @Test
-    public void TestisPlayer2TroopsCount(){
+    public void TestGetPlayer2TroopsCount(){
         Cell [][] map = Map.getInstance().getMap();
         Troop troop1 = new Troop(4, 5, SWORD_MAN, pl2);
         Troop troop2 = new Troop(4, 5, SWORD_MAN, pl2);
