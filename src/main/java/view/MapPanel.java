@@ -88,7 +88,7 @@ public class MapPanel extends JPanel implements Runnable {
         int upgradeCost = towerToUpgrade.getUpgradeCost();
 
         if (towerToUpgrade.getOwner().getGold() < upgradeCost) {
-            JOptionPane.showMessageDialog(getParent(), "You are too poor to upgrade the tower. Tower upgrade cost: " + upgradeCost + " golds",
+            JOptionPane.showMessageDialog(getParent(), "You are too poor to upgrade the tower. Tower upgrade cost: " + upgradeCost + " gold",
                     null, JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
