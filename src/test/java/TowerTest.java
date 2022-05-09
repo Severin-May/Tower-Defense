@@ -1,9 +1,8 @@
 import model.*;
+import model.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.awt.*;
 
 import static org.junit.Assert.*;
 import static utils.GameSettings.*;

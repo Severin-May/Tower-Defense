@@ -3,11 +3,10 @@ import model.*;
 import static org.junit.Assert.*;
 import static utils.GameSettings.*;
 
+import model.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.awt.*;
 
 // Example test
 public class TroopTest {

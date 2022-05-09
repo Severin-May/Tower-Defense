@@ -3,14 +3,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class Player {
+import static org.junit.Assert.assertEquals;
 
+public class Player {
+    model.Player pl1;
     @Before
-    void setup(){}
+    public void setup(){
+        pl1 = Game.getInstance().getPlayer1(); //1500
+    }
 
     @After
-    void shutdown() {}
+    public void shutdown() {}
 
     @Test
-    public void test(){}
+    public void testIncreaseGold(){
+        pl1.increaseGold(100);
+        assertEquals(pl1.getGold(), 1600);
+    }
 }
