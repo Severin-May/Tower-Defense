@@ -94,7 +94,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
         int buttonWidth = 180;
         int buttonHeight = 55;
         int colorId = -2;
-        buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range", resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
+        buyShortRangeTower = new CustomButton(buttonWidth, buttonHeight, "Short Range - $" + shortRangeCost, resizeIcon(new ImageIcon(getShortRangeL1Left())), colorId);
+        buyShortRangeTower.setFont(new Font("Arial", Font.BOLD, 12));
         buyShortRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -109,7 +110,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 game.setBuildingHover(new ShortRange(game.getCurrentTurn()));
             }
         });
-        buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range", resizeIcon(new ImageIcon(getLongRangeL1Left())), colorId);
+        buyLongRangeTower = new CustomButton(buttonWidth, buttonHeight, "Long Range - $" + longRangeCost, resizeIcon(new ImageIcon(getLongRangeL1Left())), colorId);
+        buyLongRangeTower.setFont(new Font("Arial", Font.BOLD, 12));
         buyLongRangeTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -124,7 +126,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 game.setBuildingHover(new LongRange(game.getCurrentTurn()));
             }
         });
-        buySplashTower = new CustomButton(buttonWidth, buttonHeight, "Splash", resizeIcon(new ImageIcon(getSplashL1Left())), colorId);
+        buySplashTower = new CustomButton(buttonWidth, buttonHeight, "Splash - $" + splashCost, resizeIcon(new ImageIcon(getSplashL1Left())), colorId);
+        buySplashTower.setFont(new Font("Arial", Font.BOLD, 12));
         buySplashTower.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -139,7 +142,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 game.setBuildingHover(new Splash(game.getCurrentTurn()));
             }
         });
-        trainSword = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Barbarian", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
+        trainSword = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Barbarian - $" + swordManCost, resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
+        trainSword.setFont(new Font("Arial", Font.BOLD, 12));
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -148,7 +152,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 }
             }
         });
-        trainMag = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainMag = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Wizard - $" + magCost, resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainMag.setFont(new Font("Arial", Font.BOLD, 12));
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -158,7 +163,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
 
-        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Ghost", resizeIcon(new ImageIcon(getSpecialLeftStop())), colorId);
+        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Ghost - $" + specUnitCost, resizeIcon(new ImageIcon(getSpecialLeftStop())), colorId);
+        trainSpecUnit.setFont(new Font("Arial", Font.BOLD, 12));
         trainSpecUnit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) { //todo comeback later
@@ -168,7 +174,8 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
 
-        buyGoldMine = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Gold", resizeIcon(new ImageIcon(getGoldMine())), colorId);
+        buyGoldMine = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Gold - $" + goldMineCost, resizeIcon(new ImageIcon(getGoldMine())), colorId);
+        buyGoldMine.setFont(new Font("Arial", Font.BOLD, 12));
         buyGoldMine.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -184,6 +191,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
         endTurn = new CustomButton(buttonWidth, buttonHeight, "End Turn", null, 4);
+        endTurn.setFont(new Font("Arial", Font.BOLD, 12));
         endTurn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -199,6 +207,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
             }
         });
         startFightingStage = new CustomButton(buttonWidth, buttonHeight, "Attack", null, 4);
+        startFightingStage.setFont(new Font("Arial", Font.BOLD, 12));
         startFightingStage.setVisible(false);
         startFightingStage.addMouseListener(new MouseAdapter() {
             @Override
