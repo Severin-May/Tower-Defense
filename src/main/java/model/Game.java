@@ -134,13 +134,14 @@ public class Game {
         }
         System.out.println("All troops finished!");
         clearBullets();
-        int roundReward = 50*roundCount;
+        int roundReward = roundCount * 50;
         if (roundReward < 500){
-            player1.increaseGold(50*roundCount);
-            player2.increaseGold(50*roundCount);
-        } else {
+            roundReward = roundCount * 50;
             player1.increaseGold(roundReward);
             player2.increaseGold(roundReward);
+        } else {
+            player1.increaseGold(500);
+            player2.increaseGold(500);
         }        for (GoldMine g : getAllGoldMines()){
             g.getOwner().increaseGold(goldMineIncomePerRound);
         }
