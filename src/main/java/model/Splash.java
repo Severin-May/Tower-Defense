@@ -15,6 +15,8 @@ public class Splash extends Tower {
         this.shotCount = splashShotCount;
     }
 
+    /*lkd*/
+
     public Splash(Player owner) {
         super(owner.getColor().equals(Color.red) ? redSplashL1Left : blueSplashL1Right, owner);
         this.attackRadius = splashTowerRange;
