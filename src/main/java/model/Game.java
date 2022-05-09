@@ -210,7 +210,7 @@ public class Game {
      */
     private void clearBullets(){
         for (Tower t : getAllTowers()){
-            t.shotSprite = null;
+            t.getShotSprites().clear();
         }
     }
 

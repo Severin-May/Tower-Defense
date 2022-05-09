@@ -94,6 +94,7 @@ public class Troop extends Sprite {
         owner.addTroop(this);
         Cell[][] map = Map.getInstance().getMap();
         map[i][j].addTroop(this);
+        this.currentCell = map[i][j];
         // enemy castle cell is destination cell by default
         destinationCell = map[getEnemyPlayer().getCastle().getI()][getEnemyPlayer().getCastle().getJ()];
     }

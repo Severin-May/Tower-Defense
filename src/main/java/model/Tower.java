@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 
 import static utils.GameSettings.*;
@@ -13,7 +14,7 @@ public abstract class Tower extends ActiveBuilding {
     protected int reloadTime;
     protected long lastShotTime;
     protected boolean upgraded = false;
-    protected ShotSprite shotSprite;
+    protected ArrayList<ShotSprite> shotSprites = new ArrayList<>();
 
     /**
      * shotSprite is inner class of towers responsible for the shooting animation
@@ -26,27 +27,28 @@ public abstract class Tower extends ActiveBuilding {
         public Tower tower;
 
         public ShotSprite(int i, int j, int width, int height, Image image, Troop destinationTroop, Tower shooter) {
-            super(i,j,width,height,image);
+            super(i, j, width, height, image);
             this.destinationTroop = destinationTroop;
             this.tower = shooter;
             destinationX = destinationTroop.getX();
             destinationY = destinationTroop.getY();
         }
+
         /**
          * sets the destinationX and destinationY to the target's current location
          * so that the bullet instance chases the target. If target is dead then bullet chases last saved place when it was alive
          */
-        public void refreshDestination(){
-            if (!destinationTroop.isKilled()){
+        public void refreshDestination() {
+            if (!destinationTroop.isKilled()) {
                 destinationX = destinationTroop.getX();
                 destinationY = destinationTroop.getY();
             }
         }
+
         /**
-         *
          * @return checks if the ball reached the destination troop. If yes, then damages it
          */
-        public boolean hasReachedDestination (){
+        public boolean hasReachedDestination() {
             return Math.abs(x - destinationX) <= 10 && Math.abs(y - destinationY) <= 10;
         }
     }
@@ -63,25 +65,25 @@ public abstract class Tower extends ActiveBuilding {
     /**
      * If any shots left then:
      * scans its radius and if there's an enemy troop and reload time is passed then:
-     * shoots it
+     * creates and releases new bullet sprite
      * spends a shot
-     * decreases given troop's health point by its attack damage
      * refreshes last shot time
      * And if any of the above conditions is not met then does nothing
      */
     public void launchAttackIfPossible() {
-        long currentTime = System.currentTimeMillis();
-        long timeElapsedFromLastShot = currentTime - lastShotTime;
-        boolean reloaded = timeElapsedFromLastShot >= reloadTime * 100L;
         Troop troopToAttack;
-        if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
+        if (shotCount <= 0 || !isReloaded() || (troopToAttack = troopWithinRange()) == null) {
             return;//not allowed shooting
         }
-        if (shotSprite == null){//cannot shoot while another instance of a shot sprite does not hit the target troop
-            shotSprite = createShotSprite(troopToAttack);
-            shotCount--;
-            lastShotTime = currentTime;
-        }
+        shotSprites.add(createShotSprite(troopToAttack));
+        shotCount--;
+        lastShotTime = System.currentTimeMillis();
+    }
+
+    public boolean isReloaded(){
+        long currentTime = System.currentTimeMillis();
+        long timeElapsedFromLastShot = currentTime - lastShotTime;
+        return timeElapsedFromLastShot >= reloadTime * 500L;// if reloadTime = 1 => 0.5 seconds
     }
 
     /**
@@ -107,24 +109,24 @@ public abstract class Tower extends ActiveBuilding {
                 }
                 if (einRange) {
                     for (int k = s; k <= (mapWidthInCells - 1); k++) {
-                        for (Troop t : map[ti][k].getTroops()){
-                            if (isEnemyTroop(t)){
+                        for (Troop t : map[ti][k].getTroops()) {
+                            if (isEnemyTroop(t)) {
                                 return t;
                             }
                         }
                     }
                 } else if (sinRange) {
                     for (int k = 0; k <= e; k++) {
-                        for (Troop t : map[ti][k].getTroops()){
-                            if (isEnemyTroop(t)){
+                        for (Troop t : map[ti][k].getTroops()) {
+                            if (isEnemyTroop(t)) {
                                 return t;
                             }
                         }
                     }
                 } else {
                     for (int k = s; k <= e; k++) {
-                        for (Troop t : map[ti][k].getTroops()){
-                            if (isEnemyTroop(t)){
+                        for (Troop t : map[ti][k].getTroops()) {
+                            if (isEnemyTroop(t)) {
                                 return t;
                             }
                         }
@@ -176,8 +178,8 @@ public abstract class Tower extends ActiveBuilding {
         return reloadTime;
     }
 
-    public ShotSprite getShotSprite() {
-        return shotSprite;
+    public ArrayList<ShotSprite> getShotSprites() {
+        return shotSprites;
     }
 
     /**
@@ -195,11 +197,11 @@ public abstract class Tower extends ActiveBuilding {
      * If after the move it reaches the target then deals damage to it and disappears
      * Use when shooting
      */
-    public void shotAnimation(){
-        if (shotSprite != null){
+    public void shotAnimation() {
+        ArrayList<ShotSprite> toDelete = new ArrayList<>();
+        for (ShotSprite shotSprite : shotSprites) {
             Cell targetCell = shotSprite.destinationTroop.getCurrentCell();
-            ArrayList<Troop> troops = (ArrayList<Troop>) targetCell.getTroops();
-            ArrayList<Integer> toKill = new ArrayList<>();
+            List <Troop> troops = targetCell.getTroops();
             shotSprite.refreshDestination();
             double toPlayerX = shotSprite.destinationX - shotSprite.x;
             double toPlayerY = shotSprite.destinationY - shotSprite.y;
@@ -207,26 +209,26 @@ public abstract class Tower extends ActiveBuilding {
             double toPlayerLength = Math.sqrt(toPlayerX * toPlayerX + toPlayerY * toPlayerY);
             toPlayerX = toPlayerX / toPlayerLength;
             toPlayerY = toPlayerY / toPlayerLength;
-            this.shotSprite.x += toPlayerX * towerShotSpriteSpeed;
-            this.shotSprite.y += toPlayerY * towerShotSpriteSpeed;
+            shotSprite.x += toPlayerX * towerShotSpriteSpeed;
+            shotSprite.y += toPlayerY * towerShotSpriteSpeed;
             //if bullet reached target troop then
-            if (shotSprite.hasReachedDestination()){
+            if (shotSprite.hasReachedDestination()) {
                 //if another shot has not yet killed the target
-                if (!shotSprite.destinationTroop.isKilled()){
+                if (!shotSprite.destinationTroop.isKilled()) {
                     //Splash tower damaging all units in a cell
-                    if (shotSprite.tower.getTowerType() == 3){
-                        for (Troop troop : targetCell.getTroops()){
+                    if (shotSprite.tower.getTowerType() == 3) {
+                        for (Troop troop : targetCell.getTroops()) {
                             troop.decreaseHP(attackDamage);
                         }
                     } else { //Single target towers (Long Range, Short Range) attacking single unit
                         shotSprite.destinationTroop.decreaseHP(attackDamage);
                     }
                     //destroy the troop if it is dead after dealing damage and give reward for it
-                    if (shotSprite.destinationTroop.isKilled()){
+                    if (shotSprite.destinationTroop.isKilled()) {
                         shotSprite.destinationTroop.selfDestruct();
                         killReward(shotSprite.destinationTroop);
-                        if (shotSprite.tower.getTowerType() == 3){
-                            for (int i = 0; i < targetCell.getTroops().size(); i++){
+                        if (shotSprite.tower.getTowerType() == 3) {
+                            for (int i = 0; i < targetCell.getTroops().size(); i++) {
                                 if (troops.get(i).isKilled()) {
                                     killReward(troops.get(i));
                                     troops.get(i).selfDestruct();
@@ -235,16 +237,21 @@ public abstract class Tower extends ActiveBuilding {
                         }
                     }
                 }
-                //delete the shot sprite
-                shotSprite = null;
+                //to be deleted the shot sprite as it reached destination
+                toDelete.add(shotSprite);
             }
+
+        }
+        //clear all shot sprites that reached destination
+        for (ShotSprite shotSprite : toDelete){
+            shotSprites.remove(shotSprite);
         }
     }
 
-    private void killReward(Troop troop){
+    private void killReward(Troop troop) {
         if (troop.getType() == TroopType.WIZ) {
             getOwner().increaseGold(awardForKillingWiz);
-        } else if (troop.getType() == TroopType.SWORD_MAN){
+        } else if (troop.getType() == TroopType.SWORD_MAN) {
             getOwner().increaseGold(awardForKillingSword);
         } else {
             getOwner().increaseGold(awardForKillingGhost);
@@ -253,6 +260,7 @@ public abstract class Tower extends ActiveBuilding {
 
     /**
      * Creates a new instance of bullet sprite
+     *
      * @param troopToAttack bullet's target
      * @return created instance
      */
@@ -264,21 +272,20 @@ public abstract class Tower extends ActiveBuilding {
 
     /**
      * Overriden method for each tower type
-     * 0 = null tower
      * 1 = shortRange
      * 2 = longRange
      * 3 = splash
+     *
      * @return 1, 2, or 3
      */
-    public int getTowerType(){
-        return 0;
-    }
+    public abstract int getTowerType();
 
     /**
      * Overriden method for each tower type
+     *
      * @return upgrade cost of said tower
      */
-    public int getUpgradeCost(){
+    public int getUpgradeCost() {
         return 0;
     }
 }

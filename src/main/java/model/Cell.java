@@ -44,7 +44,7 @@ public class Cell extends Sprite {
             }
             if (building instanceof Tower) {
                 Tower t = (Tower) building;
-                Tower.ShotSprite shotSprite = t.shotSprite;
+                for (Tower.ShotSprite shotSprite : t.getShotSprites())
                 if (shotSprite != null) {
                     g.drawImage(shotSprite.getImage(), shotSprite.getX(), shotSprite.getY(), shotSprite.width, shotSprite.height, null);
                 }

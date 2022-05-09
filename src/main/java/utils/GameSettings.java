@@ -362,6 +362,13 @@ public class GameSettings {
                                                         "\nMovement Speed: " + magSpeed +
                                                         "\nMovement Points: " + magMovementPoints +
                                                         "\nAttack Damage: " + magAttackDamage;
+    public final static String aboutSpecUnitAttributes =
+                                                        "\nHealth Points: " + specUnitHp +
+                                                        "\nCost: " + specUnitCost +
+                                                        "\nMovement Speed: " + specUnitMovementPoints +
+                                                        "\nMovement Points: " + swordManMovementPoints +
+                                                        "\nAttack Damage: " + swordManAttackDamage +
+                                                        "\nSpecial ability: Can move trough all buildings and obstacles";
     public final static String aboutTowers =            "If troops are needed to attack, towers are there for defending" +
                                                         "\nGoal of the tower is to shoot enemy troops if they are within the tower's \"range\". " +
                                                         "\nIt kills the troop if after the hit, the hp of the troop drops to zero";
@@ -394,8 +401,9 @@ public class GameSettings {
                                                                         "\nYou should build at least in 3 cells radius away from your enemy's building (Remember about stairs-like radius)";
     public final static String aboutBuildingWithoutBlockingPath =       "Also you are not allowed to build in a way that the building you try to build will block the path from your castle to enemy castle" +
                                                                         "\nThis means there will always be a path (which makes sense)";
-    public final static String aboutEarningGold =                       "So far we talked about spending gold to purchase troops and towers. How about earning gold?" +
-                                                                        "\nThere are three ways you can increase your gold: build a goldmine, kill enemy troops, pick up the treasure chest";
+    public final static String aboutEarningGold =                       "At the beginning of every round you are provided certain amount of gold (<current round count>*50 gold)" +
+                                                                        "\nThere are three other ways you can increase your gold yourself: build a goldmine, kill enemy troops, pick up the treasure chest";
+
     public final static String aboutGoldMines =                         "Besides building towers to defend, you can invest your money into building a goldmine each of which will grant you \n"
                                                                         + goldMineIncomePerRound + " gold at the beginning of every new preparation stage. \n Building one costs: " + goldMineCost + " golds";
     public final static String aboutEarningMoneyFromTroopKills =        "You earn money when your tower kills an enemy troop. The reward for each killed enemy is: " + awardForKillingSword + " gold, "

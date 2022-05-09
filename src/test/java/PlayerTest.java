@@ -4,21 +4,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static utils.GameSettings.grass0;
-import static utils.GameSettings.initialGold;
+import static utils.GameSettings.*;
+import static utils.GameSettings.mapWidthInCells;
 
-public class Player {
-    model.Player pl1;
-    model.Player pl2;
+public class PlayerTest {
+    Player pl1;
+    Player pl2;
+    Player currentTurn;
     @Before
-    public void setup(){
-        pl1 = Game.getInstance().getPlayer1(); //1500
+    public void setUp(){
+        pl1 = Game.getInstance().getPlayer1();
         pl2 = Game.getInstance().getPlayer2();
+        currentTurn = Game.getInstance().getCurrentTurn();
+        //NOTE: In every test castles are located in opposite corners!
+        Map.getInstance().putCastles(new Castle(0,0,pl1),new Castle(mapHeightInCells-1,mapWidthInCells-1,pl2));
     }
 
     @After
-    public void shutdown() {}
-
+    public void reset(){
+        Game.getInstance().resetGame();
+    }
     @Test
     public void testIncreaseGold(){
         pl1.increaseGold(100);
@@ -34,10 +39,8 @@ public class Player {
     @Test
     public void testNoTroops() {
         Troop t0 = new Troop(0, 0, TroopType.SWORD_MAN, pl1);
-        pl1.addTroop(t0);
         Troop t1 = new Troop(0, 0, TroopType.SPECIAL_UNIT, pl1);
         assertEquals(pl1.getTroops().size(), 2);
-        pl1.addTroop(t1);
         pl1.removeTroop(t0);
         pl1.removeTroop(t1);
         assertEquals(pl1.getTroops().size(), 0);

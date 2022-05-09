@@ -83,6 +83,100 @@ public class TowerTest {
         assertEquals(upgradedSplashTowerRange, splash.getAttackRadius());
         assertEquals(upgradedSplashReloadTime, splash.getReloadTime());
         assertEquals(upgradedSplashShotCount, splash.getShotCount());
-
     }
+
+    @Test
+    public void testTowerShooting(){
+        Tower shortRange = new ShortRange(pl1);
+        Tower longRange  = new LongRange (pl1);
+        Tower splash     = new Splash    (pl1);
+        Cell[][] map = Map.getInstance().getMap();
+        map[1][1].setBuilding(shortRange);
+        map[4][4].setBuilding(longRange);
+        map[7][7].setBuilding(splash);
+        //attack when no one around
+        shortRange.launchAttackIfPossible();
+        longRange.launchAttackIfPossible();
+        splash.launchAttackIfPossible();
+        //then nothing happens (no shots are created)
+        assertEquals(0, shortRange.getShotSprites().size());
+        assertEquals(0, longRange.getShotSprites().size());
+        assertEquals(0, splash.getShotSprites().size());
+        //place enemy troops on the map
+        Troop t1 = new Troop(1,2,TroopType.SWORD_MAN, pl2);
+        Troop t2 = new Troop(4,5,TroopType.SWORD_MAN, pl2);
+        Troop t3 = new Troop(7,8,TroopType.SWORD_MAN, pl2);
+        //attack when there is enemy in radius
+        shortRange.launchAttackIfPossible();
+        longRange.launchAttackIfPossible();
+        splash.launchAttackIfPossible();
+        // 1 shotSprite is supposed to be released
+        assertEquals(1, shortRange.getShotSprites().size());
+        assertEquals(1, longRange.getShotSprites().size());
+        assertEquals(1, splash.getShotSprites().size());
+        while (shortRange.getShotSprites().size() != 0){
+            shortRange.shotAnimation();//make the sprite go to enemy until it reaches it
+        }
+        while (longRange.getShotSprites().size() != 0){
+            longRange.shotAnimation();//make the sprite go to enemy until it reaches it
+        }
+        while (splash.getShotSprites().size() != 0){
+            splash.shotAnimation();//make the sprite go to enemy until it reaches it
+        }
+        assertEquals(swordManHp - shortRange.getAttackDamage(), t1.getHealthPoints());
+        assertEquals(swordManHp - longRange.getAttackDamage(), t2.getHealthPoints());
+        assertEquals(swordManHp - splash.getAttackDamage(), t3.getHealthPoints());
+    }
+    @Test
+    public void testTowerReloading() {
+        Tower shortRange = new ShortRange(pl1);
+        Tower longRange = new LongRange(pl1);
+        Tower splash = new Splash(pl1);
+        Cell[][] map = Map.getInstance().getMap();
+        map[1][1].setBuilding(shortRange);
+        map[4][4].setBuilding(longRange);
+        map[7][7].setBuilding(splash);
+        //attack when no one around
+        shortRange.launchAttackIfPossible();
+        longRange.launchAttackIfPossible();
+        splash.launchAttackIfPossible();
+        assertEquals(shortRangeShotCount, shortRange.getShotCount());
+        assertEquals(longRangeShotCount, longRange.getShotCount());
+        assertEquals(splashShotCount, splash.getShotCount());
+        //attack after enemy appears near
+        new Troop(1, 2, TroopType.SWORD_MAN, pl2);
+        new Troop(4, 5, TroopType.SWORD_MAN, pl2);
+        new Troop(7, 8, TroopType.SWORD_MAN, pl2);
+        shortRange.launchAttackIfPossible();
+        longRange.launchAttackIfPossible();
+        splash.launchAttackIfPossible();
+        //goes to reloading
+        assertFalse(shortRange.isReloaded());
+        assertFalse(longRange.isReloaded());
+        assertFalse(splash.isReloaded());
+        //spends a shot
+        assertEquals(shortRangeShotCount - 1, shortRange.getShotCount());
+        assertEquals(longRangeShotCount - 1, longRange.getShotCount());
+        assertEquals(splashShotCount - 1, splash.getShotCount());
+        //wait until it reloads
+        try {
+            Thread.sleep(3000L);
+        } catch (InterruptedException e) {
+            // ignore
+        }
+        //after some time passed it should be reloaded
+        assertTrue(shortRange.isReloaded());
+        assertTrue(longRange.isReloaded());
+        assertTrue(splash.isReloaded());
+
+        //reset shots
+        shortRange.resetShotCount();
+        longRange.resetShotCount();
+        splash.resetShotCount();
+        //again full shots
+        assertEquals(shortRangeShotCount, shortRange.getShotCount());
+        assertEquals(longRangeShotCount, longRange.getShotCount());
+        assertEquals(splashShotCount, splash.getShotCount());
+    }
+
 }

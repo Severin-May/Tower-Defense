@@ -27,22 +27,6 @@ public class Splash extends Tower {
     }
 
     @Override
-    public void launchAttackIfPossible() {
-        long currentTime = System.currentTimeMillis();
-        long timeElapsedFromLastShot = currentTime - lastShotTime;
-        boolean reloaded = timeElapsedFromLastShot >= reloadTime * 200L;
-        Troop troopToAttack;
-        if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
-            return;//not allowed shooting
-        }
-        if (shotSprite == null) {
-            shotSprite = createShotSprite(troopToAttack);
-            shotCount--;
-            lastShotTime = currentTime;
-        }
-    }
-
-    @Override
     public void upgrade() {
         if (upgraded) {
             return;
