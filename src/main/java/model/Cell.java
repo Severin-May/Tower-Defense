@@ -284,7 +284,7 @@ public class Cell extends Sprite {
             if (t.getOwner() == Game.getInstance().getPlayer1()){
                 if (t.getType() == TroopType.SWORD_MAN){
                     count[0]++;
-                } else if (t.getType() == TroopType.MAG){
+                } else if (t.getType() == TroopType.WIZ){
                     count[1]++;
                 } else {
                     count[2]++;
@@ -304,7 +304,7 @@ public class Cell extends Sprite {
             if (t.getOwner() == Game.getInstance().getPlayer2()){
                 if (t.getType() == TroopType.SWORD_MAN){
                     count[0]++;
-                }else if (t.getType() == TroopType.MAG){
+                }else if (t.getType() == TroopType.WIZ){
                     count[1]++;
                 } else {
                     count[2]++;

@@ -139,7 +139,7 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 game.setBuildingHover(new Splash(game.getCurrentTurn()));
             }
         });
-        trainSword = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Melee Unit", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
+        trainSword = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Barbarian", resizeIcon(new ImageIcon(getSwordLeftStop())), colorId);
         trainSword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -148,17 +148,17 @@ public class RightSidePanel extends JPanel implements ActionListener {
                 }
             }
         });
-        trainMag = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Magician", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
+        trainMag = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Wizard", resizeIcon(new ImageIcon(getMagLeftStop())), colorId);
         trainMag.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!game.getCurrentTurn().buyTroop(TroopType.MAG)) {
+                if (!game.getCurrentTurn().buyTroop(TroopType.WIZ)) {
                     JOptionPane.showMessageDialog(getParent(), "Oops. Looks like you are too poor to purchase more magicians");
                 }
             }
         });
 
-        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Wizard", resizeIcon(new ImageIcon(getSpecialLeftStop())), colorId);
+        trainSpecUnit = new CustomButton(buttonWidth, buttonHeight * 3 / 2, "Ghost", resizeIcon(new ImageIcon(getSpecialLeftStop())), colorId);
         trainSpecUnit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) { //todo comeback later

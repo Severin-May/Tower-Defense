@@ -34,7 +34,7 @@ public class Player {
      */
     public boolean buyTroop(TroopType troopType) {
         int troopCost;
-        if (troopType == TroopType.MAG) {
+        if (troopType == TroopType.WIZ) {
             troopCost = magCost;
         } else if (troopType == TroopType.SWORD_MAN) {
             troopCost = swordManCost;

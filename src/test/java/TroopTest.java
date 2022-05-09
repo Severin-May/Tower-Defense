@@ -32,7 +32,7 @@ public class TroopTest {
         Troop troop = new Troop(0, 0, TroopType.SWORD_MAN, pl1);
         assertEquals(swordManHp,troop.getHealthPoints());
         assertFalse(troop.isKilled());
-        troop.decreaseHP(111);
+        troop.decreaseHP(141);
         assertTrue(troop.isKilled());
     }
 }

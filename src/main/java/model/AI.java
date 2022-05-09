@@ -261,7 +261,7 @@ public class AI extends Player {
      * @param numberOfTroopsToTrain how many random troops to purchase
      */
     private void buyRandomTroops(int numberOfTroopsToTrain) {
-        TroopType[] troopTypes = {TroopType.SWORD_MAN, TroopType.MAG, TroopType.SPECIAL_UNIT};
+        TroopType[] troopTypes = {TroopType.SWORD_MAN, TroopType.WIZ, TroopType.SPECIAL_UNIT};
         for (int i = 0; i < numberOfTroopsToTrain; i++) {
             int troopId = (int) (Math.random() * troopTypes.length);
             buyTroop(troopTypes[troopId]);
