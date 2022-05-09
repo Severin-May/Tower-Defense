@@ -114,13 +114,5 @@ public class CellTest {
 
         assertTrue(map[mapHeightInCells-1][mapWidthInCells-2].isCastleBlocked());
         assertFalse(map[mapHeightInCells-1][mapWidthInCells-3].isCastleBlocked());
-
-
-
-
-
-
-
-
     }
 }

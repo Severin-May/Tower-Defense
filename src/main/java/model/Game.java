@@ -85,8 +85,6 @@ public class Game {
         return list;
     }
 
-
-
     /**
      * this function is responsible for the start of the game
      * when the preparation stage is completed, the actual game starts
@@ -136,7 +134,6 @@ public class Game {
         clearBullets();
         int roundReward = roundCount * 50;
         if (roundReward < 500){
-            roundReward = roundCount * 50;
             player1.increaseGold(roundReward);
             player2.increaseGold(roundReward);
         } else {

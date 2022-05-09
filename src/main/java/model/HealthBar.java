@@ -46,9 +46,17 @@ public class HealthBar {
 
     public void getColor(Graphics g, double percentage){
         if (percentage > 0.5) {
-            g.setColor(new Color(((int)(255*-percentage)+255)*2,255,0));
+            g.setColor(new Color((max255Red(255*-percentage)+255)*2,255,0));
         } else {
-            g.setColor(new Color(255,(int)(255*percentage)*2,0));
+            g.setColor(new Color(255,max255Green(255*percentage)*2,0));
         }
+    }
+
+    public int max255Red (double max){
+        return Math.min((int)max, 255);
+    }
+
+    public int max255Green (double max){
+        return max < 0 ? 0 : Math.min((int)max, 255);
     }
 }

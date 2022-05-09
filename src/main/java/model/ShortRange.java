@@ -29,6 +29,7 @@ public class ShortRange extends Tower {
             return;
         }
         getOwner().decreaseGold(this.getUpgradeCost());
+        this.attackDamage = upgradedShortRangeAttackDamage;
         this.attackRadius = upgradedShortRangeTowerRange;
         this.reloadTime = upgradedShortRangeReloadTime;
         this.shotCount = upgradedShortRangeShotCount;
@@ -53,7 +54,7 @@ public class ShortRange extends Tower {
 
     @Override
     public ShotSprite createShotSprite(Troop troopToAttack) {
-        return new ShotSprite(getI(), getJ(), swordBallSize, swordBallSize, swordBall, troopToAttack);
+        return new ShotSprite(getI(), getJ(), swordBallSize, swordBallSize, swordBall, troopToAttack, this);
     }
 
     @Override

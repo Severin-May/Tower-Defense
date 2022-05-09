@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static utils.GameSettings.*;
 
@@ -22,13 +23,15 @@ public abstract class Tower extends ActiveBuilding {
         public Troop destinationTroop;
         int destinationX;
         int destinationY;
-        public ShotSprite(int i, int j, int width, int height, Image image, Troop destinationTroop) {
+        public Tower tower;
+
+        public ShotSprite(int i, int j, int width, int height, Image image, Troop destinationTroop, Tower shooter) {
             super(i,j,width,height,image);
             this.destinationTroop = destinationTroop;
+            this.tower = shooter;
             destinationX = destinationTroop.getX();
             destinationY = destinationTroop.getY();
         }
-
         /**
          * sets the destinationX and destinationY to the target's current location
          * so that the bullet instance chases the target. If target is dead then bullet chases last saved place when it was alive
@@ -194,6 +197,9 @@ public abstract class Tower extends ActiveBuilding {
      */
     public void shotAnimation(){
         if (shotSprite != null){
+            Cell targetCell = shotSprite.destinationTroop.getCurrentCell();
+            ArrayList<Troop> troops = (ArrayList<Troop>) targetCell.getTroops();
+            ArrayList<Integer> toKill = new ArrayList<>();
             shotSprite.refreshDestination();
             double toPlayerX = shotSprite.destinationX - shotSprite.x;
             double toPlayerY = shotSprite.destinationY - shotSprite.y;
@@ -207,22 +213,41 @@ public abstract class Tower extends ActiveBuilding {
             if (shotSprite.hasReachedDestination()){
                 //if another shot has not yet killed the target
                 if (!shotSprite.destinationTroop.isKilled()){
-                    shotSprite.destinationTroop.decreaseHP(attackDamage);
+                    //Splash tower damaging all units in a cell
+                    if (shotSprite.tower.getTowerType() == 3){
+                        for (Troop troop : targetCell.getTroops()){
+                            troop.decreaseHP(attackDamage);
+                        }
+                    } else { //Single target towers (Long Range, Short Range) attacking single unit
+                        shotSprite.destinationTroop.decreaseHP(attackDamage);
+                    }
                     //destroy the troop if it is dead after dealing damage and give reward for it
                     if (shotSprite.destinationTroop.isKilled()){
-                        if (shotSprite.destinationTroop.getType() == TroopType.WIZ) {
-                            getOwner().increaseGold(awardForKillingWiz);
-                        } else if (shotSprite.destinationTroop.getType() == TroopType.SWORD_MAN){
-                            getOwner().increaseGold(awardForKillingSword);
-                        } else {
-                            getOwner().increaseGold(awardForKillingGhost);
-                        }
                         shotSprite.destinationTroop.selfDestruct();
+                        killReward(shotSprite.destinationTroop);
+                        if (shotSprite.tower.getTowerType() == 3){
+                            for (int i = 0; i < targetCell.getTroops().size(); i++){
+                                if (troops.get(i).isKilled()) {
+                                    killReward(troops.get(i));
+                                    troops.get(i).selfDestruct();
+                                }
+                            }
+                        }
                     }
                 }
                 //delete the shot sprite
                 shotSprite = null;
             }
+        }
+    }
+
+    private void killReward(Troop troop){
+        if (troop.getType() == TroopType.WIZ) {
+            getOwner().increaseGold(awardForKillingWiz);
+        } else if (troop.getType() == TroopType.SWORD_MAN){
+            getOwner().increaseGold(awardForKillingSword);
+        } else {
+            getOwner().increaseGold(awardForKillingGhost);
         }
     }
 
