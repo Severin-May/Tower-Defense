@@ -3,7 +3,7 @@ package model;
 import java.awt.*;
 import java.util.*;
 
-import static model.TroopType.MAG;
+import static model.TroopType.WIZ;
 import static model.TroopType.SWORD_MAN;
 import static model.TroopType.SPECIAL_UNIT;
 import static utils.GameSettings.*;
@@ -32,7 +32,7 @@ public class Troop extends Sprite {
      */
     private static Image getTroopImage(TroopType type, Player owner){
         if (owner.getColor().equals(Color.red)){
-            if (type == MAG){
+            if (type == WIZ){
                 return redMagRightStop;
             } else if (type == SWORD_MAN) {
                 return redSwordRightStop;
@@ -40,7 +40,7 @@ public class Troop extends Sprite {
                 return redSpecialFront;
             }
         } else{
-            if (type == MAG){
+            if (type == WIZ){
                 return blueMagLeftStop;
             } else if (type == SWORD_MAN) {
                 return blueSwordLeftStop;
@@ -71,7 +71,7 @@ public class Troop extends Sprite {
                 this.movementPoints = swordManMovementPoints;
                 break;
             }
-            case MAG: {
+            case WIZ: {
                 this.healthPoints = magHp;
                 this.cost = magCost;
                 this.movementSpeed = magSpeed;
@@ -250,8 +250,17 @@ public class Troop extends Sprite {
     }
 
     public int getAttackDamage() {
-        //if this.getType() == MAG ? return (int) (attackDamage*this.getHealthPoints())
-        return (int) (attackDamage*this.getHealthPoints()*0.1);
+        if (this.getType() == SWORD_MAN){
+            return (int) (attackDamage*this.getHealthPoints()*0.2);
+        } else if (this.getType() == WIZ){
+            if (this.getHealthPoints() < 10){
+                return (int) (attackDamage/(this.getHealthPoints()/this.getMaxHealth()));
+            } else {
+                return attackDamage*7;
+            }
+        } else {
+            return attackDamage;
+        }
     }
 
     public Player getOwner() {
@@ -267,7 +276,7 @@ public class Troop extends Sprite {
     }
 
     public void resetMovementPoints(){
-        this.movementPoints = type == MAG ? magMovementPoints : type == SWORD_MAN ? swordManMovementPoints : specUnitMovementPoints;
+        this.movementPoints = type == WIZ ? magMovementPoints : type == SWORD_MAN ? swordManMovementPoints : specUnitMovementPoints;
     }
 
     /**
@@ -370,9 +379,9 @@ public class Troop extends Sprite {
      */
     private void faceRight(){
         if (owner.getColor().equals(Color.red)){
-            this.image = type == MAG ? redMagLeftWalk[walk++%2] :  type == SWORD_MAN ? redSwordLeftWalk[walk++%2] : redSpecialLeftWalk[walk++%2];
+            this.image = type == WIZ ? redMagLeftWalk[walk++%2] :  type == SWORD_MAN ? redSwordLeftWalk[walk++%2] : redSpecialLeftWalk[walk++%2];
         }else{
-            this.image = type == MAG ? blueMagLeftWalk[walk++%2] : type == SWORD_MAN ? blueSwordLeftWalk[walk++%2] : blueSpecialLeftWalk[walk++%2];
+            this.image = type == WIZ ? blueMagLeftWalk[walk++%2] : type == SWORD_MAN ? blueSwordLeftWalk[walk++%2] : blueSpecialLeftWalk[walk++%2];
         }
     }
     /**
@@ -380,9 +389,9 @@ public class Troop extends Sprite {
      */
     private void faceLeft (){
         if (owner.getColor().equals(Color.red)){
-            this.image = type == MAG ? redMagRightWalk[walk++%2] : type == SWORD_MAN ? redSwordRightWalk[walk++%2] : redSpecialRightWalk[walk++%2];
+            this.image = type == WIZ ? redMagRightWalk[walk++%2] : type == SWORD_MAN ? redSwordRightWalk[walk++%2] : redSpecialRightWalk[walk++%2];
         }else{
-            this.image = type == MAG ? blueMagRightWalk[walk++%2] : type == SWORD_MAN ? blueSwordRightWalk[walk++%2] : blueSpecialRightWalk[walk++%2];
+            this.image = type == WIZ ? blueMagRightWalk[walk++%2] : type == SWORD_MAN ? blueSwordRightWalk[walk++%2] : blueSpecialRightWalk[walk++%2];
         }
     }
     /**
@@ -390,17 +399,17 @@ public class Troop extends Sprite {
      */
     private void faceUp (){
         if (owner.getColor().equals(Color.red)){
-            this.image = type == MAG ? redMagBackWalk[walk++%2] : type == SWORD_MAN ? redSwordBackWalk[walk++%2] : redSpecialBackWalk[walk++%2];
+            this.image = type == WIZ ? redMagBackWalk[walk++%2] : type == SWORD_MAN ? redSwordBackWalk[walk++%2] : redSpecialBackWalk[walk++%2];
         }else{
-            this.image = type == MAG ? blueMagBackWalk[walk++%2] : type == SWORD_MAN ? blueSwordBackWalk[walk++%2] : blueSpecialBackWalk[walk++%2];
+            this.image = type == WIZ ? blueMagBackWalk[walk++%2] : type == SWORD_MAN ? blueSwordBackWalk[walk++%2] : blueSpecialBackWalk[walk++%2];
         }
     }
 
     private void faceDown(){
         if (owner.getColor().equals(Color.red)){
-            this.image = type == MAG ? redMagLeftWalk[walk++%2] :  type == SWORD_MAN ? redSwordLeftWalk[walk++%2] : redSpecialFrontWalk[walk++%2];
+            this.image = type == WIZ ? redMagLeftWalk[walk++%2] :  type == SWORD_MAN ? redSwordLeftWalk[walk++%2] : redSpecialFrontWalk[walk++%2];
         }else{
-            this.image = type == MAG ? blueMagLeftWalk[walk++%2] : type == SWORD_MAN ? blueSwordLeftWalk[walk++%2] : blueSpecialFrontWalk[walk++%2];
+            this.image = type == WIZ ? blueMagLeftWalk[walk++%2] : type == SWORD_MAN ? blueSwordLeftWalk[walk++%2] : blueSpecialFrontWalk[walk++%2];
         }
     }
     /**
@@ -421,7 +430,7 @@ public class Troop extends Sprite {
      * @return troop's current hp as a double value
      */
     public double getMaxHealth(){
-        if (getType() == MAG){
+        if (getType() == WIZ){
             return magHp;
         } else if (getType() == SWORD_MAN){
             return swordManHp;

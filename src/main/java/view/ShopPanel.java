@@ -15,7 +15,7 @@ public class ShopPanel extends JPanel {
      * @param buyLongRangeTower button to buy {@link model.LongRange} tower
      * @param buySplashTower button to buy {@link model.Splash} tower
      * @param trainSword button to buy {@link model.Troop} of type {@link model.TroopType#SWORD_MAN}
-     * @param trainMag button to buy {@link model.Troop} of type {@link model.TroopType#MAG}
+     * @param trainMag button to buy {@link model.Troop} of type {@link model.TroopType#WIZ}
      * @param trainSpecUnit button to buy {@link model.Troop} of type {@link model.TroopType#SPECIAL_UNIT}
      * @param goldMine button to buy {@link model.GoldMine}
      * @param endTurn button to change the turn of the game

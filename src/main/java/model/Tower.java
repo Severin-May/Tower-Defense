@@ -210,12 +210,12 @@ public abstract class Tower extends ActiveBuilding {
                     shotSprite.destinationTroop.decreaseHP(attackDamage);
                     //destroy the troop if it is dead after dealing damage and give reward for it
                     if (shotSprite.destinationTroop.isKilled()){
-                        if (shotSprite.destinationTroop.getType() == TroopType.MAG) {
-                            getOwner().increaseGold(awardForKillingMag);
+                        if (shotSprite.destinationTroop.getType() == TroopType.WIZ) {
+                            getOwner().increaseGold(awardForKillingWiz);
                         } else if (shotSprite.destinationTroop.getType() == TroopType.SWORD_MAN){
                             getOwner().increaseGold(awardForKillingSword);
                         } else {
-                            getOwner().increaseGold(awardForKillingWiz);
+                            getOwner().increaseGold(awardForKillingGhost);
                         }
                         shotSprite.destinationTroop.selfDestruct();
                     }
@@ -235,5 +235,25 @@ public abstract class Tower extends ActiveBuilding {
 
     public boolean isUpgraded() {
         return upgraded;
+    }
+
+    /**
+     * Overriden method for each tower type
+     * 0 = null tower
+     * 1 = shortRange
+     * 2 = longRange
+     * 3 = splash
+     * @return 1, 2, or 3
+     */
+    public int getTowerType(){
+        return 0;
+    }
+
+    /**
+     * Overriden method for each tower type
+     * @return upgrade cost of said tower
+     */
+    public int getUpgradeCost(){
+        return 0;
     }
 }

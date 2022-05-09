@@ -7,15 +7,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static model.TroopType.MAG;
+import static model.TroopType.WIZ;
 import static model.TroopType.SWORD_MAN;
 import static model.TroopType.SPECIAL_UNIT;
 import static org.junit.Assert.*;
 import static utils.GameSettings.mapHeightInCells;
 import static utils.GameSettings.mapWidthInCells;
-
-
-import java.awt.*;
 
 public class CellTest {
     Player pl1;
@@ -68,7 +65,7 @@ public class CellTest {
         Troop troop1 = new Troop(2, 5, SWORD_MAN, pl1);
         Troop troop2 = new Troop(2, 5, SWORD_MAN, pl1);
         Troop troop3 = new Troop(2, 5, SWORD_MAN, pl1);
-        Troop troop4 = new Troop(2, 5, MAG, pl1);
+        Troop troop4 = new Troop(2, 5, WIZ, pl1);
         Troop troop5 = new Troop(3, 7, SWORD_MAN,pl1);
 
         assertEquals(3,map[2][5].getPlayer1TroopsCount()[0]);
@@ -82,7 +79,7 @@ public class CellTest {
         Troop troop1 = new Troop(4, 5, SWORD_MAN, pl2);
         Troop troop2 = new Troop(4, 5, SWORD_MAN, pl2);
         Troop troop3 = new Troop(4, 5, SWORD_MAN, pl2);
-        Troop troop4 = new Troop(4, 5, MAG, pl2);
+        Troop troop4 = new Troop(4, 5, WIZ, pl2);
         Troop troop5 = new Troop(3,7, SWORD_MAN,pl2);
         Troop troop6 = new Troop(3,7, SPECIAL_UNIT,pl2);
         Troop troop7 = new Troop(3,7, SPECIAL_UNIT,pl2);

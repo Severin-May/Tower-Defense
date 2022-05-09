@@ -28,7 +28,7 @@ public class LongRange extends Tower {
         if (upgraded) {
             return;
         }
-        getOwner().decreaseGold(towerUpgradeCost);
+        getOwner().decreaseGold(this.getUpgradeCost());
         this.attackRadius = upgradedLongRangeTowerRange;
         this.reloadTime = upgradedLongRangeReloadTime;
         this.shotCount = upgradedLongRangeShotCount;
@@ -55,5 +55,15 @@ public class LongRange extends Tower {
     @Override
     public ShotSprite createShotSprite(Troop troopToAttack) {
         return new ShotSprite(getI(), getJ(), magBallSize, magBallSize, magBall, troopToAttack);
+    }
+
+    @Override
+    public int getTowerType(){
+        return 2;
+    }
+
+    @Override
+    public int getUpgradeCost(){
+        return (int) (longRangeCost*towerUpgradeCost);
     }
 }

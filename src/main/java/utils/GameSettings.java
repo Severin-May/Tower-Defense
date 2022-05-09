@@ -50,15 +50,15 @@ public class GameSettings {
     public final static int shortRangeCost = 75;
     public final static int splashCost = 185;
     public final static int goldMineCost = 400;
-    public final static int swordManCost = 35;
-    public final static int magCost = 55;
-    public final static int specUnitCost = 4;
+    public final static int swordManCost = 65;
+    public final static int magCost = 115;
+    public final static int specUnitCost = 150;
     public final static int goldMineIncomePerRound = 65;
     public final static int awardForKillingSword = 7;
-    public final static int awardForKillingMag = 12;
-    public final static int awardForKillingWiz = 22;
-    public final static int awardForPickingTreasure = 15;
-    public final static int towerUpgradeCost = 10; //split into separate tower upgrade costs
+    public final static int awardForKillingWiz = 12;
+    public final static int awardForKillingGhost = 22;
+    public final static int awardForPickingTreasure = 50;
+    public final static double towerUpgradeCost = 1.25;
 
     //Initial Troops' stat:
     //sword man troop:
@@ -69,12 +69,12 @@ public class GameSettings {
     //mag troop
     public final static int magHp = 85;
     public final static int magSpeed = 3;
-    public final static int magAttackDamage = 10;
+    public final static int magAttackDamage = 8;
     public final static int magMovementPoints = 6;
     //special unit //todo set proper stats
     public final static int specUnitHp = 110;
     public final static int specUnitSpeed = 3;
-    public final static int specUnitAttackDamage = 250;
+    public final static int specUnitAttackDamage = 450;
     public final static int specUnitMovementPoints = 8;
 
     //Map settings:
@@ -92,9 +92,9 @@ public class GameSettings {
     public final static int fps = 30; //how many times to repaint the map in one second. Animation quality depends on this
 
     //Other initial states:
-    public static int initialGold = 1650;
+    public static int initialGold = 1500;
     public static int towerInitialHP = 50;
-    public static int castleInitialHP = 2500;
+    public static int castleInitialHP = 3212;
     public static int minIdistance = 10;
     public static int minJdistance = 10;
 
@@ -399,5 +399,5 @@ public class GameSettings {
     public final static String aboutGoldMines =                         "Besides building towers to defend, you can invest your money into building a goldmine each of which will grant you \n"
                                                                         + goldMineIncomePerRound + " gold at the beginning of every new preparation stage. \n Building one costs: " + goldMineCost + " golds";
     public final static String aboutEarningMoneyFromTroopKills =        "You earn money when your tower kills an enemy troop. The reward for each killed enemy is: " + awardForKillingSword + " gold, "
-                                                                        + awardForKillingMag + " gold and " + awardForKillingWiz + " gold for killing a Melee Unit, a Magician, and a Wizard respectively.";
+                                                                        + awardForKillingWiz + " gold and " + awardForKillingGhost + " gold for killing a Barbarian, a Wizard, and a Ghost respectively.";
 }

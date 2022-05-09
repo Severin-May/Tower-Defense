@@ -84,8 +84,11 @@ public class MapPanel extends JPanel implements Runnable {
      * @return true if it can be upgraded. Otherwise, shows a message and returns false
      */
     private boolean canBeUpgraded(Tower towerToUpgrade) {
-        if (towerToUpgrade.getOwner().getGold() < towerUpgradeCost) {
-            JOptionPane.showMessageDialog(getParent(), "You are too poor to upgrade the tower. Tower upgrade cost: " + towerUpgradeCost + " golds",
+
+        int upgradeCost = towerToUpgrade.getUpgradeCost();
+
+        if (towerToUpgrade.getOwner().getGold() < upgradeCost) {
+            JOptionPane.showMessageDialog(getParent(), "You are too poor to upgrade the tower. Tower upgrade cost: " + upgradeCost + " golds",
                     null, JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
