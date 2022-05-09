@@ -28,7 +28,7 @@ public class Splash extends Tower {
     public void launchAttackIfPossible() {
         long currentTime = System.currentTimeMillis();
         long timeElapsedFromLastShot = currentTime - lastShotTime;
-        boolean reloaded = timeElapsedFromLastShot >= reloadTime * 1000L;
+        boolean reloaded = timeElapsedFromLastShot >= reloadTime * 200L;
         Troop troopToAttack;
         if (shotCount <= 0 || !reloaded || (troopToAttack = troopWithinRange()) == null) {
             return;//not allowed shooting
@@ -46,6 +46,7 @@ public class Splash extends Tower {
             return;
         }
         getOwner().decreaseGold(this.getUpgradeCost());
+        this.attackDamage = upgradedSplashAttackDamage;
         this.attackRadius = upgradedSplashTowerRange;
         this.reloadTime = upgradedSplashReloadTime;
         this.shotCount = upgradedSplashShotCount;
@@ -70,7 +71,7 @@ public class Splash extends Tower {
 
     @Override
     public ShotSprite createShotSprite(Troop troopToAttack) {
-        return new ShotSprite(getI(), getJ(), splashBallSize, splashBallSize, splashBall, troopToAttack);
+        return new ShotSprite(getI(), getJ(), splashBallSize, splashBallSize, splashBall, troopToAttack, this);
     }
 
     @Override

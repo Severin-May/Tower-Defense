@@ -11,37 +11,37 @@ import java.awt.*;
  */
 public class GameSettings {
     // Initial Towers' stats:
-    public final static int towerShotSpriteSpeed = 15;
+    public final static int towerShotSpriteSpeed = 25;
     //long ranged:
     public final static int longRangeTowerRange = 4;
-    public final static int longRangeAttackDamage = 2;
-    public final static int longRangeShotCount = 10;
-    public final static int longRangeReloadTime = 3;
+    public final static int longRangeAttackDamage = 7;
+    public final static int longRangeShotCount = 6;
+    public final static int longRangeReloadTime = 4;
     //short ranged:
     public final static int shortRangeTowerRange = 2;
-    public final static int shortRangeAttackDamage = 2;
-    public final static int shortRangeShotCount = 10;
-    public final static int shortRangeReloadTime = 1;
+    public final static int shortRangeAttackDamage = 3;
+    public final static int shortRangeShotCount = 13;
+    public final static int shortRangeReloadTime = 2;
     //splash:
     public final static int splashTowerRange = 3;
-    public final static int splashAttackDamage = 1;
-    public final static int splashShotCount = 10;
+    public final static int splashAttackDamage = 15;
+    public final static int splashShotCount = 4;
     public final static int splashReloadTime = 5;
 
     // Upgraded Towers' stats:
     //upgraded long ranged:
     public final static int upgradedLongRangeTowerRange = longRangeTowerRange + 2;
     public final static int upgradedLongRangeAttackDamage = longRangeAttackDamage + 5;
-    public final static int upgradedLongRangeShotCount = longRangeShotCount + 2;
+    public final static int upgradedLongRangeShotCount = longRangeShotCount + 4;
     public final static int upgradedLongRangeReloadTime = longRangeReloadTime - 1;
     //upgraded short ranged:
-    public final static int upgradedShortRangeTowerRange = shortRangeTowerRange + 2;
-    public final static int upgradedShortRangeAttackDamage = shortRangeAttackDamage + 5;
+    public final static int upgradedShortRangeTowerRange = shortRangeTowerRange + 1;
+    public final static int upgradedShortRangeAttackDamage = shortRangeAttackDamage + 3;
     public final static int upgradedShortRangeShotCount = shortRangeShotCount + 2;
     public final static int upgradedShortRangeReloadTime = shortRangeReloadTime - 1;
     //upgraded splash:
-    public final static int upgradedSplashTowerRange = splashTowerRange + 2;
-    public final static int upgradedSplashAttackDamage = splashAttackDamage + 5;
+    public final static int upgradedSplashTowerRange = splashTowerRange + 1;
+    public final static int upgradedSplashAttackDamage = splashAttackDamage + 7;
     public final static int upgradedSplashShotCount = splashShotCount + 2;
     public final static int upgradedSplashReloadTime = splashReloadTime - 1;
 
@@ -71,7 +71,7 @@ public class GameSettings {
     public final static int magSpeed = 3;
     public final static int magAttackDamage = 8;
     public final static int magMovementPoints = 6;
-    //special unit //todo set proper stats
+    //special unit
     public final static int specUnitHp = 110;
     public final static int specUnitSpeed = 3;
     public final static int specUnitAttackDamage = 450;

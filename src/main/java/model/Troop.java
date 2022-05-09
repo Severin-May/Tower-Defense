@@ -16,14 +16,13 @@ public class Troop extends Sprite {
     private int attackDamage;
     private final Player owner;
     private final TroopType type;
+    private Cell currentCell;
     private ArrayList <Cell> shortestPath;
     private Cell destinationCell;
     private enum Direction {
         UP,DOWN,LEFT,RIGHT
     }
     private Direction direction;
-
-    private final HealthBar healthBar;
 
     /**
      * @param type what type of troop
@@ -91,7 +90,7 @@ public class Troop extends Sprite {
         }
         this.owner = owner;
         this.type = type;
-        healthBar = new HealthBar(this);
+        HealthBar healthBar = new HealthBar(this);
         owner.addTroop(this);
         Cell[][] map = Map.getInstance().getMap();
         map[i][j].addTroop(this);
@@ -132,6 +131,7 @@ public class Troop extends Sprite {
             goInsideCurrentCell();
         }
         Cell currentCell = Map.getInstance().getMap()[getI()][getJ()];
+        this.setCurrentCell(currentCell);
         int i = shortestPath.indexOf(currentCell);
         if (i == shortestPath.size()-1){
 //            System.out.println("Reached destination!");
@@ -234,6 +234,7 @@ public class Troop extends Sprite {
      * @return true if the health points are greater than zero
      */
     public boolean isKilled() {
+
         return this.healthPoints <= 0;
     }
 
@@ -437,5 +438,13 @@ public class Troop extends Sprite {
         } else {
             return specUnitHp;
         }
+    }
+
+    private void setCurrentCell(Cell cell){
+        this.currentCell = cell;
+    }
+
+    public Cell getCurrentCell(){
+        return this.currentCell;
     }
 }

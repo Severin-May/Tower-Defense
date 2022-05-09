@@ -84,7 +84,7 @@ public class Game {
         list.addAll(player2.getGoldMines());
         return list;
     }
-    
+
     /**
      * this function is responsible for the start of the game
      * when the preparation stage is completed, the actual game starts
